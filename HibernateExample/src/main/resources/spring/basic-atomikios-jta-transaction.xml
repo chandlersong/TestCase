@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- ********************DS************************** -->
+	<!-- configure an Atomikos JTA-aware datasource --> 
+   <bean id="datasource" 
+      class="com.atomikos.jdbc.AtomikosDataSourceBean" 
+      init-method="init" destroy-method="close"> 
+       <!-- set an arbitrary but unique name for the datasource --> 
+      <property name="uniqueResourceName">
+      		<value>DebeyDataSource</value>
+      </property>
+      <property name="xaDataSourceClassName"> 
+         <value>org.apache.derby.jdbc.EmbeddedXADataSource</value> 
+      </property> 
+      <property name="xaProperties"> 
+           <props>
+               <prop key="databaseName">database/HE;create=true</prop>    
+           </props> 
+      </property>    
+       <!-- how many connections in the pool? --> 
+      <property name="poolSize" value="3"/> 
+   </bean> 
+ 
+    <!--  
+        configure Hibernate to use the Atomikos JTA and  
+        datasource for transaction control  
+    --> 
+   <bean id="sessionFactory"  
+    class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"> 
+      <property name="dataSource"><ref bean="datasource"/></property>
+      <property name="configLocation" value="hibernate-jta-atomikos.cfg.xml"/>  
+   </bean> 
+ 	
+    <!--  
+       configure the Spring hibernate template with the session factory from above  
+    --> 
+   <bean id="hibernateTemplate"  
+    class="org.springframework.orm.hibernate3.HibernateTemplate"> 
+      <property name="sessionFactory"><ref bean="sessionFactory"/></property> 
+   </bean> 
+   <!-- ********************DS************************** -->
+   
+</beans>
