@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+	
+	<!-- 
+		Enabling @AspectJ Support
+		
+		if DTD 
+		<bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator" />
+	 -->
+	<aop:aspectj-autoproxy/>
+	
+	
+	<bean id="firstAspect"
+		class="org.springexample.aop.NotVeryUsefulAspect">
+	</bean>
+	
+	<aop:config proxy-target-class="true">
+		<aop:aspect id="myAspect" ref="fristaspect">
+			<!-- 
+				point cut
+			 -->		      
+		    <aop:pointcut id="testbefore"
+					  expression="execution(* org.springexample.aop.tagert.BeforeBean.*(..))"/>
+			<aop:pointcut id="testafterreturning"
+					  expression="execution(* org.springexample.aop.tagert.AfterReturningBean.*(..))"/>		  
+			<aop:pointcut id="testafterthrowing"
+			          expression="execution(* org.springexample.aop.tagert.ThrowBean.*(..))"/>
+			<aop:pointcut id="testafterthrowingcatch"
+			          expression="execution(* org.springexample.aop.tagert.ThrowBeanCatch.*(..))"/>	 
+			<aop:pointcut id="testafter"
+			          expression="execution(* org.springexample.aop.tagert.AfterBean.*(..))"/>	 
+			<aop:pointcut id="testaround"
+			          expression="execution(* org.springexample.aop.tagert.AroundBean.*(..))"/>   
+			<aop:pointcut id="testParameter"
+			          expression="execution(* org.springexample.aop.tagert.ParameterBean.*(..))
+			                                and args(throwexception)"/>         
+			<!-- 
+				advice
+			 -->		  
+			<aop:before pointcut-ref="testbefore" method="testbefore"/>
+			<aop:after-returning method="testafterreturning" pointcut-ref="testafterreturning"/>
+			<aop:after-throwing  method="testthrow" pointcut-ref="testafterthrowing"/>
+			
+			<aop:after-throwing  method="testthrowcatch" 
+			                     pointcut-ref="testafterthrowingcatch"
+			                     throwing="runtimeexception"/>
+			<aop:after method="testafter" pointcut-ref="testafter"/>
+			<aop:around method="testAround" pointcut-ref="testaround"/>
+			<aop:around method="testParemter" pointcut-ref="testParameter"/>
+		</aop:aspect>
+	
+	</aop:config>
+	
+	<bean id="fristaspect" class="org.springexample.aop.FirstAspect"></bean>
+	<bean id="beforebean" class="org.springexample.aop.tagert.BeforeBean"></bean>
+	<bean id="afterreturningbean" class="org.springexample.aop.tagert.AfterReturningBean"></bean>
+	
+	<bean id="throwbean"
+		class="org.springexample.aop.tagert.ThrowBean">
+	</bean>
+	
+	
+	<bean id="throwcatch"
+		class="org.springexample.aop.tagert.ThrowBeanCatch">
+	</bean>
+	
+	
+	<bean id="afterbean" class="org.springexample.aop.tagert.AfterBean"></bean>
+	
+	
+	<bean id="aroundbean"
+		class="org.springexample.aop.tagert.AroundBean">
+	</bean>
+	<bean id="paramterbean" class="org.springexample.aop.tagert.ParameterBean"></bean>
+</beans>

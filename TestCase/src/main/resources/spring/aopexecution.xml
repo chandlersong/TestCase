@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+   <!-- 
+   execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern(param-pattern) throws-pattern?)  
+	modifiers-pattern：方法的操作权限
+	ret-type-pattern：返回值
+	declaring-type-pattern：方法所在的包
+	name-pattern：方法名
+	parm-pattern：参数名
+	throws-pattern：异常 
+    -->
+	<bean id="ExecuteAspect"
+		class="org.springexample.aop.ExecuteAspect">
+	</bean>
+	
+	<!-- 
+		use cglib
+	 -->
+	<aop:config proxy-target-class="true">
+	
+		<aop:aspect id="executeaspect" ref="ExecuteAspect" >
+		
+			<aop:pointcut  id="testscope"
+			               expression="execution(* org.springexample.aop.tagert.execution.ExecutionScopeBean.testAop(..))" />
+		    <aop:pointcut  id="testreturnvalue"
+			               expression="execution(java.lang.String org.springexample.aop.tagert.execution.ReturnValueBean.*(..))" />
+		   
+		   <!-- 
+		   	   here's to test if declaring-type-pattern is empty. 
+		   	   it's not need to write test code.
+		    -->
+		   
+		   <aop:pointcut  id="testNoPackageName"
+			               expression="execution(java.lang.String *.ReturnValueBean.*(..))" />
+			               
+			<aop:pointcut  id="testthrowexception"
+			               expression="execution(* org.springexample.aop.tagert.execution.ThrowExceptionBean.*(..) 
+			                             throws java.rmi.AlreadyBoundException)" />  
+            
+			<aop:pointcut  id="withOnePara"
+			               expression="execution(* org.springexample.aop.tagert.execution.ExecutionParaBean.*(int,..))" />
+			<aop:pointcut  id="withtwoPara"
+			               expression="execution(* org.springexample.aop.tagert.execution.ExecutionParaBean.*(int,java.lang.String))" />
+			                              
+			<aop:before pointcut-ref="testscope" method="testScope"/>
+			<aop:before pointcut-ref="testreturnvalue" method="testReturnValue"/>
+			<aop:before pointcut-ref="testNoPackageName" method="testNoPackageName"/>
+			<aop:before pointcut-ref="testthrowexception" method="testThrowException"/>
+			<aop:before pointcut-ref="withOnePara" method="testOnePara"/>
+			<aop:before pointcut-ref="withtwoPara" method="testTwoPara"/>
+		</aop:aspect>
+	
+	</aop:config>
+	
+	
+	<bean id="testScopeBean"
+		class="org.springexample.aop.tagert.execution.ExecutionScopeBean">
+	</bean>
+	
+	<bean id="returnvalue"
+		class="org.springexample.aop.tagert.execution.ReturnValueBean">
+	</bean>
+	
+	<bean id="throwexceptionbean"
+		class="org.springexample.aop.tagert.execution.ThrowExceptionBean">
+	</bean>
+	
+	
+	<bean id="parabean"
+		class="org.springexample.aop.tagert.execution.ExecutionParaBean">
+	</bean>
+	
+</beans>

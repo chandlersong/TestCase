@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+	<bean id="publishserver"
+		class="org.springexample.beanconfig.publish.SleepServer">
+	</bean>
+	
+	<bean   id="listerner1"
+	        class="org.springexample.beanconfig.publish.SleepListener1"></bean>
+	     
+	 <bean id="MultiHandler3"
+		class="org.springexample.beanconfig.publish.multhandler.MultiEventHandler">
+		<property name="description" value="MultiHandler3"/>
+	</bean>
+	   
+	<bean id="MultiHandler2"
+		class="org.springexample.beanconfig.publish.multhandler.MultiEventHandler">
+		<property name="description" value="MultiHandler2"/>
+	</bean>
+	
+	<bean id="MultiHandler1"
+		class="org.springexample.beanconfig.publish.multhandler.MultiEventHandler">
+		<property name="description" value="MultiHandler1"/>
+	</bean>
+	
+	
+	<bean id="SubListener"
+		class="org.springexample.beanconfig.publish.subevent.SubEventlistener">
+	</bean>
+	<bean id="SuperListener"
+		class="org.springexample.beanconfig.publish.superevent.SuperEventListener">
+	</bean>
+</beans>

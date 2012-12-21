@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+<!-- 
+search topic: Sharing common pointcut definitions
+ -->
+
+	<bean id="otheraspect"
+		class="org.springexample.aop.tagert.OtherAspect">
+	</bean>
+	
+	<!-- 
+		• any join point (method execution only in Spring AOP) within the service package:
+		within(com.xyz.service.*)
+		
+		• any join point (method execution only in Spring AOP) within the service package or a sub-package:
+		within(com.xyz.service..*)
+		
+		• any join point (method execution only in Spring AOP) where the target object implements the
+		AccountService interface:
+		target(com.xyz.service.AccountService)
+		
+		if here need to use annotation, i need to use aspectj 1.5.3+
+	
+	 -->
+	<aop:config>
+		<aop:aspect ref="otheraspect" id="argaspectaop">
+			<aop:pointcut expression="@annotation(org.springexample.aop.tagert.annotation.ClassExample)" 
+			                      id="testWithInClassAnnotation"/>
+			                      		
+			<aop:before method="withInClassAnnotation" pointcut-ref="testWithInClassAnnotation"/>
+		</aop:aspect>
+	</aop:config>
+	
+	
+	<bean id="withinclassannotationbean"
+		class="org.springexample.aop.tagert.others.WithInClassAnnotationBean">
+	</bean>
+</beans>

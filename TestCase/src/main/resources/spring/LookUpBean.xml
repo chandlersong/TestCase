@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+    <!-- 这里的scope一定要是prototype
+         使用这个功能，需要cglib -->
+	<bean id="Lookup"
+		class="org.springexample.beanconfig.lookup.LookUpBean"
+		scope="prototype">
+	</bean>
+	
+	<bean id="LookupWithParameter"
+		class="org.springexample.beanconfig.lookup.LookUpBean"
+		scope="prototype">
+	</bean>
+	
+	<bean id="LookupFactory"
+		class="org.springexample.beanconfig.lookup.LookUpFactory">
+		<lookup-method name="getBean" bean="Lookup"/>
+		<lookup-method name="getBeanImplemented" bean="LookupWithParameter"/>
+	</bean>
+
+</beans>
