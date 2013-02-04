@@ -25,6 +25,9 @@
       <resource>
         <directory>src\main\resources\webxml</directory>
       </resource>
+      <resource>
+        <directory>src\main\resources\files</directory>
+      </resource>
     </resources>
     <plugins>
     	<plugin>
@@ -276,5 +279,18 @@
 			  <version>1.7.0</version>
 			</dependency>
 		<!-- jetty -->
+		
+		<!-- image -->
+			<dependency>
+			  <groupId>org.apache.sanselan</groupId>
+			  <artifactId>sanselan</artifactId>
+			  <version>0.97-incubator</version>
+			</dependency>
+			<dependency>
+				<groupId>gov.nih.imagej</groupId>
+				<artifactId>imagej</artifactId>
+				<version>1.46</version>
+			</dependency> 
+		<!-- image -->
   </dependencies>
 </project>
