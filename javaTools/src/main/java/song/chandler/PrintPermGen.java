@@ -214,7 +214,7 @@ class ObjectPrinter implements SystemDictionary.ClassAndLoaderVisitor {
             return;
         }
 
-        String loaderName = "boots";
+        String loaderName = "boost";
         if (loader != null) {
             loaderName = loader.getKlass().getName().asString();
         }
