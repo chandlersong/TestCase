@@ -1,3 +1,4 @@
+
 package com.hilatest.common.io;
 
 import java.io.File;
@@ -16,41 +17,60 @@ import com.hilatest.Constant;
 public class FileUtilsTest {
 
     private static Logger logger = Logger.getLogger(FileUtilsTest.class);
+
     private File file;
-    
+
     @Before
-    public void initial() throws IOException{
-        file = new File(Constant.OutputPath,RandomStringUtils.randomAlphabetic(5)+".txt");
-        
+    public void initial() throws IOException {
+        file = new File(Constant.OutputPath, RandomStringUtils.randomAlphabetic(5) + ".txt");
+
         file.createNewFile();
-        
-        logger.info("file:"+file.getAbsolutePath());        
+
+        logger.info("file:" + file.getAbsolutePath());
     }
-    
+
     /**
-     * defualt is not append, and will overwrite the previous input 
+     * defualt is not append, and will overwrite the previous input
+     * 
      * @throws IOException
      */
     @Test
-    public void testWriteFileAppend() throws IOException{
+    public void testWriteFileAppend() throws IOException {
         String s = "aaa";
         FileUtils.write(file, s);
         s = "bb";
         FileUtils.write(file, s);
         s = "cc";
-        FileUtils.write(file, s,true); //in file, it will record bbcc
+        FileUtils.write(file, s, true); // in file, it will record bbcc
     }
-    
-    
+
     /**
      * @throws IOException
      */
     @Test
-    public void testWriteLines() throws IOException{
+    public void testWriteLines() throws IOException {
         List<String> data = new ArrayList<String>();
         data.add("aa");
         data.add("bb");
         data.add("cc");
-        FileUtils.writeLines(file,data );
+        FileUtils.writeLines(file, data);
+    }
+
+    /**
+     * @throws IOException
+     */
+    @Test
+    public void testWriteNewLines() throws IOException {
+        String s = "aaa";
+        FileUtils.write(file, s);
+        s = "bb";
+        FileUtils.write(file, s);
+        s = System.getProperty("line.separator") + "cc";
+        FileUtils.write(file, s, true);
+        /**
+         * in file, it will record<br>
+         * bb<br>
+         * cc<br>
+         */
     }
 }
