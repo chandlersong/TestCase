@@ -73,7 +73,7 @@ public class PrintPermGen extends Tool {
                 args = new String[] {
                     "2460"
                 };
-                // throw new Exception();
+                throw new Exception();
             } catch (Exception e) {
                 System.err
                         .println("Usage: java com.blogspot.sahyog.PrintStringTable <PID of the JVM whose string table you want to print>");
