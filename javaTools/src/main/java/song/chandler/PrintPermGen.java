@@ -1,4 +1,3 @@
-
 package song.chandler;
 
 import java.io.File;
@@ -24,7 +23,9 @@ import sun.jvm.hotspot.tools.Tool;
 
 /**
  * thanks for puneet<br>
- * base on https://github.com/puneetlakhina/javautils/blob/master/com/blogspot/sahyog/PrintStringTable.java if this can't work. update the
+ * base on
+ * https://github.com/puneetlakhina/javautils/blob/master/com/blogspot/sahyog
+ * /PrintStringTable.java if this can't work. update the
  * sa-jdi.jar in lib, which you can find in $java_home$/lib. <br>
  * Please use the lib which is the same as your java version, current version is <br>
  * java version "1.7.0_09" <br>
@@ -55,7 +56,8 @@ public class PrintPermGen extends Tool {
             rootReportFolder.mkdirs();
         }
 
-        String reportFolderPath = "report/" + (rootReportFolder.listFiles().length + 1);
+        String reportFolderPath = "report/"
+                + (rootReportFolder.listFiles().length + 1);
 
         reportFolder = new File(reportFolderPath);
         reportFolder.mkdirs();
@@ -69,9 +71,10 @@ public class PrintPermGen extends Tool {
         if (args.length == 0 || args.length > 1) {
 
             try {
-                // for debug convenient,if you run in IDE, just comment the exception, don't need to modify others
+                // for debug convenient,if you run in IDE, just comment the
+                // exception, don't need to modify others
                 args = new String[] {
-                    "2460"
+                        "2460"
                 };
                 // throw new Exception();
             } catch (Exception e) {
@@ -100,7 +103,8 @@ public class PrintPermGen extends Tool {
         try {
             SystemDictionary dict = VM.getVM().getSystemDictionary();
             if (objectPrinter == null) {
-                objectPrinter = new ObjectPrinter(this.reportFolder, this.summaryFile);
+                objectPrinter = new ObjectPrinter(this.reportFolder,
+                        this.summaryFile);
             }
 
             dict.classesDo(objectPrinter);
@@ -108,7 +112,8 @@ public class PrintPermGen extends Tool {
             StringTable table = VM.getVM().getStringTable();
 
             if (stringPrinter == null) {
-                stringPrinter = new StringPrinter(this.reportFolder, this.summaryFile);
+                stringPrinter = new StringPrinter(this.reportFolder,
+                        this.summaryFile);
             }
 
             table.stringsDo(stringPrinter);
@@ -140,11 +145,12 @@ class StringPrinter implements StringTable.StringVisitor {
 
     private File summaryFile;
 
-    public StringPrinter(File reportFolder, File summaryFile) throws IOException {
+    public StringPrinter(File reportFolder, File summaryFile)
+            throws IOException {
         // VM vm = VM.getVM();
         // SystemDictionary sysDict = vm.getSystemDictionary();
         InstanceKlass strKlass = SystemDictionary.getStringKlass();
-        stringValueField = (OopField)strKlass.findField("value", "[C");
+        stringValueField = (OopField) strKlass.findField("value", "[C");
 
         // create file
         this.summaryFile = summaryFile;
@@ -155,7 +161,7 @@ class StringPrinter implements StringTable.StringVisitor {
     }
 
     public void visit(Instance instance) {
-        TypeArray charArray = ((TypeArray)stringValueField.getValue(instance));
+        TypeArray charArray = ((TypeArray) stringValueField.getValue(instance));
         StringBuilder sb = new StringBuilder();
         for (long i = 0; i < charArray.getLength(); i++) {
             sb.append(charArray.getCharAt(i));
@@ -166,26 +172,34 @@ class StringPrinter implements StringTable.StringVisitor {
         totalCount++;
         totalsize = totalsize + stringSize;
 
-        String content = sb.toString().replaceAll("\r\n", "").replaceAll("\r", "");
+        String content = sb.toString().replaceAll("\r\n", "")
+                .replaceAll("\r", "");
         try {
-            FileUtils.write(stringFile, content + PrintPermGen.LineSperator, true);
-            FileUtils.write(detailFile, stringSize + "," + content + PrintPermGen.LineSperator, true);
+            FileUtils.writeStringToFile(stringFile, content
+                    + PrintPermGen.LineSperator, true);
+            FileUtils.writeStringToFile(detailFile, stringSize + "," + content
+                    + PrintPermGen.LineSperator, true);
         } catch (IOException e) {
             e.printStackTrace();
         }
         /**
-         * logger.info("size, " + stringSize + ",Content, " + sb.toString().replaceAll("\r\n", "").replaceAll("\r", "").replaceAll("\n", "")
+         * logger.info("size, " + stringSize + ",Content, " +
+         * sb.toString().replaceAll("\r\n", "").replaceAll("\r",
+         * "").replaceAll("\n", "")
          * + ",Address, " + instance.getHandle());
          */
     }
 
     private long stringSize(Instance instance) {
         // We include String content in size calculation.
-        return instance.getObjectSize() + stringValueField.getValue(instance).getObjectSize();
+        return instance.getObjectSize()
+                + stringValueField.getValue(instance).getObjectSize();
     }
 
     public void print() throws IOException {
-        FileUtils.write(summaryFile, totalCount + " intern Strings occupying " + totalsize + " bytes."
+        FileUtils.writeStringToFile(summaryFile, totalCount
+                + " intern Strings occupying "
+                + totalsize + " bytes."
                 + PrintPermGen.LineSperator, true);
     }
 }
@@ -200,7 +214,8 @@ class ObjectPrinter implements SystemDictionary.ClassAndLoaderVisitor {
 
     private Map<String, Integer> loaders = new HashMap<String, Integer>();
 
-    public ObjectPrinter(File reportFolder, File summaryFile) throws IOException {
+    public ObjectPrinter(File reportFolder, File summaryFile)
+            throws IOException {
 
         this.summaryFile = summaryFile;
 
@@ -227,7 +242,9 @@ class ObjectPrinter implements SystemDictionary.ClassAndLoaderVisitor {
         }
 
         try {
-            FileUtils.write(detailFile, k.getName().asString() + "," + loaderName + PrintPermGen.LineSperator, true);
+            FileUtils.writeStringToFile(detailFile, k.getName().asString()
+                    + ","
+                    + loaderName + PrintPermGen.LineSperator, true);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -237,14 +254,17 @@ class ObjectPrinter implements SystemDictionary.ClassAndLoaderVisitor {
     }
 
     public void print() throws IOException {
-        FileUtils.write(summaryFile, classCount + " classes loaded by " + loaders.size() + " loaders."
+        FileUtils.writeStringToFile(summaryFile, classCount
+                + " classes loaded by "
+                + loaders.size() + " loaders."
                 + PrintPermGen.LineSperator, true);
 
         Iterator<Entry<String, Integer>> iter = loaders.entrySet().iterator();
 
         while (iter.hasNext()) {
             Entry<String, Integer> e = iter.next();
-            FileUtils.write(summaryFile, "loader:" + e.getKey() + ",load Class:" + e.getValue()
+            FileUtils.writeStringToFile(summaryFile, "loader:" + e.getKey()
+                    + ",load Class:" + e.getValue()
                     + PrintPermGen.LineSperator, true);
         }
 
