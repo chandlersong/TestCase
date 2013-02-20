@@ -73,4 +73,14 @@ public class FileUtilsTest {
          * cc<br>
          */
     }
+
+    @Test
+    public void testReadEmptyFile() throws IOException {
+
+        File file = new File("src\\main\\resources\\files\\empty.txt");
+
+        List<String> emptylines = FileUtils.readLines(file);
+
+        System.out.println(emptylines.size());
+    }
 }
