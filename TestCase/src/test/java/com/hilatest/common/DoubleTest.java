@@ -38,7 +38,10 @@ public class DoubleTest {
 
     /**
      * -0.5:0
-     * 1<NaN:false
+     * -0.9:0
+     * -1.1:-1
+     * 1.1:1
+     * 0.9:0
      */
     @Test
     public void toIntValueTest() {
