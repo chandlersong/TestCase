@@ -2,13 +2,13 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"
 [
-	<!ENTITY % placeholders SYSTEM "classpath://com/hilatest/hibernate/inaction/chapter2/placeholder/placeholder.dtd">
+	<!ENTITY % placeholders SYSTEM "classpath://com/hilatest/hibernate/inaction/chapter3/placeholder/placeholder.dtd">
 	%placeholders;
 ]>
 <!-- Generated Mar 11, 2013 5:22:13 PM by Hibernate Tools 3.4.0.CR1 -->
 
 <hibernate-mapping>
-    <class name="com.hilatest.hibernate.inaction.chapter2.placeholder.ItemPlaceHolder" table="ITEMPLACEHOLDER">
+    <class name="com.hilatest.hibernate.inaction.chapter3.placeholder.ItemPlaceHolder" table="ITEMPLACEHOLDER">
         <id name="id" type="java.lang.Long">
             <column name="ID" />
             <generator class="&idgenerator;" />

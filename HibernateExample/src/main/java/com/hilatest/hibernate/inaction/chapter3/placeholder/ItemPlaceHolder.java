@@ -1,5 +1,5 @@
 
-package com.hilatest.hibernate.inaction.chapter2.placeholder;
+package com.hilatest.hibernate.inaction.chapter3.placeholder;
 
 public class ItemPlaceHolder {
 

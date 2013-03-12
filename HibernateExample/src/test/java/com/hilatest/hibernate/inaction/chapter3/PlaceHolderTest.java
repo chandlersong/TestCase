@@ -1,5 +1,5 @@
 
-package com.hilatest.hibernate.inaction.chapter2;
+package com.hilatest.hibernate.inaction.chapter3;
 
 import java.util.Iterator;
 import java.util.List;
@@ -15,10 +15,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.hilatest.hibernate.inaction.chapter2.placeholder.ItemPlaceHolder;
+import com.hilatest.hibernate.inaction.chapter3.placeholder.ItemPlaceHolder;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:inAction_chapter2_placeholder.xml")
+@ContextConfiguration(locations = "classpath:inAction_chapter3_placeholder.xml")
 public class PlaceHolderTest extends AbstractJUnit4SpringContextTests {
 
     @Resource(name = "sessionFactory")

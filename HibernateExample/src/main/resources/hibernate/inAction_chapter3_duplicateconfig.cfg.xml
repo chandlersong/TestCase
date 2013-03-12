@@ -25,6 +25,6 @@
   <property name="hibernate.hbm2ddl.auto">update</property>
   
   
-  <mapping resource="com/hilatest/hibernate/inaction/chapter2/placeholder/ItemPlaceHolder.hbm.xml"/>
+  <mapping resource="com/hilatest/hibernate/inaction/chapter3/duplicateConfig/Message.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>
