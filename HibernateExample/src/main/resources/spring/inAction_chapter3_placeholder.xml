@@ -4,9 +4,14 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
  
+   <import resource="inAction_common.xml"/>
    <bean id="sessionFactory"  
-    class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"> 
-      <property name="configLocation" value="inAction_chapter3_placeholder.cfg.xml"/>
-   </bean> 
+          parent="basicSessionFactory"> 
+      <property name="mappingResources">
+      	<array>
+      		<value>com/hilatest/hibernate/inaction/chapter3/placeholder/ItemPlaceHolder.hbm.xml</value>
+      	</array>
+      </property>
+   </bean>
  
 </beans>

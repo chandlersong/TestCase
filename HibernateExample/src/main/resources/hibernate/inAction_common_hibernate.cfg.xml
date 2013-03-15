@@ -19,12 +19,10 @@
   <property name="hibernate.current_session_context_class">thread</property>
   <!--
 			 for development only
-		 -->
+   -->
   <property name="hibernate.show_sql">true</property>
   <property name="hibernate.format_sql">true</property>
   <property name="hibernate.hbm2ddl.auto">update</property>
-  
-  
-  <mapping resource="com/hilatest/hibernate/inaction/chapter1/Message.hbm.xml"/>
+ 
  </session-factory>
 </hibernate-configuration>

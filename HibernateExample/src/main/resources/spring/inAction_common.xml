@@ -3,14 +3,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-   <import resource="inAction_common.xml"/>
-   <bean id="sessionFactory"  
-          parent="basicSessionFactory"> 
-      <property name="mappingResources">
-      	<array>
-      		<value>com/hilatest/hibernate/inaction/chapter1/Message.hbm.xml</value>
-      	</array>
-      </property>
+ 
+   <bean id="basicSessionFactory"  
+    class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"> 
+      <property name="configLocation" value="inAction_common_hibernate.cfg.xml"/>
    </bean> 
  
 </beans>
