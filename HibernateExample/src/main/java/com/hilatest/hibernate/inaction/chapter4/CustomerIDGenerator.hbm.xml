@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 26, 2012 11:57:36 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+ <class name="com.hilatest.hibernate.inaction.common.StringIDMessage" 
+         table="MESSAGE_CHAPTER_4_IDGenerator"
+         entity-name="Message">
+  <id name="id" type="java.lang.String">
+   <column name="ID"/>
+   <generator class="com.hilatest.hibernate.inaction.chapter4.CustomUUIDIDGenerator"/>
+  </id>
+  <property generated="never" lazy="false" name="text" type="java.lang.String">
+   <column name="TEXT"/>
+  </property>
+ </class>
+</hibernate-mapping>
