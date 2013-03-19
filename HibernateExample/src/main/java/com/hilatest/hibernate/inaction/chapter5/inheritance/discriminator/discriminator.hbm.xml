@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 19, 2013 4:43:11 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping package="com.hilatest.hibernate.inaction.chapter5.inheritance.discriminator">
+    <class name="Message" 
+            table="CHAPTER_5_INHERITANCE_UNION_DISCRIMINATOR">
+            
+        <id name="id" type="java.lang.Long">
+            <column name="ID" />
+            <generator class="increment" />
+        </id>
+        
+        <discriminator
+			column="MESSAGE_TYPE"
+			type="string"/>
+       
+        <property name="text" type="java.lang.String">
+            <column name="TEXT" />
+        </property>
+    
+    	
+			
+    	<subclass name="RandomIntegerMessage" 
+    	           discriminator-value="Integer">
+    		<property name="RandomInteger" type="integer"/>
+    	</subclass>
+    	
+    	
+    	<subclass name="RandomStringMessage" 
+    	           discriminator-value="String">
+    		<property name="randomString" type="string"/>
+    	</subclass>
+    </class>
+</hibernate-mapping>
