@@ -2,9 +2,9 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Mar 19, 2013 4:43:11 PM by Hibernate Tools 3.4.0.CR1 -->
-<hibernate-mapping package="com.hilatest.hibernate.inaction.chapter5.inheritance.discriminator">
+<hibernate-mapping package="com.hilatest.hibernate.inaction.chapter5.inheritance.mix">
     <class name="Message" 
-            table="CHAPTER_5_INHERITANCE_DISCRIMINATOR"
+            table="CHAPTER_5_INHERITANCE_MIX"
             discriminator-value = "SUPER">
             
         <id name="id" type="java.lang.Long">
@@ -24,7 +24,11 @@
 			
     	<subclass name="RandomIntegerMessage" 
     	           discriminator-value="Integer">
-    		<property name="RandomInteger" type="integer"/>
+    	           <join table="CHAPTER_5_INHERITANCE_MIX_RandomIntegerMessage">
+    	           		<key column="RandomIntegerMessage_ID"></key>
+    	           		<property name="RandomInteger" type="integer"/>
+    	           </join>
+
     	</subclass>
     	
     	
