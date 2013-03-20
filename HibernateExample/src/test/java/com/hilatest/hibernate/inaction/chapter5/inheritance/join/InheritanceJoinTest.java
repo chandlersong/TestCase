@@ -18,8 +18,8 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * NOTES: <br>
- * 1) if you want special super class' discriminator, you can set discriminator-value in super class
+ * TODO: <br>
+ * 1) find out how to make lazy in sub class work work
  * 
  * @author chandler.song
  */
