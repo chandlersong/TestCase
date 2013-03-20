@@ -17,6 +17,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * NOTES: <br>
+ * 1) if you want special super class' discriminator, you can set discriminator-value in super class
+ * 
+ * @author chandler.song
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:inAction_chapter5_inheritance_discriminator.xml")
 public class InheritanceDiscriminatorTest extends AbstractJUnit4SpringContextTests {
