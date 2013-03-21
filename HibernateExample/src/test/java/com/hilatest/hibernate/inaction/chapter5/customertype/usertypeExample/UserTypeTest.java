@@ -16,8 +16,10 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * TODO: <br>
- * 1) in the book, it don't mention I need to define type first. but I found that I have to do it now,find out why <br>
+ * NOTE: <br>
+ * 1)there are two ways to define one a customer type.<br>
+ * a)like the example do. use typedef to define a custome type.(I think it's a good way) <br>
+ * b)use full path name in property's type. even you have define package in hibernate-mapping<br>
  * 
  * @author chandler.song
  */
