@@ -65,4 +65,43 @@ public class UserTypeTest extends AbstractJUnit4SpringContextTests {
 
     }
 
+    /**
+     * use debug to test
+     */
+    @Test
+    public void testNull() {
+
+        // First unit of work
+        Session session = this.hibernateFactory.openSession();
+
+        Transaction tx = session.beginTransaction();
+
+        Message message = new Message("user type");
+
+        Long msgId = (Long)session.save(message);
+
+        System.out.println("super message ID:" + msgId);
+
+        tx.commit();
+        session.close();
+
+        // Second unit of work
+        Session newSession = this.hibernateFactory.openSession();
+        Transaction newTx = newSession.beginTransaction();
+
+        List<?> messages = newSession.createQuery("from Message m order by m.text asc").list();
+        System.out.println(messages.size() + " message(s) found:");
+
+        for (Iterator<?> iter = messages.iterator(); iter.hasNext();) {
+            Message loadedMsg = (Message)iter.next();
+            System.out.println("id:" + loadedMsg.getId() + ",Message" + loadedMsg.getText());
+            if (loadedMsg.getStringSize() != null) {
+                System.out.println("String Size:" + loadedMsg.getStringSize().getSize());
+            }
+        }
+        newTx.commit();
+        newSession.close();
+
+    }
+
 }
