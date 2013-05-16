@@ -1,4 +1,4 @@
-package com.hilatest.mockito;
+package com.hilatest.mock.mockito;
 
 import java.util.List;
 

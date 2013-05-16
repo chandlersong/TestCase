@@ -9,6 +9,7 @@
     <spring.version>3.1.2.RELEASE</spring.version>
     <hibernate.version>3.6.10.Final</hibernate.version>
     <jetty.version>8.1.7.v20120910</jetty.version>
+    <powermock.version>1.4.9</powermock.version>
   </properties>
   
   <build>
@@ -303,6 +304,18 @@
 			  <artifactId>mockito-core</artifactId>  
 			  <version>1.9.5</version> 
 			  <scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>${powermock.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito</artifactId>
+			<version>${powermock.version}</version>
+			<scope>test</scope>
 		</dependency>
   </dependencies>
 </project>
