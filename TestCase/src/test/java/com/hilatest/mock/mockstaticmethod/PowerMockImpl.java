@@ -20,7 +20,7 @@ public class PowerMockImpl {
 
         PowerMockito.mockStatic(StaticMockFactory.class);
         PowerMockito.when(StaticMockFactory.getObject()).thenReturn(new MockObject());
-
+        
         MockStaticMethod object = new MockStaticMethod();
         object.run();
     }
