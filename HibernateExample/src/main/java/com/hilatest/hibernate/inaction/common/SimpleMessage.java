@@ -7,7 +7,7 @@ public class SimpleMessage {
 
     private String text;
 
-    SimpleMessage() {
+    public SimpleMessage() {
     }
 
     public SimpleMessage(String text) {
