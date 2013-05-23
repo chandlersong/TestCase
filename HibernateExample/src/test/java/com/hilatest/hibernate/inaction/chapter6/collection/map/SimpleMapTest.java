@@ -1,8 +1,9 @@
 
-package com.hilatest.hibernate.inaction.chapter6.collection.set;
+package com.hilatest.hibernate.inaction.chapter6.collection.map;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 
@@ -21,8 +22,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author chandler.song
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:inAction_chapter6_collection_set.xml")
-public class SimpleSetTest {
+@ContextConfiguration(locations = "classpath:inAction_chapter6_collection_map.xml")
+public class SimpleMapTest {
 
     @Resource(name = "sessionFactory")
     private SessionFactory hibernateFactory;
@@ -35,9 +36,9 @@ public class SimpleSetTest {
 
         Transaction tx = session.beginTransaction();
 
-        SetMessage message = new SetMessage("I'm super class");
-        message.addTags("test1");
-        message.addTags("test2");
+        MapMessage message = new MapMessage("I'm super class");
+        message.addComments("test1", "comments1");
+        message.addComments("test2", "comments2");
         Long msgId = (Long)session.save(message);
         System.out.println("super message ID:" + msgId);
 
@@ -48,18 +49,18 @@ public class SimpleSetTest {
         Session newSession = this.hibernateFactory.openSession();
         Transaction newTx = newSession.beginTransaction();
 
-        List<?> messages = newSession.createQuery("from SetMessage m order by m.text asc").list();
+        List<?> messages = newSession.createQuery("from MapMessage m order by m.text asc").list();
         System.out.println(messages.size() + " message(s) found:");
 
         Iterator<?> iter = messages.iterator();
         while (iter.hasNext()) {
-            SetMessage msg = (SetMessage)iter.next();
+            MapMessage msg = (MapMessage)iter.next();
             System.out.println("id:" + msg.getId() + ",Message" + msg.getText());
             System.out.println("tags:");
-            Iterator<String> tagIter = msg.getTags().iterator();
-            while (tagIter.hasNext()) {
-                String tag = tagIter.next();
-                System.out.println(tag);
+            Iterator<Entry<String, String>> commentsIter = msg.getComments().entrySet().iterator();
+            while (commentsIter.hasNext()) {
+                Entry<String, String> entry = commentsIter.next();
+                System.out.println("key:" + entry.getKey() + ",value:" + entry.getValue());
             }
 
         }

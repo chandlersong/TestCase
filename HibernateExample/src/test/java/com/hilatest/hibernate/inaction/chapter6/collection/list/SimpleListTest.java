@@ -15,11 +15,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * 1) if the object in set is value object. and don't association with other object<br>
- * hibernate will persist it duplicate.<br>
- * for example:<br>
- * you run this case twice, there will be four record in CHAPTER_6_COLLECTION_SIMPLE_SET_TAGS <br>
- * and they are duplicate. will two record with id is 1 and value is test1, the same to test2
+ * 1) if the object in set is value object. and don't association with other object in hibernate<br>
+ * it will create record which link to the object
  * 
  * @author chandler.song
  */
