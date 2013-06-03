@@ -7,6 +7,11 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
@@ -20,14 +25,14 @@ public class HelloWorld {
 
 	@Test
 	public void doWork() throws Exception {
-
+		/* Index start */
 		writer = new IndexWriter(this.getIndexFolder(),
 		        new StandardAnalyzer(
 		                Version.LUCENE_30),
 		        true,
 		        IndexWriter.MaxFieldLength.UNLIMITED);
 
-		Document doc1 = this.generateDocument("hello world", "firstFile",
+		Document doc1 = this.generateDocument("helloworld", "firstFile",
 		        "\\temp\\firstFile");
 		Document doc2 = this.generateDocument("22222222222", "2222222222",
 		        "\\111111\\222222222");
@@ -38,6 +43,28 @@ public class HelloWorld {
 		writer.commit();
 
 		writer.close();
+		/* Index end */
+
+		/* Search start */
+		IndexSearcher is = new IndexSearcher(getIndexFolder());
+		QueryParser parser = new QueryParser(Version.LUCENE_30,
+		        "contents",
+		        new StandardAnalyzer(
+		                Version.LUCENE_30));
+		Query query = parser.parse("helloworld");
+		TopDocs hits = is.search(query, 10);
+
+		logger.info("Found " + hits.totalHits +
+		        " document(s) that matched query '" +
+		        "hello world" + "':");
+
+		for (ScoreDoc scoreDoc : hits.scoreDocs) {
+			Document doc = is.doc(scoreDoc.doc);
+			logger.info(doc.get("fullpath"));
+		}
+		is.close();
+
+		/* Search end */
 
 	}
 
