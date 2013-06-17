@@ -4,3 +4,5 @@
 *.jar
 *.war
 *.ear
+/CPPStudy/app/quickSort/Debug
+/CPPStudy/app/quickSort/quickSort/Debug
