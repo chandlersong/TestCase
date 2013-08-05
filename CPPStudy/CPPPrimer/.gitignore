@@ -1,7 +1,0 @@
-*.class
-*.exe
-
-# Package Files #
-*.jar
-*.war
-*.ear
