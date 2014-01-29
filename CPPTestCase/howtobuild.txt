@@ -1,0 +1,2 @@
+- Add macro `_VARIADIC_MAX=10` to each project for all mode: <br/>
+	- properties->c/c++->preprocessor->preprocessor definitions
