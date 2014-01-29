@@ -1,0 +1,9 @@
+### GTest  ####
+- Download latest GTest
+- Unzip the source code
+- Set environment GTEST_ROOT=F:\gtest-1.6.0
+- Set environment GTEST\_MSVC\_SERACH=MD
+- use vs2012(or other correct version) to open the gtest-md.sln 
+- Add macro `_VARIADIC_MAX=10` to each project for all mode: <br/>
+	- properties->c/c++->preprocessor->preprocessor definitions
+- build both release and debug mode
