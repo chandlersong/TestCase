@@ -7,3 +7,12 @@
 - Add macro `_VARIADIC_MAX=10` to each project for all mode: <br/>
 	- properties->c/c++->preprocessor->preprocessor definitions
 - build both release and debug mode
+
+
+### Boost  ###
+- Define such environment variable
+
+ 	` BOOST_ROOT=D:\xxx\Boost-1.5x.0 `
+
+- Run bootstrap.bat in %BOOST_ROOT%. This script will launch a command windows and generate a b2.exe
+- Run b2.exe to compile boost library
