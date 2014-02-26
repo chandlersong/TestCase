@@ -11,6 +11,9 @@ set(BOOST_INCLUDE_DIR 		$ENV{BOOST_ROOT})
 SET(MAIN_SRCS
   Main.cpp
 )
+SET(STD_Study
+  StdStudy/Number.cpp
+)
 
 SET(Boost_Study
   BoostStudy/helloworld.cpp
@@ -20,9 +23,13 @@ SET(Boost_Study
 SET(SRCS 
     ${MAIN_SRCS}
     ${Boost_Study}
+    ${STD_Study}
 )
 
 source_group(BoostStudy FILES ${Boost_Study})
+source_group(STD_STUDY FILES ${STD_Study})
+
+add_definitions(-D_VARIADIC_MAX=10 -DTestDataDir="${CMAKE_CURRENT_SOURCE_DIR}")
 
 INCLUDE_DIRECTORIES(
     ${BOOST_INCLUDE_DIR}

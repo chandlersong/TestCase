@@ -16,3 +16,6 @@
 
 - Run bootstrap.bat in %BOOST_ROOT%. This script will launch a command windows and generate a b2.exe
 - Run b2.exe to compile boost library
+
+##how to run ##
+--gtest_filter=xxx.yyy
