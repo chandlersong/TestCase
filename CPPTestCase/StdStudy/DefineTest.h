@@ -5,6 +5,7 @@
 
 namespace cpp_test_case_stdstudy {
 
+//1） 前置函数的定义
 class Example;
 class DefineTest {
 
