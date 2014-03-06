@@ -13,6 +13,10 @@ SET(MAIN_SRCS
 )
 SET(STD_Study
   StdStudy/Number.cpp
+  StdStudy/DefineTest.h
+  StdStudy/DefineTest.cpp
+  StdStudy/Example.h
+  StdStudy/Example.cpp
 )
 
 SET(Boost_Study
