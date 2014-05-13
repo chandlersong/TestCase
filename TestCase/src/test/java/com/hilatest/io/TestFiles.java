@@ -1,3 +1,5 @@
+/*
+it can't complie at jdk1.6
 package com.hilatest.io;
 
 import java.io.IOException;
@@ -18,3 +20,4 @@ public class TestFiles {
         Files.move(source, target.resolve(source.getFileName()));
     }
 }
+*/
