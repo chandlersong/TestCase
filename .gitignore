@@ -7,3 +7,5 @@
 /CPPStudy/app/quickSort/Debug
 /CPPStudy/app/quickSort/quickSort/Debug
 target
+.idea
+*.iml
