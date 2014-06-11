@@ -1,9 +1,13 @@
 package com.hilatest.mock.mockito;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 import org.mockito.Mockito;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class MockitoExample {
 
@@ -12,7 +16,7 @@ public class MockitoExample {
         // mock creation
 
         @SuppressWarnings("unchecked")
-        List<String> mockedList = Mockito.mock(List.class);
+        List<String> mockedList = mock(List.class);
 
         // using mock object
         /*
@@ -29,4 +33,51 @@ public class MockitoExample {
         Mockito.verify(mockedList).clear();
 
     }
+
+    @Test
+    public void testSpy(){
+        RealObject object = new RealObject();
+        RealObject spy = Mockito.spy(object);
+
+        when(spy.test()).thenReturn("mock");
+
+        System.out.println(spy.test());
+        spy.print();
+    }
+
+    @Test
+    public void testNewObject(){
+        RealObject mockObject = mock(RealObject.class);
+        when(mockObject.getStrings()).thenReturn(new ArrayList<String>());
+
+        mockObject.getStrings().add("aa");
+
+
+        System.out.println(mockObject.getStrings().get(0));
+
+    }
+
+
+}
+
+class RealObject{
+
+    private List<String> strings;
+
+    public List<String> getStrings() {
+        return strings;
+    }
+
+    public void setStrings(List<String> strings) {
+        this.strings = strings;
+    }
+
+    public String test(){
+        return "realMethod";
+    }
+
+    public void print(){
+        System.out.println(test());
+    }
+
 }

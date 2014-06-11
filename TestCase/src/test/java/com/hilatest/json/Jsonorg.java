@@ -11,7 +11,7 @@ public class Jsonorg {
 	public void testJsonorg() throws JSONException{
 
 	  
-		JSONObject jo = new JSONObject();  
+		JSONObject jo = new JSONObject();
 		
 		jo.put("name", "json");
 		jo.put("bool", Boolean.TRUE);
