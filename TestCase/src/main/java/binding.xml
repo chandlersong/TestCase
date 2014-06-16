@@ -1,0 +1,12 @@
+<binding xmlns:ns1="http://some/namespace" name="binding" package="com.hilatest.xsdgenerator" trim-whitespace="true">
+  <namespace uri="http://some/namespace" prefix="ns1"/>
+  <mapping class="com.hilatest.xsdgenerator.AnOptionalElementInSomeNamespace" name="anOptionalElementInSomeNamespace" ns="http://some/namespace">
+    <value style="text" get-method="getAnOptionalElementInSomeNamespace" set-method="setAnOptionalElementInSomeNamespace"/>
+  </mapping>
+  <mapping abstract="true" type-name="ns1:fooBar" class="com.hilatest.xsdgenerator.FooBar">
+    <value style="element" name="requiredElement" get-method="getRequiredElement" set-method="setRequiredElement"/>
+    <value style="element" name="optionalElement" get-method="getOptionalElement" set-method="setOptionalElement" usage="optional"/>
+    <value style="attribute" name="requiredAttribute" get-method="getRequiredAttribute" set-method="setRequiredAttribute"/>
+    <value style="attribute" name="optionalAttribute" get-method="getOptionalAttribute" set-method="setOptionalAttribute" usage="optional"/>
+  </mapping>
+</binding>

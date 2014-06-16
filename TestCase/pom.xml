@@ -74,6 +74,30 @@
 
             <!--xsd generate-->
             <plugin>
+                <groupId>org.jibx</groupId>
+                <artifactId>jibx-maven-plugin</artifactId>
+                <version>1.2.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>schema-codegen</goal>
+                        </goals>
+                        <configuration>
+                            <options>
+                                <package>com.hilatest.xsdgenerator</package>
+                            </options>
+                           <defaultPackage>com.hilatest.xsdgenerator</defaultPackage>
+                            <schemaLocation>src/main/resources/XSDGenerator</schemaLocation>
+                            <schemaBindingDirectory>src/main/java</schemaBindingDirectory>
+                            <includeSchemas>
+                                <schema>test.xsd</schema>
+                            </includeSchemas>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
                 <version>1.6</version>
@@ -92,7 +116,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--xsd generate-->
+            xsd generate-->
             <!-- 把依赖包copy进入 target/dependency 文件夹，主要给jetty用 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
