@@ -8,6 +8,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>3.1.2.RELEASE</spring.version>
+        <spring.ws.version>2.2.0.RELEASE</spring.ws.version>
         <hibernate.version>3.6.10.Final</hibernate.version>
         <jetty.version>8.1.7.v20120910</jetty.version>
         <powermock.version>1.4.9</powermock.version>
@@ -32,6 +33,9 @@
             </resource>
             <resource>
                 <directory>src\main\resources\XSDGenerator</directory>
+            </resource>
+            <resource>
+                <directory>src\main\resources\jibx</directory>
             </resource>
         </resources>
         <pluginManagement>
@@ -79,6 +83,7 @@
                 <version>1.2.5</version>
                 <executions>
                     <execution>
+                        <id>schema-codegen</id>
                         <goals>
                             <goal>schema-codegen</goal>
                         </goals>
@@ -86,12 +91,26 @@
                             <options>
                                 <package>com.hilatest.xsdgenerator</package>
                             </options>
-                           <defaultPackage>com.hilatest.xsdgenerator</defaultPackage>
+                            <defaultPackage>com.hilatest.xsdgenerator</defaultPackage>
                             <schemaLocation>src/main/resources/XSDGenerator</schemaLocation>
                             <schemaBindingDirectory>src/main/java</schemaBindingDirectory>
                             <includeSchemas>
                                 <schema>test.xsd</schema>
                             </includeSchemas>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>Mybind</id>
+                        <goals>
+                            <goal>bind</goal>
+                        </goals>
+                        <phase>compile</phase>
+                        <configuration>
+                            <schemaBindingDirectory>src/main/resources/jibx</schemaBindingDirectory>
+                            <includeSchemaBindings>
+                                <includeSchemaBindings>Foo-binding.xml</includeSchemaBindings>
+                            </includeSchemaBindings>
+                            <verify>true</verify>
                         </configuration>
                     </execution>
                 </executions>
@@ -163,7 +182,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.8.2</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
@@ -328,7 +346,6 @@
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
             <type>jar</type>
-            <scope>test</scope>
         </dependency>
         <!-- test -->
 
@@ -376,6 +393,23 @@
         </dependency>
         <!-- image -->
 
+        <!--ws-->
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-core</artifactId>
+            <version>${spring.ws.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jibx</groupId>
+            <artifactId>jibx-run</artifactId>
+            <version>1.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jibx</groupId>
+            <artifactId>jibx-extras</artifactId>
+            <version>1.2.5</version>
+        </dependency>
+        <!--ws-->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>

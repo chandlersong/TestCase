@@ -1,0 +1,50 @@
+<star:order orderNumber="10" orderDate="2008-09-29" shipDate="2014-09-19" total="1.5E2" xmlns:star="http://jibx.org/starter1">
+  <!--Optional:-->
+  <star:customer customerNumber="10">
+    <!--Optional:-->
+    <star:firstName>string</star:firstName>
+    <!--Optional:-->
+    <star:lastName>string</star:lastName>
+    <!--Zero or more repetitions:-->
+    <star:middleName>string</star:middleName>
+  </star:customer>
+  <!--Optional:-->
+  <star:billTo>
+    <!--Optional:-->
+    <star:street1>string</star:street1>
+    <!--Optional:-->
+    <star:street2>string</star:street2>
+    <!--Optional:-->
+    <star:city>string</star:city>
+    <!--Optional:-->
+    <star:state>string</star:state>
+    <!--Optional:-->
+    <star:postCode>string</star:postCode>
+    <!--Optional:-->
+    <star:country>string</star:country>
+  </star:billTo>
+  <!--Optional:-->
+  <star:shipping>INTERNATIONAL_EXPRESS</star:shipping>
+  <!--Optional:-->
+  <star:shipTo>
+    <!--Optional:-->
+    <star:street1>string</star:street1>
+    <!--Optional:-->
+    <star:street2>string</star:street2>
+    <!--Optional:-->
+    <star:city>string</star:city>
+    <!--Optional:-->
+    <star:state>string</star:state>
+    <!--Optional:-->
+    <star:postCode>string</star:postCode>
+    <!--Optional:-->
+    <star:country>string</star:country>
+  </star:shipTo>
+  <!--Zero or more repetitions:-->
+  <star:item quantity="3" price="1.5E2">
+    <!--Optional:-->
+    <star:id>string</star:id>
+    <!--Optional:-->
+    <star:description>string</star:description>
+  </star:item>
+</star:order>
