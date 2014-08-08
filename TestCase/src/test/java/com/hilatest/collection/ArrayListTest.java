@@ -2,7 +2,6 @@ package com.hilatest.collection;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
@@ -29,7 +28,7 @@ public class ArrayListTest {
      */
     @Test
     public void testToArryBug() {
-        String[] s = {"a", "b"};
+        String[] s = { "a", "b" };
         List<String> l = Arrays.asList(s);
 
         System.out.println(l.toArray());
@@ -39,7 +38,7 @@ public class ArrayListTest {
     @Test
     public void testArrayListConstractionFunction() {
 
-        String[] s = {"a", "b"};
+        String[] s = { "a", "b" };
         List<String> l = Arrays.asList(s);
 
         Object[] elementData = l.toArray();
@@ -50,7 +49,7 @@ public class ArrayListTest {
     @Test
     public void testToArray() {
 
-        String[] s = {"a", "b", "d"};
+        String[] s = { "a", "b", "d" };
         ArrayList<String> shortArray = new ArrayList<String>();
         shortArray.add("c");
 
@@ -61,7 +60,7 @@ public class ArrayListTest {
         System.out.println("s 3rd element:" + s[2]);
 
         System.out.println("=========================================");
-        String[] s2 = {"a", "b", "d"};
+        String[] s2 = { "a", "b", "d" };
         ArrayList<String> longArray = new ArrayList<String>();
         longArray.add("1");
         longArray.add("2");
@@ -82,7 +81,6 @@ public class ArrayListTest {
 
         array.set(2, "a");
         System.out.println("array size:" + array.size());
-
 
     }
 

@@ -1,17 +1,15 @@
 package com.hilatest.concurrent;
 
-import org.junit.Test;
-
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import org.junit.Test;
 
 public class ThreadPoolTest {
 
     @Test
-    public void monitor(){
+    public void monitor() {
 
-        ExecutorService executorService = Executors.newCachedThreadPool();
-
+        Executors.newCachedThreadPool();
 
     }
 }
