@@ -54,12 +54,27 @@
                                         <versionRange>[2.0,)</versionRange>
                                         <goals>
                                             <goal>copy-dependencies</goal>
+                                             <goal>bind</goal>
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
                                         <ignore/>
                                     </action>
                                 </pluginExecution>
+                                <pluginExecution>
+				                 <pluginExecutionFilter>
+				                   <groupId>org.jibx</groupId>
+				                   <artifactId>jibx-maven-plugin</artifactId>
+				                   <versionRange>[1.2.5,)</versionRange>
+				                   <goals>
+				                    <goal>schema-codegen</goal>
+				                    <goal>bind</goal>
+				                   </goals>
+				                 </pluginExecutionFilter>
+				                 <action>
+				                   <ignore />
+				                 </action>
+				               </pluginExecution>
                             </pluginExecutions>
                         </lifecycleMappingMetadata>
                     </configuration>
