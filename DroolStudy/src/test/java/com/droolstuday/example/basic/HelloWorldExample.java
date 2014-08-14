@@ -19,6 +19,9 @@ public class HelloWorldExample {
 		Account account2 = new Account(200);
 		ksession.execute(account2);
 
+		Object object = new Object();
+		ksession.execute(object);
+
 	}
 
 }
