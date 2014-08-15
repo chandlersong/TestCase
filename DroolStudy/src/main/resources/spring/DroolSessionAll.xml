@@ -9,8 +9,11 @@
     <drools:kbase id="kbaseALL">
 	     <drools:resources>
 	         <drools:resource type="DRL" source="classpath:Hello_World.drl"/>
+	         <drools:resource type="DRL" source="classpath:RoomFire.drl"/>
 	     </drools:resources>
     </drools:kbase>
 
     <drools:ksession id="ksessionAllStateless" type="stateless" kbase="kbaseALL"/>  
+    
+    <drools:ksession id="ksessionAllStateful" type="stateful" kbase="kbaseALL"/>
 </beans>

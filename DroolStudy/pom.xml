@@ -14,7 +14,7 @@
   <url>http://maven.apache.org</url>
   <properties>
      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-     <droolsVersion>5.5.0.Final</droolsVersion>
+     <droolsVersion>6.1.0.Final</droolsVersion>
   </properties>
   <build>
 	  <resources>
@@ -27,19 +27,50 @@
 	      <resource>
                 <directory>src\main\resources\spring</directory>
           </resource>
+          <resource>
+                <directory>src\main\resources\META-INF</directory>
+          </resource>
 	  </resources>
+	  <plugins>
+	      <plugin>
+	        <groupId>org.kie</groupId>
+	        <artifactId>kie-maven-plugin</artifactId>
+	        <version>${droolsVersion}</version>
+	        <extensions>true</extensions>
+	      </plugin>
+	  </plugins>
   </build>
   <dependencies>
-    <dependency>
-		<groupId>org.drools</groupId>
-		<artifactId>drools-compiler</artifactId>
-		<version>${droolsVersion}</version>
-    </dependency>
-    <dependency>
-         <groupId>org.drools</groupId>
-         <artifactId>drools-spring</artifactId>
-         <version>5.6.0.Final</version>
-     </dependency>
+       <dependency>
+	      <groupId>org.kie</groupId>
+	      <artifactId>kie-api</artifactId>
+	      <version>${droolsVersion}</version>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.drools</groupId>
+	      <artifactId>drools-core</artifactId>
+	      <version>${droolsVersion}</version>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.drools</groupId>
+	      <artifactId>drools-compiler</artifactId>
+	      <version>${droolsVersion}</version>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.drools</groupId>
+	      <artifactId>drools-decisiontables</artifactId>
+	      <version>${droolsVersion}</version>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.drools</groupId>
+	      <artifactId>drools-templates</artifactId>
+	      <version>${droolsVersion}</version>
+	    </dependency>
+	    <dependency>
+	         <groupId>org.drools</groupId>
+	         <artifactId>drools-spring</artifactId>
+	         <version>6.0.0.Beta2</version>
+	     </dependency>
   </dependencies>
 
 </project>
