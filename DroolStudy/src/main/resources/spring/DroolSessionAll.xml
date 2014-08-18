@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:drools="http://drools.org/schema/drools-spring" 
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-                           http://drools.org/schema/drools-spring http://anonsvn.jboss.org/repos/labs/labs/jbossrules/trunk/drools-container/drools-spring/src/main/resources/org/drools/container/spring/drools-spring-1.0.0.xsd
-                           ">
+       xmlns:kie="http://drools.org/schema/kie-spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                          http://drools.org/schema/kie-spring http://drools.org/schema/kie-spring.xsd">
 
-    <drools:kbase id="kbaseALL">
-	     <drools:resources>
-	         <drools:resource type="DRL" source="classpath:Hello_World.drl"/>
-	         <drools:resource type="DRL" source="classpath:RoomFire.drl"/>
-	     </drools:resources>
-    </drools:kbase>
-
-    <drools:ksession id="ksessionAllStateless" type="stateless" kbase="kbaseALL"/>  
-    
-    <drools:ksession id="ksessionAllStateful" type="stateful" kbase="kbaseALL"/>
+ <kie:kmodule id="kiemodule">
+    <kie:kbase name="BaseIncludeAllRules">
+ 		<kie:ksession name="ksessionAllStateless" type="stateless"/>
+ 		<kie:ksession name="ksessionAllStateful" type="stateful"/>
+    </kie:kbase>
+  </kie:kmodule>
+ 
+  <bean id="kiePostProcessor" 
+          class="org.kie.spring.KModuleBeanFactoryPostProcessor"/>
 </beans>

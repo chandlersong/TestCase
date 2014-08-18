@@ -19,29 +19,29 @@ import com.droolstuday.example.model.Sprinkler;
 @ContextConfiguration(locations = "classpath:DroolSessionAll.xml")
 public class StatefulAndStateless extends AbstractJUnit4SpringContextTests {
 
-	@Resource(name = "ksessionAllStateful")
-	private StatefulKnowledgeSession ksession;
+    @Resource(name = "ksessionAllStateful")
+    private StatefulKnowledgeSession ksession;
 
-	@Test
-	public void testStateful() {
-		String[] names = new String[] { "kitchen", "bedroom", "office", "livingroom" };
+    @Test
+    public void testStateful() {
+        String[] names = new String[] { "kitchen", "bedroom", "office", "livingroom" };
 
-		Map<String, Room> name2room = new HashMap<String, Room>();
+        Map<String, Room> name2room = new HashMap<String, Room>();
 
-		for (String name : names) {
+        for (String name : names) {
 
-			Room room = new Room(name);
+            Room room = new Room(name);
 
-			name2room.put(name, room);
+            name2room.put(name, room);
 
-			ksession.insert(room);
+            ksession.insert(room);
 
-			Sprinkler sprinkler = new Sprinkler(room);
+            Sprinkler sprinkler = new Sprinkler(room);
 
-			ksession.insert(sprinkler);
+            ksession.insert(sprinkler);
 
-		}
+        }
 
-		ksession.fireAllRules();
-	}
+        ksession.fireAllRules();
+    }
 }

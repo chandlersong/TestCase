@@ -67,10 +67,10 @@
 	      <version>${droolsVersion}</version>
 	    </dependency>
 	    <dependency>
-	         <groupId>org.drools</groupId>
-	         <artifactId>drools-spring</artifactId>
-	         <version>6.0.0.Beta2</version>
-	     </dependency>
+		  <groupId>org.kie</groupId>
+		  <artifactId>kie-spring</artifactId>
+		  <version>${droolsVersion}</version>
+		</dependency>
   </dependencies>
 
 </project>
