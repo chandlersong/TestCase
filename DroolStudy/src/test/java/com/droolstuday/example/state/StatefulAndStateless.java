@@ -1,4 +1,4 @@
-package com.droolstuday.example.basic;
+package com.droolstuday.example.state;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,13 +31,10 @@ public class StatefulAndStateless extends AbstractJUnit4SpringContextTests {
         for (String name : names) {
 
             Room room = new Room(name);
-
             name2room.put(name, room);
 
             ksession.insert(room);
-
             Sprinkler sprinkler = new Sprinkler(room);
-
             ksession.insert(sprinkler);
 
         }
