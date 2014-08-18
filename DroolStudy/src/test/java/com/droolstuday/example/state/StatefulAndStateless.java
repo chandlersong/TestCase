@@ -7,11 +7,13 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kie.api.runtime.rule.FactHandle;
 import org.kie.internal.runtime.StatefulKnowledgeSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.droolstuday.example.model.Fire;
 import com.droolstuday.example.model.Room;
 import com.droolstuday.example.model.Sprinkler;
 
@@ -38,6 +40,24 @@ public class StatefulAndStateless extends AbstractJUnit4SpringContextTests {
             ksession.insert(sprinkler);
 
         }
+
+        ksession.fireAllRules();
+
+        Fire kitchenFire = new Fire(name2room.get("kitchen"));
+
+        Fire officeFire = new Fire(name2room.get("office"));
+
+        FactHandle kitchenFireHandle = ksession.insert(kitchenFire);
+
+        FactHandle officeFireHandle = ksession.insert(officeFire);
+
+        ksession.fireAllRules();
+        
+        
+        ksession.delete( kitchenFireHandle );
+
+        ksession.delete( officeFireHandle );
+
 
         ksession.fireAllRules();
     }
