@@ -1,0 +1,26 @@
+package agenda
+import com.droolstuday.example.model.agenda.AgendaObject
+
+rule "salience rules1"
+salience 50
+when
+   $AgendaObject : AgendaObject( name == "salience" )
+then
+   System.out.println("salience 50");
+end
+
+rule "salience rules2"
+salience 0
+when
+  $AgendaObject : AgendaObject( name == "salience" )
+then
+   System.out.println("salience 0");
+end
+
+rule "salience rules3"
+salience -50
+when
+  $AgendaObject : AgendaObject( name == "salience" )
+then
+   System.out.println("salience -50");
+end
