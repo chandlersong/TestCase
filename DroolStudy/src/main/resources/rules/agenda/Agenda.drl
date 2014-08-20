@@ -24,3 +24,27 @@ when
 then
    System.out.println("salience -50");
 end
+
+rule "group rules1"
+agenda-group "group1"
+when
+   $AgendaObject : AgendaObject( name == "group" )
+then
+   System.out.println("group1 rules1");
+end
+
+rule "group rules2"
+agenda-group "group2"
+when
+   $AgendaObject : AgendaObject( name == "group" )
+then
+   System.out.println("group2 rules2");
+end
+
+rule "group rules3"
+agenda-group "group3"
+when
+   $AgendaObject : AgendaObject( name == "group" )
+then
+   System.out.println("group2 rules3");
+end
