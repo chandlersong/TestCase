@@ -4,32 +4,33 @@ import java.rmi.AlreadyBoundException;
 
 public class ExecutionParaBean implements ExecutionBean {
 
-	public void testAop() {
+    public Object testAop() {
 
+        return "ExecutionParaBean-testAop()";
+    }
 
-	}
+    public Object testAop(int throwexception) {
+        System.out.println("int");
+        return "ExecutionParaBean-testAop(throwexception)";
 
-	public void testAop(int throwexception) {
-	   System.out.println("int");
+    }
 
-	}
+    public String getValue() {
 
-	public String getValue() {
+        return null;
+    }
 
-		return null;
-	}
+    public String throwsException() throws AlreadyBoundException {
 
-	public String throwsException() throws AlreadyBoundException {
-		
-		return null;
-	}
+        return null;
+    }
 
-	public void testAop(int throwexception, String arg) {
-		System.out.println("int,string");
-	}
+    public void testAop(int throwexception, String arg) {
+        System.out.println("int,string");
+    }
 
-	public void testAop(int throwexception,double b) {
-		
-		System.out.println("int,double");
-	}
+    public void testAop(int throwexception, double b) {
+
+        System.out.println("int,double");
+    }
 }

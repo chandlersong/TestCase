@@ -42,7 +42,7 @@
 				advice
 			 -->		  
 			<aop:before pointcut-ref="testbefore" method="testbefore"/>
-			<aop:after-returning method="testafterreturning" pointcut-ref="testafterreturning"/>
+			<aop:after-returning method="testafterreturning" pointcut-ref="testafterreturning" returning="returnVal"/>
 			<aop:after-throwing  method="testthrow" pointcut-ref="testafterthrowing"/>
 			
 			<aop:after-throwing  method="testthrowcatch" 

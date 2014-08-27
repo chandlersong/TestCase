@@ -2,26 +2,28 @@ package org.springexample.aop.tagert.execution;
 
 public class ReturnValueBean implements ExecutionBean {
 
-	public void testAop() {
-		System.out.println("testAOP");
+    public Object testAop() {
+        System.out.println("testAOP");
+        return "ReturnValueBean-testAop()";
 
-	}
+    }
 
-	public void testAop(int throwexception) {
-		System.out.println("testAOP");
-	}
+    public Object testAop(int throwexception) {
+        System.out.println("testAOP");
+        return "ReturnValueBean-testAop(throwexception)";
+    }
 
-	public String getValue() {
-		
-		return "test return value";
-	}
+    public String getValue() {
 
-	public String throwsException(){
-		return null;
-	}
+        return "test return value";
+    }
 
-	public void testAop(int throwexception, String arg) {
-	
-	}
+    public String throwsException() {
+        return null;
+    }
+
+    public void testAop(int throwexception, String arg) {
+
+    }
 
 }

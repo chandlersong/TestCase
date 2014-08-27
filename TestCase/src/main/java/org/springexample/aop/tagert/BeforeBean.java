@@ -1,12 +1,13 @@
 package org.springexample.aop.tagert;
 
-public class BeforeBean implements TargetBean{
+public class BeforeBean implements TargetBean {
 
-	public void testAop(){
-		System.out.println("run method:test advice before");
-	}
+    public Object testAop() {
+        System.out.println("run method:test advice before");
+        return "BeforeBean-testAop()";
+    }
 
-	public void testAop(int throwexception) {
-	
-	}
+    public Object testAop(int throwexception) {
+        return "BeforeBean-testAop(throwexception)";
+    }
 }

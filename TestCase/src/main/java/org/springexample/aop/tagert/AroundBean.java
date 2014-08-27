@@ -2,19 +2,20 @@ package org.springexample.aop.tagert;
 
 public class AroundBean implements TargetBean {
 
-	public void testAop(){
-		System.out.println("run method:test around after");
-	}
+    public Object testAop() {
+        System.out.println("run method:test around after");
+        return "AroundBean-testAop()";
+    }
 
-	public void testAop(int throwexception) {
+    public Object testAop(int throwexception) {
 
-		if(throwexception==THROWEXCPTION){
-			throw new RuntimeException();
-		}
-		else if(throwexception==NOTTHROWEXCPTION){
-			this.testAop();
-		}
-		
-	}
+        if (throwexception == THROWEXCPTION) {
+            throw new RuntimeException();
+        }
+        else if (throwexception == NOTTHROWEXCPTION) {
+            this.testAop();
+        }
+        return "AroundBean-testAop(throwexception)";
+    }
 
 }
