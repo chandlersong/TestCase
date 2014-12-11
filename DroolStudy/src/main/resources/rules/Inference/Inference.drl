@@ -1,0 +1,21 @@
+import com.droolstuday.example.model.Person;
+import com.droolstuday.example.model.IsAdult;
+
+
+rule "print Adult"
+when
+  $p : Person()
+  IsAdult( p == $p )
+then
+  System.out.println($p.getName());
+end
+
+
+rule "Infer Adult"
+when
+  $p:Person( age >= 18 )
+then
+  insert(new IsAdult($p));
+end
+
+

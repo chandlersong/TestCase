@@ -76,6 +76,7 @@ public class BasicTest {
 
         InputStream inp = new FileInputStream(outputFile);
         Workbook wbNext = WorkbookFactory.create(inp);
+        inp.close();
         Sheet sheetNext = wbNext.getSheet("new sheet");
 
         Row row2 = sheetNext.createRow(sheetNext.getLastRowNum() + 1);

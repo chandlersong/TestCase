@@ -5,12 +5,13 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                           http://drools.org/schema/kie-spring http://drools.org/schema/kie-spring.xsd">
 
- <kie:kmodule id="kiemodule">
-    <kie:kbase name="Inference" packages="Inference" >
- 		<kie:ksession name="ksessionAllStateless" type="stateless"/>
- 		<kie:ksession name="ksessionAllStateful" type="stateful"/>
-    </kie:kbase>
+	<kie:kmodule id="kiemodule">
+	    <kie:kbase name="BaseIncludeAllRules" packages="agenda">
+	 		<kie:ksession name="ksessionAllStateless" type="stateless"/>
+	 		<kie:ksession name="ksessionAllStateful" type="stateful"/>
+	    </kie:kbase>
   </kie:kmodule>
+  
   <bean id="kiePostProcessor" 
           class="org.kie.spring.KModuleBeanFactoryPostProcessor"/>
 </beans>
