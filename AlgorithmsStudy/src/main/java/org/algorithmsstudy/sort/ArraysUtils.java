@@ -7,23 +7,23 @@ public class ArraysUtils {
     private static final String STRING_BLANK = " ";
     private Random r = new Random();
 
-    public int[] createRandomIntArrays(int length, int maxNumber) {
-        int[] result = new int[length];
+    public Integer[] createRandomIntArrays(int length, int maxNumber) {
+        Integer[] result = new Integer[length];
         for (int i = 0; i < length; i++) {
             result[i] = r.nextInt(maxNumber);
         }
         return result;
     }
 
-    public int[] createRandomIntArrays(int length) {
+    public Integer[] createRandomIntArrays(int length) {
         return createRandomIntArrays(length, Integer.MAX_VALUE);
     }
 
-    public int[] createRandomLittleIntArrays(int length) {
+    public Integer[] createRandomLittleIntArrays(int length) {
         return createRandomIntArrays(length, 1000);
     }
 
-    public String printIntArray(int[] array) {
+    public String printIntArray(Integer[] array) {
         StringBuffer printer = new StringBuffer();
 
         int length = array.length;

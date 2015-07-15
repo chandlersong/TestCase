@@ -11,7 +11,7 @@ public class InsertionSort {
     public void testSort() {
         logger.info("InsertionSort--testSort");
         int length = 10;
-        int[] array = arrayUtils.createRandomLittleIntArrays(length);
+        Integer[] array = arrayUtils.createRandomLittleIntArrays(length);
         logger.info("initial order:" + arrayUtils.printIntArray(array));
         for (int j = 1; j < length; j++) {
             int key = array[j];
