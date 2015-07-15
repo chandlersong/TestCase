@@ -34,4 +34,19 @@ public class ArraysUtils {
 
         return printer.toString();
     }
+
+    public <T> String printArray(Comparable<T>[] array) {
+        return printArray(array, 0, array.length);
+    }
+
+    public <T> String printArray(Comparable<T>[] array, int start, int end) {
+        StringBuffer printer = new StringBuffer();
+
+        for (int i = start; i < end; i++) {
+            printer.append(array[i].toString());
+            printer.append(STRING_BLANK);
+        }
+
+        return printer.toString();
+    }
 }
