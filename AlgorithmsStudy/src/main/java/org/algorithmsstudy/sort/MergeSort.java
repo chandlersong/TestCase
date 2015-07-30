@@ -15,7 +15,7 @@ public class MergeSort<T> {
     }
 
     private void sort(Comparable<T>[] array, int start, int end) {
-        if (start == end) {
+        if (start >= end) {
             return;
         }
         logger.info("MergeSort,initial:" + arrayUtls.printArray(array, start, end + 1) + ",start:" + start + ",end:"
