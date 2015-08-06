@@ -1,13 +1,14 @@
 package com.hilatest.mock.mockito;
 
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 import org.mockito.Mockito;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class MockitoExample {
 
@@ -35,7 +36,7 @@ public class MockitoExample {
     }
 
     @Test
-    public void testSpy(){
+    public void testSpy() {
         RealObject object = new RealObject();
         RealObject spy = Mockito.spy(object);
 
@@ -45,22 +46,36 @@ public class MockitoExample {
         spy.print();
     }
 
+    /*
+     * some times. when not work, need use the new way
+     */
     @Test
-    public void testNewObject(){
+    public void testSpy1() {
+        RealObject object = new RealObject();
+        RealObject spy = Mockito.spy(object);
+
+        String print = "real";
+
+        doReturn("mock").when(spy).test(print);
+
+        System.out.println(spy.test(print));
+        spy.print();
+    }
+
+    @Test
+    public void testNewObject() {
         RealObject mockObject = mock(RealObject.class);
         when(mockObject.getStrings()).thenReturn(new ArrayList<String>());
 
         mockObject.getStrings().add("aa");
 
-
         System.out.println(mockObject.getStrings().get(0));
 
     }
 
-
 }
 
-class RealObject{
+class RealObject {
 
     private List<String> strings;
 
@@ -72,11 +87,15 @@ class RealObject{
         this.strings = strings;
     }
 
-    public String test(){
+    public String test() {
         return "realMethod";
     }
 
-    public void print(){
+    public String test(Object print) {
+        return print.toString();
+    }
+
+    public void print() {
         System.out.println(test());
     }
 
