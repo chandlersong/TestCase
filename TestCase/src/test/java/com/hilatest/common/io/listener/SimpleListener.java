@@ -8,43 +8,49 @@ import org.apache.log4j.Logger;
 
 public class SimpleListener implements FileAlterationListener {
 
-	private static Logger logger = Logger.getLogger(SimpleListener.class);
-	
-	public void onStart(FileAlterationObserver observer) {
-		// TODO Auto-generated method stub
+    private static Logger logger = Logger.getLogger(SimpleListener.class);
 
-	}
+    @Override
+    public void onStart(FileAlterationObserver observer) {
 
-	public void onDirectoryCreate(File directory) {
-		logger.info(directory.toString()+" create");
+    }
 
-	}
+    @Override
+    public void onDirectoryCreate(File directory) {
+        logger.info(directory.toString() + " create");
 
-	public void onDirectoryChange(File directory) {
-		logger.info(directory.toString()+" change");
+    }
 
-	}
+    @Override
+    public void onDirectoryChange(File directory) {
+        logger.info(directory.toString() + " change");
 
-	public void onDirectoryDelete(File directory) {
-		logger.info(directory.toString()+" delete");
+    }
 
-	}
+    @Override
+    public void onDirectoryDelete(File directory) {
+        logger.info(directory.toString() + " delete");
 
-	public void onFileCreate(File file) {
-		logger.info(file.toString()+" create");
-	}
+    }
 
-	public void onFileChange(File file) {
-		logger.info(file.toString()+" change");
-	}
+    @Override
+    public void onFileCreate(File file) {
+        logger.info(file.toString() + " create");
+    }
 
-	public void onFileDelete(File file) {
-		logger.info(file.toString()+" delete");
-	}
+    @Override
+    public void onFileChange(File file) {
+        logger.info(file.toString() + " change");
+    }
 
-	public void onStop(FileAlterationObserver observer) {
-		// TODO Auto-generated method stub
+    @Override
+    public void onFileDelete(File file) {
+        logger.info(file.toString() + " delete");
+    }
 
-	}
+    @Override
+    public void onStop(FileAlterationObserver observer) {
+
+    }
 
 }

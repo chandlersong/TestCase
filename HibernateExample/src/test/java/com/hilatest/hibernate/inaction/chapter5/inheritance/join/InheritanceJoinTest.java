@@ -1,4 +1,3 @@
-
 package com.hilatest.hibernate.inaction.chapter5.inheritance.join;
 
 import java.util.Iterator;
@@ -18,8 +17,6 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * TODO: <br>
- * 1) find out how to make lazy in sub class work work
  * 
  * @author chandler.song
  */
@@ -41,19 +38,19 @@ public class InheritanceJoinTest extends AbstractJUnit4SpringContextTests {
         Transaction tx = session.beginTransaction();
 
         Message message = new Message("I'm super class");
-        Long msgId = (Long)session.save(message);
+        Long msgId = (Long) session.save(message);
         System.out.println("super message ID:" + msgId);
 
         RandomIntegerMessage randomIntegermessage = new RandomIntegerMessage();
         randomIntegermessage.setText("I'm super RandomIntegerMessage");
         randomIntegermessage.setRandomInteger(r.nextInt());
-        msgId = (Long)session.save(randomIntegermessage);
+        msgId = (Long) session.save(randomIntegermessage);
         System.out.println("randomIntegermessage messae ID:" + msgId);
 
         RandomStringMessage randomStringmessage = new RandomStringMessage();
         randomStringmessage.setText("I'm super RandomStringMessage");
         randomStringmessage.setRandomString(RandomStringUtils.randomAlphanumeric(10));
-        msgId = (Long)session.save(randomStringmessage);
+        msgId = (Long) session.save(randomStringmessage);
         System.out.println("randomStringmessage message ID:" + msgId);
 
         tx.commit();
@@ -67,18 +64,18 @@ public class InheritanceJoinTest extends AbstractJUnit4SpringContextTests {
         System.out.println(messages.size() + " message(s) found:");
 
         for (Iterator<?> iter = messages.iterator(); iter.hasNext();) {
-            Message loadedMsg = (Message)iter.next();
+            Message loadedMsg = (Message) iter.next();
             System.out.println("id:" + loadedMsg.getId() + ",Message" + loadedMsg.getText());
 
             if (loadedMsg instanceof RandomIntegerMessage) {
                 System.out.println("I'm a random interger Message, mine random integer:"
-                        + ((RandomIntegerMessage)loadedMsg).getRandomInteger());
+                        + ((RandomIntegerMessage) loadedMsg).getRandomInteger());
 
             }
 
             if (loadedMsg instanceof RandomStringMessage) {
                 System.out.println("I'm a random String Message, mine random String:"
-                        + ((RandomStringMessage)loadedMsg).getRandomString());
+                        + ((RandomStringMessage) loadedMsg).getRandomString());
 
             }
         }
