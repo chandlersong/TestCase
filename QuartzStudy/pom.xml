@@ -16,12 +16,14 @@
    <build>
 	   <resources>
 	      <resource>
-	        <directory>src\main\resources\spring</directory>
-	      </resource>
-	      <resource>
 	        <directory>src\main\resources\log4j</directory>
 	      </resource>
 	    </resources>
+	    <testResources>
+	    	<testResource>
+	    		<directory>src\test\resources\spring</directory>
+	    	</testResource>    
+	    </testResources>
   </build>
   
   <dependencies>
@@ -41,6 +43,10 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
