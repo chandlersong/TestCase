@@ -110,5 +110,6 @@
     <modules>
         <module>TestCase</module>
         <module>QuartzStudy</module>
+		<module>HibernateExample</module>
     </modules>
 </project>
