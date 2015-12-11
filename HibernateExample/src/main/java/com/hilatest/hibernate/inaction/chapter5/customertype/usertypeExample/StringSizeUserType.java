@@ -1,4 +1,3 @@
-
 package com.hilatest.hibernate.inaction.chapter5.customertype.usertypeExample;
 
 import java.io.Serializable;
@@ -7,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.usertype.UserType;
 
@@ -20,7 +20,7 @@ public class StringSizeUserType implements UserType {
      */
     public int[] sqlTypes() {
         return new int[] {
-            StandardBasicTypes.INTEGER.sqlType()
+                StandardBasicTypes.INTEGER.sqlType()
         };
     }
 
@@ -73,7 +73,7 @@ public class StringSizeUserType implements UserType {
         if (value == null) {
             st.setNull(index, StandardBasicTypes.BIG_DECIMAL.sqlType());
         } else {
-            StringSize ss = (StringSize)value;
+            StringSize ss = (StringSize) value;
             st.setInt(index, ss.getSize());
         }
 
@@ -88,7 +88,7 @@ public class StringSizeUserType implements UserType {
         StringSize ss = new StringSize();
 
         if (value instanceof StringSize) {
-            ss.setSize(((StringSize)value).getSize());
+            ss.setSize(((StringSize) value).getSize());
             return ss;
         }
         return value;
@@ -108,7 +108,7 @@ public class StringSizeUserType implements UserType {
      */
     public Serializable disassemble(Object value) throws HibernateException {
 
-        return ((StringSize)value).getSize();
+        return ((StringSize) value).getSize();
     }
 
     /**
@@ -119,7 +119,7 @@ public class StringSizeUserType implements UserType {
 
         if (cached instanceof Integer) {
             StringSize ss = new StringSize();
-            ss.setSize((Integer)cached);
+            ss.setSize((Integer) cached);
             return ss;
         }
 
@@ -134,6 +134,18 @@ public class StringSizeUserType implements UserType {
      */
     public Object replace(Object original, Object target, Object owner) throws HibernateException {
         return this.deepCopy(original);
+    }
+
+    public Object nullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner)
+            throws HibernateException, SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public void nullSafeSet(PreparedStatement st, Object value, int index, SessionImplementor session)
+            throws HibernateException, SQLException {
+        // TODO Auto-generated method stub
+
     }
 
 }

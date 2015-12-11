@@ -40,6 +40,7 @@
 			                                and args(throwexception)"/>         
 			<!-- 
 				advice
+						    <aop:after method="testafter" pointcut-ref="testafter"/>
 			 -->		  
 			<aop:before pointcut-ref="testbefore" method="testbefore"/>
 			<aop:after-returning method="testafterreturning" pointcut-ref="testafterreturning" returning="returnVal"/>
@@ -48,7 +49,7 @@
 			<aop:after-throwing  method="testthrowcatch" 
 			                     pointcut-ref="testafterthrowingcatch"
 			                     throwing="runtimeexception"/>
-			<aop:after method="testafter" pointcut-ref="testafter"/>
+	
 			<aop:around method="testAround" pointcut-ref="testaround"/>
 			<aop:around method="testParemter" pointcut-ref="testParameter"/>
 		</aop:aspect>

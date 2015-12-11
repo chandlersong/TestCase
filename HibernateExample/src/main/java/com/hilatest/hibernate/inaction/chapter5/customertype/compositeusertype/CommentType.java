@@ -1,4 +1,3 @@
-
 package com.hilatest.hibernate.inaction.chapter5.customertype.compositeusertype;
 
 import java.io.Serializable;
@@ -7,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.SessionImplementor;
+import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.Type;
 import org.hibernate.usertype.CompositeUserType;
@@ -43,15 +42,15 @@ public class CommentType implements CompositeUserType {
      * I think the property is kind of index
      */
     public Object getPropertyValue(Object component, int property) throws HibernateException {
-        Comment comment = (Comment)component;
+        Comment comment = (Comment) component;
 
         switch (property) {
-            case CONTENT_INDEX: {
-                return comment.getContent();
-            }
-            case TIMESTAMP_INDEX: {
-                return comment.getTime();
-            }
+        case CONTENT_INDEX: {
+            return comment.getContent();
+        }
+        case TIMESTAMP_INDEX: {
+            return comment.getTime();
+        }
 
         }
 
@@ -106,7 +105,7 @@ public class CommentType implements CompositeUserType {
             st.setNull(index, StandardBasicTypes.STRING.sqlType());
             st.setNull(index + 1, StandardBasicTypes.TIMESTAMP.sqlType());
         } else {
-            Comment comment = (Comment)value;
+            Comment comment = (Comment) value;
             st.setString(index, comment.getContent());
             st.setTimestamp(index + 1, comment.getTime());
         }
@@ -118,7 +117,7 @@ public class CommentType implements CompositeUserType {
 
         if (value instanceof Comment) {
 
-            Comment origin = (Comment)value;
+            Comment origin = (Comment) value;
 
             comment.setContent(origin.getContent());
             comment.setTime(origin.getTime());
@@ -133,7 +132,7 @@ public class CommentType implements CompositeUserType {
     }
 
     public Serializable disassemble(Object value, SessionImplementor session) throws HibernateException {
-        return ((Comment)value);
+        return ((Comment) value);
     }
 
     public Object assemble(Serializable cached, SessionImplementor session, Object owner) throws HibernateException {
