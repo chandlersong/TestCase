@@ -16,14 +16,14 @@
           parent="basicSessionFactory"> 
       <property name="mappingResources">
       	<array>
-      		<value>com/hilatest/hibernatetest/onetoone/map1/Address.hbm.xml</value>
-      		<value>com/hilatest/hibernatetest/onetoone/map1/Person.hbm.xml</value>
+      		<value>org/commmstudy/hibernate/relationship/onetoone/map1/Person.hbm.xml</value>
+      		<value>org/commmstudy/hibernate/relationship/onetoone/map1/Address.hbm.xml</value>
       	</array>
       </property>
    </bean> 
  
   <bean id="PersonDao"
-   	     class="com.hilatest.hibernatetest.onetoone.dao.PersonDaoImpl">
+   	     class="org.commmstudy.hibernate.relationship.onetoone.dao.PersonDaoImpl">
    	     <property name="sessionFactory" ref="sessionFactory"/>
    </bean> 
   

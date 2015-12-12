@@ -1,8 +1,7 @@
-package com.hilatest.hibernatetest.onetoone.dao;
+package org.commmstudy.hibernate.relationship.onetoone.dao;
 
+import org.commmstudy.hibernate.relationship.onetoone.entity.Person;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
-
-import com.hilatest.hibernatetest.onetoone.entity.Person;
 
 public class PersonDaoImpl extends HibernateDaoSupport implements PersonDao {
 

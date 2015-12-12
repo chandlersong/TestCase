@@ -1,12 +1,12 @@
-package com.hilatest.hibernatetest.onetoone.entity;
+package org.commmstudy.hibernate.relationship.onetoone.entity;
 
-public class Address {
+public class Person {
 
     private String id;
 
-    private Person person;
-
     private String name;
+
+    private Address address;
 
     public String getId() {
         return id;
@@ -14,14 +14,6 @@ public class Address {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
     }
 
     public String getName() {
@@ -32,10 +24,19 @@ public class Address {
         this.name = name;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((address == null) ? 0 : address.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
@@ -48,7 +49,12 @@ public class Address {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Address other = (Address) obj;
+        Person other = (Person) obj;
+        if (address == null) {
+            if (other.address != null)
+                return false;
+        } else if (!address.equals(other.address))
+            return false;
         if (name == null) {
             if (other.name != null)
                 return false;

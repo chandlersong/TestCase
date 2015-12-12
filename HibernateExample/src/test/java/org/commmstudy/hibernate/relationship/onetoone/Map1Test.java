@@ -1,8 +1,11 @@
-package com.hilatest.hibernatetest.onetoone;
+package org.commmstudy.hibernate.relationship.onetoone;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.commmstudy.hibernate.relationship.onetoone.dao.PersonDao;
+import org.commmstudy.hibernate.relationship.onetoone.entity.Address;
+import org.commmstudy.hibernate.relationship.onetoone.entity.Person;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -11,10 +14,6 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.hilatest.hibernatetest.onetoone.dao.PersonDao;
-import com.hilatest.hibernatetest.onetoone.entity.Address;
-import com.hilatest.hibernatetest.onetoone.entity.Person;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:hibernateTest_one_to_one_map1.xml")
