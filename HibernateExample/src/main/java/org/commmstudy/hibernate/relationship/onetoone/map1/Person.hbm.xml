@@ -4,7 +4,7 @@
 <!-- Generated Sep 26, 2012 11:57:36 AM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="org.commmstudy.hibernate.relationship.onetoone.entity.Person" 
-           table="ONE_TO_ONE_MAP1_PERSON"
+           table="RELATIONSHIP_ONE_TO_ONE_MAP1_PERSON"
            entity-name="Person">
         <id name="id" type="java.lang.String">
             <column name="ID" />

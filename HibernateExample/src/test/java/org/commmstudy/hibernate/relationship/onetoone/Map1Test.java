@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.commmstudy.hibernate.relationship.onetoone.dao.PersonDao;
 import org.commmstudy.hibernate.relationship.onetoone.entity.Address;
+import org.commmstudy.hibernate.relationship.onetoone.entity.EmailAddress;
 import org.commmstudy.hibernate.relationship.onetoone.entity.Person;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -46,6 +47,21 @@ public class Map1Test extends AbstractJUnit4SpringContextTests {
         for (int i = 0; i < 10; i++) {
             Address address = new Address();
             address.setName(RandomStringUtils.randomAlphanumeric(10));
+            Person person = new Person();
+            person.setName(RandomStringUtils.randomAlphanumeric(10));
+            person.setAddress(address);
+            address.setPerson(person);
+            persondao.savePerson(person);
+        }
+
+    }
+
+    @Test
+    public void testSaveSubClass() {
+
+        for (int i = 0; i < 10; i++) {
+            Address address = new EmailAddress(RandomStringUtils.randomAlphanumeric(10),
+                    RandomStringUtils.randomAlphanumeric(10));
             Person person = new Person();
             person.setName(RandomStringUtils.randomAlphanumeric(10));
             person.setAddress(address);

@@ -8,6 +8,14 @@ public class Address {
 
     private String name;
 
+    public Address() {
+    }
+
+    public Address(String name) {
+        super();
+        this.name = name;
+    }
+
     public String getId() {
         return id;
     }

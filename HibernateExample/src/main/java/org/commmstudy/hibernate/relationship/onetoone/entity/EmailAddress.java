@@ -4,6 +4,14 @@ public class EmailAddress extends Address {
 
     private String email;
 
+    public EmailAddress() {
+    }
+
+    public EmailAddress(String name, String email) {
+        super(name);
+        this.email = email;
+    }
+
     public String getEmail() {
         return email;
     }
