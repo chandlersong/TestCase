@@ -10,13 +10,26 @@
 	</bean>
 	
 		
-	<bean id="myJobTrigger"
+	<bean id="SimpleJobTrigger"
 		class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="MethodInvokingJobDetail" />
         <property name="repeatInterval" value="2000" />
 	</bean>
 
 	
-	<bean id="myJobDetail"
+    <bean name="SpringJobDetail" 	class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="org.commmstudy.quartz.job.SpringNormalJob" />
+		<property name="jobDataMap">
+			<map>
+				<entry key="value1" value="value1" />
+				<entry key="value2" value="value2" />
+			</map>
+		</property>
+		<property name="durability" value="true" />
+	</bean>
+	
+	
+	<bean id="MethodInvokingJobDetail"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject">
 			<ref bean="myJob" />
@@ -27,6 +40,6 @@
 	</bean>
 
 
-	<bean id="myJob" class="org.commmstudy.quartz.job.SpringJob" />
+	<bean id="myJob" class="org.commmstudy.quartz.job.SpringPOJOJob" />
 
 </beans>
