@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.commmstudy.hibernate.jpa.dao.PersonDao;
+import org.commmstudy.hibernate.jpa.dao.impl.PersonRepository;
 import org.commmstudy.hibernate.jpa.entity.EmailAddress;
 import org.commmstudy.hibernate.jpa.entity.Person;
 import org.junit.Test;
@@ -29,6 +30,23 @@ public class SimpleTest extends AbstractJUnit4SpringContextTests {
             personDAO.savePerson(person);
         }
     }
+
+    @Test
+    public void testSpringData() {
+        for (int i = 0; i < 10; i++) {
+            EmailAddress address = new EmailAddress();
+            address.setName(RandomStringUtils.randomAlphanumeric(10));
+            address.setEmailAddress(RandomStringUtils.randomAlphanumeric(10));
+            Person person = new Person();
+            person.setName(RandomStringUtils.randomAlphanumeric(10));
+            person.setAddress(address);
+            address.setPerson(person);
+            repository.save(person);
+        }
+    }
+
+    @Resource(name = "PersonRepositoryXX")
+    private PersonRepository repository;
 
     @Resource(name = "personDao")
     private PersonDao personDAO;
