@@ -19,10 +19,12 @@
 	
     <bean name="SpringJobDetail" 	class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass" value="org.commmstudy.quartz.job.SpringNormalJob" />
+		<property name="name" value="#{ T(java.util.UUID).randomUUID().toString()}"/>
+		<property name="group" value="testGroup"/>
 		<property name="jobDataMap">
 			<map>
 				<entry key="value1" value="value1" />
-				<entry key="value2" value="value2" />
+				<entry key="value2" value="valueX" />
 			</map>
 		</property>
 		<property name="durability" value="true" />
@@ -39,6 +41,8 @@
 		</property>
 	</bean>
 
+
+	<bean id="normalSpring" class="org.commmstudy.quartz.job.SpringPOJOJob" />
 
 	<bean id="myJob" class="org.commmstudy.quartz.job.SpringPOJOJob" />
 

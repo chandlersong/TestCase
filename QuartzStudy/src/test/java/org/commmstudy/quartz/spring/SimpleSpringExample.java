@@ -23,6 +23,7 @@ public class SimpleSpringExample extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void testPOJOJob() throws SchedulerException {
+
         sched.scheduleJob(job1, trigger);
 
         try {
@@ -40,7 +41,10 @@ public class SimpleSpringExample extends AbstractJUnit4SpringContextTests {
         SimpleTrigger trigger1 = TriggerBuilder.newTrigger().withIdentity("trigger1", "group1").startAt(startTime)
                 .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(5).withRepeatCount(5))
                 .build();
+        System.out.println("before key:" + job2.getKey());
+
         sched.scheduleJob(job2, trigger1);
+        System.out.println("after key:" + job2.getKey());
         try {
             // sleep for ten minutes for triggers to file....
             Thread.sleep(600L * 1000L);
