@@ -136,5 +136,7 @@
         <module>TestCase</module>
         <module>QuartzStudy</module>
 		<module>HibernateExample</module>
+        <module>JIBXStudy</module>
+        <module>LuceneStudy</module>
     </modules>
 </project>
