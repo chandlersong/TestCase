@@ -6,10 +6,10 @@
   http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
   <persistence-unit name="testPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>org.commmstudy.hibernate.jpa.entity.Person</class>
     <class>org.commmstudy.hibernate.jpa.entity.Address</class>
     <class>org.commmstudy.hibernate.jpa.entity.EmailAddress</class>
-    <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <properties>
         <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
         <property name="hibernate.hbm2ddl.auto" value="update" />
