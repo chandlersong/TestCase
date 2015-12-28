@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<binding>
+  <mapping name="person" class="org.commmstudy.jibx.codefirst.entity.Person">
+	    <value name="name" field="name"/>
+	    <value name="age" field="age"/>
+  </mapping>
+</binding>

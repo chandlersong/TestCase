@@ -10,6 +10,7 @@
   
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jibx.version>1.2.6</jibx.version>
   </properties>
   
    <build>
@@ -17,12 +18,40 @@
 	      <resource>
 	        <directory>src\main\resources\log4j</directory>
 	      </resource>
+	      <resource>
+	        <directory>src\main\resources\jibx</directory>
+	      </resource>
 	    </resources>
 	    <testResources>
 	    	<testResource>
 	    		<directory>src\test\resources\spring</directory>
 	    	</testResource>    
 	    </testResources>
+  		<plugins>
+	      <plugin>
+	        <groupId>org.jibx</groupId>
+	        <artifactId>jibx-maven-plugin</artifactId>
+	        <version>1.2.6</version>
+	        <configuration>
+	          <schemaBindingDirectory>src\main\resources\jibx</schemaBindingDirectory>
+	          <includeSchemaBindings>
+	            <includeSchemaBindings>*-binding.xml</includeSchemaBindings>
+	          </includeSchemaBindings>
+	          <verbose>true</verbose>
+	        </configuration>
+	        <executions>
+	          <execution><goals><goal>bind</goal></goals></execution>
+	        </executions>
+	      </plugin>
+	      <plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-compiler-plugin</artifactId>
+	        <configuration>
+	          <source>1.7</source>
+	          <target>1.7</target>
+	        </configuration>
+	      </plugin>
+    </plugins>
   </build>
   
   <dependencies>
@@ -51,5 +80,15 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
+            <dependency>
+	      <groupId>org.jibx</groupId>
+	      <artifactId>jibx-run</artifactId>
+	      <version>1.2.6</version>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.jibx</groupId>
+	      <artifactId>jibx-extras</artifactId>
+	      <version>1.2.6</version>
+	    </dependency>
    </dependencies>
 </project>
