@@ -83,6 +83,11 @@ public class StringTest {
         result = target.split(",");
         System.out.println("split ',':");
         PrintUtils.printArray(result);
+
+        target = "a.b";
+        result = target.split("\\.");
+        System.out.println("split '.'");
+        PrintUtils.printArray(result);
     }
 
     @Test
