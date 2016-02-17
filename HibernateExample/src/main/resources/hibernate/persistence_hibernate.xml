@@ -8,7 +8,7 @@
   <persistence-unit name="testPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <mapping-file>orm_jpa_hibernate.xml</mapping-file> 
-    <class>com.hilatest.hibernate.inaction.chapter1.Message</class>
+  
     <properties>
         <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
         <property name="hibernate.hbm2ddl.auto" value="update" />
