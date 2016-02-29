@@ -41,6 +41,9 @@
             <resource>
                 <directory>src\main\resources\jibx</directory>
             </resource>
+            <resource>
+                <directory>src\main\resources\xml</directory>
+            </resource>
         </resources>
         <pluginManagement>
             <plugins>
