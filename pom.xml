@@ -138,5 +138,6 @@
 		<module>HibernateExample</module>
         <module>JIBXStudy</module>
         <module>LuceneStudy</module>
+        <module>JeseryStudy</module>
     </modules>
 </project>
