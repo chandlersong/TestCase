@@ -79,3 +79,7 @@ def kwonly(a, *b, c):
 kwonly(1, 2, c=3)  # 1 (2,) 3
 kwonly(a=1, c=3)  # 1 () 3
 # kwonly(1, 2, 3)  ypeError: kwonly() missing 1 required keyword-only argument: 'c'
+
+
+import sys
+print(sys.getrecursionlimit())  # get how deep the function stack
