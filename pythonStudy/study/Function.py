@@ -76,10 +76,25 @@ print(tracer(func, 1, 2, c=3, d=4))
 def kwonly(a, *b, c):
     print(a, b, c)
 
+
 kwonly(1, 2, c=3)  # 1 (2,) 3
 kwonly(a=1, c=3)  # 1 () 3
 # kwonly(1, 2, 3)  ypeError: kwonly() missing 1 required keyword-only argument: 'c'
 
 
 import sys
+
 print(sys.getrecursionlimit())  # get how deep the function stack
+
+
+def gensquares(N):
+    for i in range(N):
+        yield i ** 2  # yield is like return a array. which each i**2 is it's element
+
+
+for i in gensquares(5):  # Resume the function
+    print(i, end=' : ')  # Print last yielded value
+
+x = gensquares(3)
+print(x)
+print(next(x))
