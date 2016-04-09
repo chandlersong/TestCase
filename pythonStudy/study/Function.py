@@ -98,3 +98,5 @@ for i in gensquares(5):  # Resume the function
 x = gensquares(3)
 print(x)
 print(next(x))
+
+print((x ** 2 for x in range(5))) # Generator expression: make an iterable
