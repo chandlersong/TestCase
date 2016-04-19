@@ -7,8 +7,16 @@
 	<bean id="TestExample"
 		class="sourcecode.springexample.test.TestObject"
 		init-method="inital"
-		scope="prototype">
-		
-		
+		scope="prototype">	
+	</bean>
+	
+	
+	<!-- it can't use  scope==prototype, because it will cause circle reference
+		 if you have to reference self and prototype, I think it can use factory here
+	-->
+	<bean id="InjectSelf"
+		class="sourcecode.springexample.test.InjectSelf"
+		>	
+		<property name="self" ref="InjectSelf"/>
 	</bean>
 </beans>
