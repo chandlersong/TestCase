@@ -127,3 +127,77 @@ series2 = Series(range(3), index=['b', 'e', 'f'])
 print(frame + series2)
 series3 = frame['d']
 print(frame.sub(series3, axis=0))
+
+'''
+function and reflection
+'''
+
+frame = DataFrame(np.random.randn(4, 3),
+                  columns=list('bde'),
+                  index=['Utah', 'Ohio', 'Texas', 'Oregon'])
+print(frame)
+print(np.abs(frame))
+
+f = lambda x: x.max() - x.min()
+print(frame.apply(f))
+print(frame.apply(f, axis=1))
+
+
+def f(x):
+    return Series([x.min(), x.max()], index=['min', 'max'])
+
+
+print(frame.apply(f))
+print(frame.apply(f, axis=1))
+
+# how to format
+format = lambda x: '%.2f' % x
+print(frame.applymap(format))
+print(frame['e'].map(format))
+
+'''
+sort and order
+'''
+obj = Series(range(4), index=['d', 'a', 'b', 'c'])
+print(obj.sort_index())
+
+frame = DataFrame(np.arange(8).reshape((2, 4)),
+                  index=['three', 'one'],
+                  columns=['d', 'a', 'b', 'c'])
+print(frame.sort_index())
+print(frame.sort_index(axis=1))
+print(frame.sort_index(axis=1, ascending=False))
+
+obj = Series([4, 7, -3, -2])
+print(obj.sort_values())
+obj = Series([4, np.nan, 7, np.nan, -3, -2])
+print(obj.sort_values())
+
+frame = DataFrame({'b': [4, 7, -3, 2], 'a': [0, 1, 0, 1]})
+print(frame)
+print(frame.sort_values(by='b'))
+print(frame.sort_values(by=['a', 'b']))
+
+# rank
+obj = Series([7, -5, 7, 4, 2, 0, 4])
+print(obj.rank())
+print(obj.rank(method='first'))
+print(obj.rank(method='max', ascending=False))
+
+frame = DataFrame({'b': [4.3, 7, -3, 2], 'a': [0, 1, 0, 1], 'c': [-2, 5, 8, -2.5]})
+print(frame)
+print(frame.rank(axis=1))
+
+'''
+duplicate index
+'''
+obj = Series(range(5), index=['a', 'a', 'b', 'b', 'c'])
+print(obj)
+print(obj.index.is_unique)
+print(obj['a'])
+print(obj['c'])
+
+df = DataFrame(np.random.randn(4, 3),
+               index=['a', 'a', 'b', 'b'])
+print(df)
+print(df.ix['b'])
