@@ -58,7 +58,7 @@ print(frame2)
 print(frame2.columns)
 print(frame2['state'])
 print(frame2.year)
-print(frame2.ix('three'))
+print(frame2.ix['three'])
 
 frame2['debt'] = 16.5
 print(frame2)
