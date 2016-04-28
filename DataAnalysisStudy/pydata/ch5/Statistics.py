@@ -1,6 +1,6 @@
 from pandas import Series, DataFrame
 import pandas as pd
-import pandas.io.data as web
+import pandas_datareader.data as web
 import numpy as np
 
 df = DataFrame([[1.4, np.nan], [7.1, -4.5], [np.nan, np.nan], [0.75, -1.3]],
