@@ -16,7 +16,7 @@ parsed = pd.read_csv('csv_mindex.csv', index_col=['key1', 'key2'])
 print(parsed)
 
 print(pd.read_table('ex3.txt', sep='\s+'))
-print(pd.read_table('ex4.csv', skiprows=[0, 2, 3]))
+print(pd.read_table('ex4.csv', skiprows=[0, 2, 3]))  
 
 result = pd.read_csv('ex5.csv')
 print(result)
