@@ -1,3 +1,4 @@
+from pandas import DataFrame,Series
 import pandas as pd
 
 df = pd.read_csv('ex1.csv')
@@ -23,4 +24,17 @@ print(pd.isnull(result))
 print(pd.read_csv('ex5.csv', na_values=['NULL']))
 
 sentinel = {'message': ['foo', 'NA'], 'something': 'two'}
-print(pd.read_csv('ex5.csv',na_values=sentinel))
+print(pd.read_csv('ex5.csv', na_values=sentinel))
+
+result = pd.read_csv('ex6.csv')
+print(result)
+print(pd.read_csv('ex6.csv', nrows=5))
+
+chunker = pd.read_csv('ex6.csv',chunksize=1000)
+print(chunker)
+
+tot = Series([])
+for piece in chunker:
+    tot = tot.add(piece['key'].value_counts(),fill_value=0)
+tot = tot.sort_values(ascending=False)
+print(tot)
