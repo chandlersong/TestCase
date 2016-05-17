@@ -64,8 +64,8 @@ by_ind = port.groupby(industries)
 exposures = by_ind.apply(beta_exposure, factors=factors)
 print(exposures.unstack())
 
-data = web.get_data_yahoo('SPY', '2006-01-01')
-print(data)
+data = web.get_data_yahoo('SPY', '2006-01-01','2012-07-27')
+
 
 px = data['Adj Close']
 returns = px.pct_change()
@@ -79,29 +79,30 @@ def to_index(rets):
 
 
 def trend_signal(rets, lookback, lag):
-    signal = Series.rolling(rets, lookback, min_periods=lookback - 5).sum()
+    signal = Series.rolling(rets, lookback, min_periods=lookback - 5).std()
     return signal.shift(lag)
 
 
 signal = trend_signal(returns, 100, 3)
-print(signal)
-trade_friday = signal.resample('W-FRI')
-trade_friday = trade_friday.resample('B').ffill()
-print(trade_friday)
+
+trade_friday = signal.resample('W-FRI').mean().resample('B')
+
 trade_rets = trade_friday.shift(1) * returns
 
 to_index(trade_rets).plot()
 
 print('block')
 
-vol = pd.rolling_std(returns, 250, min_periods=200) * np.sqrt(250)
+vol = Series.rolling(returns, 250, min_periods=200).std() * np.sqrt(250)
 
-
+vol  = vol.reindex(trade_rets.index)
 def shape(rets, ann=250):
     return rets.mean() / rets.std() * np.sqrt(ann)
-
 print(trade_rets)
-print(pd.qcut(vol, 4))
+print(len(data))
+print(len(trade_rets))
+print(len(pd.qcut(vol, 4)))
 
 
-# print(trade_rets.groupby(pd.qcut(vol, 4)).agg(shape))
+
+print(trade_rets.groupby(pd.qcut(vol, 4)).agg(shape))
