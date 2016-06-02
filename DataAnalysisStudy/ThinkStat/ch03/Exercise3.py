@@ -11,11 +11,9 @@ firsts = lives[lives.birthord == 1]
 others = lives[lives.birthord != 1]
 
 others_mean = others['prglngth'].groupby(others['caseid']).mean()
-others_mean = others_mean.rename('other')
 print(others_mean)
 firsts = firsts[['prglngth']].set_index(firsts['caseid'])
-firsts = firsts.rename(columns={'prglngth':'first'})
-total = pd.concat([firsts, others_mean], axis=1,join='inner')
+total = pd.concat([firsts, others_mean], axis=1,join='inner',keys=['first','other'])
 
 total['diff'] = total['first']-total['other']
 
