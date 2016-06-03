@@ -8,7 +8,7 @@ array =Series( [random.random() for _ in range(1000)])
 pmf = array.value_counts()
 print(pmf)
 
-pmf.plot(kind='bar',linewidth=0.1)
+pmf.hist(bins=50)
 plt.show()
 
 cdf = array.sort_values()
