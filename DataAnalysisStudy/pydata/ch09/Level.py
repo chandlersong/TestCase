@@ -40,10 +40,25 @@ tips['tip_pct'] = tips['tip'] / tips['total_bill']
 def top(df, n=5, column='tip_pct'):
     return df.sort_values(by=column)[-n:]
 
+print("test apply")
 
+
+
+def printGroupBy(groupby):
+    for name, group in groupby:
+        print(name)
+        print(group)
+
+print("show smoker group by")
+smoker_groupby = tips.groupby('smoker')
+printGroupBy(smoker_groupby)
 print(top(tips, n=6))
-print(tips.groupby('smoker').apply(top))
-print(tips.groupby(['smoker', 'day']).apply(top, n=1, column='total_bill'))
+
+print(smoker_groupby.apply(top))
+print("show smoker day group by")
+smoker_day_groupby = tips.groupby(['smoker', 'day'])
+printGroupBy(smoker_day_groupby)
+print(smoker_day_groupby.apply(top, n=1, column='total_bill'))
 
 result = tips.groupby('smoker')['tip_pct'].describe()
 print(result)
