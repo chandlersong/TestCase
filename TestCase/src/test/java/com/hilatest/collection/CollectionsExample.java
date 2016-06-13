@@ -11,10 +11,10 @@ import org.junit.Test;
 
 import junit.framework.Assert;
 
-public class BinarySearchExample {
+public class CollectionsExample {
 
     @Test
-    public void testMockWork() {
+    public void testBinarySearch() {
 
         int searchA = 88;
 
@@ -40,6 +40,33 @@ public class BinarySearchExample {
         System.out.println("special Item");
         System.out.println("index:" + index);
         System.out.println(itemList.get(index));
+    }
+
+    /**
+     * 1)the max won't change the order
+     */
+    @Test
+    public void testMax() {
+
+        int searchA = 101;
+
+        List<Item> itemList = new ArrayList<Item>();
+        Item specialItem = new Item(searchA, RandomStringUtils.randomAlphanumeric(10));
+        itemList.add(specialItem);
+        Random r = new Random();
+        for (int i = 0; i < 10; i++) {
+            itemList.add(new Item(r.nextInt(100), RandomStringUtils.randomAlphanumeric(10)));
+        }
+
+        ItemComparator c = new ItemComparator();
+        Collections.sort(itemList, c);
+
+        Item max = Collections.max(itemList, c);
+        Assert.assertEquals(searchA, max.getA());
+
+        for (Item item : itemList) {
+            System.out.println(item);
+        }
     }
 }
 
