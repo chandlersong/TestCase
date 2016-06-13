@@ -5,13 +5,16 @@ from scipy import stats
 from intervals import FloatInterval
 
 
-
 class MeanTest(unittest.TestCase):
-
-    def testCalculateMeanConfidenceInterval(self):
-        data = pandas.read_excel('mean_1.xlsx').age
+    def testCalculateMeanConfidenceIntervalLarge(self):
+        data = pandas.read_excel('mean_large.xlsx').age
         expected = FloatInterval.closed(37.4, 41.6)
-        self.assertEqual(expected,sampler.calculate_mean_confidence_interval(data))
+        self.assertEqual(expected, sampler.calculate_mean_confidence_interval_large(data))
+
+    def testCalculateMeanConfidenceIntervalSmall(self):
+        data = pandas.read_excel('mean_smaller.xlsx').age
+        expected = FloatInterval.closed(1476.8, 1503.2)
+        self.assertEqual(expected, sampler.calculate_mean_confidence_interval_small(data))
 
 
 if __name__ == '__main__':
