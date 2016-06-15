@@ -16,6 +16,12 @@ class MeanTest(unittest.TestCase):
         expected = FloatInterval.closed(1476.8, 1503.2)
         self.assertEqual(expected, sampler.calculate_mean_confidence_interval_small(data))
 
+class PercentageTest(unittest.TestCase):
+    def testCalculatePercentageConfidenceIntervalLarge(self):
+        expected = FloatInterval.closed(0.5565, 0.7435)
+        self.assertEqual(expected, sampler.calculate_percent_confidence_interval_large(0.65,100))
+
+
 
 if __name__ == '__main__':
     unittest.main()
