@@ -22,6 +22,11 @@ class PercentageTest(unittest.TestCase):
         self.assertEqual(expected, sampler.calculate_percent_confidence_interval_large(0.65,100))
 
 
-
+class VarTest(unittest.TestCase):
+    def testCalculatePercentageConfidenceIntervalLarge(self):
+        data = pandas.read_excel('var_test.xlsx').weight
+        expected = FloatInterval.closed(56.83, 180.39)
+        self.assertEqual(expected, sampler.calculate_Var_confidence_interval_large(data))
+        
 if __name__ == '__main__':
     unittest.main()
