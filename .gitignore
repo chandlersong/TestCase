@@ -19,3 +19,7 @@ logs
 __pycache__
 
 .ipynb_checkpoints
+/HibernateExample/.dbeaver-data-sources.xml
+/HibernateExample/Scripts/Script-1.sql
+/HibernateExample/Scripts/Script-2.sql
+/HibernateExample/.dbeaver-data-sources.xml
