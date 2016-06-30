@@ -30,8 +30,12 @@ search topic: Sharing common pointcut definitions
 		<aop:aspect ref="otheraspect" id="argaspectaop">
 			<aop:pointcut expression="@annotation(org.springexample.aop.tagert.annotation.ClassExample)" 
 			                      id="testWithInClassAnnotation"/>
-			                      		
+			   
+			<aop:pointcut expression="@annotation(org.springexample.aop.tagert.annotation.AnationWithPara)" 
+			                      id="testWithPara"/>
+			                                         		
 			<aop:before method="withInClassAnnotation" pointcut-ref="testWithInClassAnnotation"/>
+			<aop:around method="aroundAndWithPara" pointcut-ref="testWithPara"/>
 		</aop:aspect>
 	</aop:config>
 	
