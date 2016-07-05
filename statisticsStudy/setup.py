@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name='statisticsStudy',
     version='',
-    packages=['src'],
+    packages=['statisticsstudy'],
     url='',
     license='BSD',
     author='Chandler',

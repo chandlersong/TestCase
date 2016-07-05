@@ -1,6 +1,6 @@
 import unittest
 import pandas
-import src.sampler as sampler
+import statisticsstudy.sampler as sampler
 from scipy import stats
 from intervals import FloatInterval
 

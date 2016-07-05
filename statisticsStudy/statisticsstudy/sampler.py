@@ -35,3 +35,4 @@ def calculate_Var_confidence_interval_large(series, confidence_interval=0.95):
     rv = chi2(count - 1)
     alpha = 1 - confidence_interval
     return FloatInterval.closed(round(upper / rv.isf(alpha / 2), 2), round(upper / rv.isf(1 - alpha / 2), 2))
+
