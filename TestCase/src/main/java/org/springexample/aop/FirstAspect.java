@@ -62,15 +62,17 @@ public class FirstAspect extends BasicBean {
         this.Success();
     }
 
-    public void testAround(ProceedingJoinPoint pjp) {
+    public Object testAround(ProceedingJoinPoint pjp) {
 
         try {
             System.out.println("test around advice");
             Object result = pjp.proceed();
             System.out.println("result:" + result);
             System.out.println("finish around advice");
+            return result;
         } catch (Throwable e) {
             System.out.println("catch exception");
+            return null;
         }
     }
 

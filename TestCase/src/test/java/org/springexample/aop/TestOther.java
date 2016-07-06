@@ -29,6 +29,6 @@ public class TestOther extends SpringTestBasic {
                                                                    WithInClassAnnotationBean.class);
         System.out.println(bean.getClass());
 
-        bean.testWithPara();
+        bean.testWithPara("ok");
     }
 }

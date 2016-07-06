@@ -11,7 +11,7 @@ public class WithInClassAnnotationBean {
     }
 
     @AnationWithPara(name = "abc")
-    public void testWithPara() {
+    public void testWithPara(String message) {
 
     }
 }

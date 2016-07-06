@@ -14,6 +14,13 @@ public class OtherAspect {
     }
 
     public void aroundAndWithPara(ProceedingJoinPoint pjp) throws Throwable {
+
+        Object[] paras = pjp.getArgs();
+
+        for (Object para : paras) {
+            System.out.println(para);
+        }
+
         MethodSignature signature = (MethodSignature) pjp.getSignature();
         System.out.println("Aspect:aroundAndWithPara");
         Method method = signature.getMethod();
