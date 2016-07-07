@@ -1,7 +1,7 @@
 from pandas import DataFrame
 from scipy.stats import f, t
 import math
-
+import numpy as np
 
 class SingleAnalysisVariance:
     def __init__(self, data):
@@ -67,3 +67,60 @@ class SingleAnalysisVariance:
         statics_df['var'] = data.var()
         statics_df['sumdiff'] = data.var() * (statics_df['count'] - 1)
         return statics_df
+
+
+class TwoFactorIsolatedAnalysisVariance:
+    def __init__(self,data):
+        self.r = data.shape[1]
+        self.k = data.shape[0]
+        self.calculate_error_value(data)
+        columnAnalysis = SingleAnalysisVariance(data)
+        self.c_ss =columnAnalysis.between_group_ss
+        self.c_ms = columnAnalysis.ms_between_group
+        self.c_f = columnAnalysis.f
+        self.c_statistics_info = columnAnalysis.statistics_info
+        self.c_f_distribute = f(self.r - 1, (self.r - 1)*(self.k - 1))
+        self.c_p_value = self.c_f_distribute.sf(self.c_f)
+
+        lineAnalysis = SingleAnalysisVariance(data.T)
+        self.l_ss = lineAnalysis.between_group_ss
+        self.l_ms = lineAnalysis.ms_between_group
+        self.l_f = lineAnalysis.f
+        self.l_statistics_info = lineAnalysis.statistics_info
+        self.l_f_distribute = f(self.k - 1, (self.r - 1) * (self.k - 1))
+        self.l_p_value = self.l_f_distribute.sf(self.l_f)
+
+
+    def printInfo(self,alpha = 0.05):
+        print("r:" + str(self.r))
+        print("k:" + str(self.k))
+
+        print("line ss:" + str(self.l_ss))
+        print("line ms:" + str(self.l_group))
+        print("line f:" + str(self.l_f))
+        print("line p value:" + str(self.l_p_value))
+        print("line f crit:" + str(self.get_l_f_crit(alpha)))
+
+        print("column between group ss:" + str(self.c_ss))
+        print("column ms between group:" + str(self.c_group))
+        print("column f:" + str(self.c_f))
+        print("column p value:" + str(self.c_p_value))
+        print("columnne f crit:" + str(self.get_c_f_crit(alpha)))
+
+    def get_l_f_crit(self, alpha=0.05):
+        return self.l_f_distribute.isf(alpha)
+
+    def get_c_f_crit(self, alpha = 0.05):
+        return self.c_f_distribute.isf(alpha)
+
+    def calculate_error_value(self,data):
+        total_mean = data.sum().sum() /  data.notnull().sum().sum()
+        c_mean=data.apply(np.mean,broadcast=True)
+        l_mean=data.T.apply(np.mean,broadcast=True).T
+        self.e_ss = ((data-c_mean-l_mean+total_mean)**2).sum().sum()
+        self.e_ms =  self.e_ss/(( self.r-1)* ( self.k -1))
+
+        def getGroup(group):
+            return group.mean()
+        print(data.apply(getGroup))
+
