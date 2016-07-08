@@ -1,5 +1,6 @@
 from unittest import TestCase
 from pandas import DataFrame
+import math
 from statsstudy.ANOVA import TwoFactorIsolatedAnalysisVariance
 
 
@@ -14,4 +15,4 @@ class TestTwoFactorIsolatedAnalysisVariance(TestCase):
         })
         target = TwoFactorIsolatedAnalysisVariance(data)
         self.assertEqual(2872.70, round(target.e_ss, 2))
-        self.assertEqual(2011.70, round(target.e_ms, 2))
+        self.assertEqual(239.39169999999999, round(target.e_ms, 4))
