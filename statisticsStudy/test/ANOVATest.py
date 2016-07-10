@@ -1,7 +1,7 @@
 from unittest import TestCase
 from pandas import DataFrame
 import math
-from statsstudy.ANOVA import TwoFactorIsolatedAnalysisVariance
+from statsstudy.ANOVA import TwoFactorNonRepeatAnalysisVariance
 
 
 class TestTwoFactorIsolatedAnalysisVariance(TestCase):
@@ -13,6 +13,6 @@ class TestTwoFactorIsolatedAnalysisVariance(TestCase):
             "item4": [340, 330, 343, 260],
             "item5": [323, 333, 308, 298]
         })
-        target = TwoFactorIsolatedAnalysisVariance(data)
+        target = TwoFactorNonRepeatAnalysisVariance(data)
         self.assertEqual(2872.70, round(target.e_ss, 2))
         self.assertEqual(239.39169999999999, round(target.e_ms, 4))

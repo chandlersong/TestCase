@@ -2,6 +2,7 @@ from pandas import DataFrame
 from scipy.stats import f, t
 import math
 import numpy as np
+import pandas as pd
 
 class SingleAnalysisVariance:
     def __init__(self, data):
@@ -69,7 +70,7 @@ class SingleAnalysisVariance:
         return statics_df
 
 
-class TwoFactorIsolatedAnalysisVariance:
+class TwoFactorNonRepeatAnalysisVariance:
     def __init__(self,data):
         self.r = data.shape[1]
         self.k = data.shape[0]
@@ -124,3 +125,7 @@ class TwoFactorIsolatedAnalysisVariance:
         self.e_ss = ((data-c_mean-l_mean+total_mean)**2).sum().sum()
         self.e_ms =  self.e_ss/(( self.r-1)* ( self.k -1))
 
+
+class TwoFactorRepeatAnalysisVariance:
+    def __init__(self, data,repeat):
+        self.t = repeat
