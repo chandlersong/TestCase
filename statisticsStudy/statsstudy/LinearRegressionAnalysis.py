@@ -11,8 +11,14 @@ class LinearRegression:
         """
         self.x = df.iloc[:, column_x - 1]
         self.y = df.iloc[:, column_y - 1]
+        self.y_return = None
         self.beta1 = np.nan
         self.beta0 = np.nan
+        self.sst = np.nan
+        self.ssr = np.nan
+        self.sse = np.nan
+        self.r_square = np.nan
+        self.std_e = np.nan
 
     def calculate_correlation_coefficient(self):
         return self.x.corr(self.y)
@@ -44,6 +50,49 @@ class LinearRegression:
         self.belta1 = (((self.x - x_mean) * (self.y - y_mean)).sum()) / (((self.x - x_mean) ** 2).sum())
         return self.belta1
 
+    def calculate_y_return(self):
+        if self.y_return is not None:
+            return self.y_return
+        self.y_return = self.x * self.calculate_Beta1() + self.calculate_Beta0()
+        return self.y_return
+
+    def calculate_sst(self):
+        if not math.isnan(self.sst):
+            return self.sst
+        self.sst = ((self.y - self.y.mean()) ** 2).sum()
+        return self.sst
+
+    def calculate_ssr(self):
+        if not math.isnan(self.ssr):
+            return self.ssr
+
+        y_return = self.calculate_y_return()
+
+        self.ssr = ((y_return - self.y.mean()) ** 2).sum()
+        return self.ssr
+
+    def calculate_sse(self):
+        if not math.isnan(self.sse):
+            return self.sse
+
+        y_return = self.calculate_y_return()
+
+        self.sse = ((self.y - y_return) ** 2).sum()
+        return self.sse
+
+    def calculate_r_square(self):
+        if not math.isnan(self.r_square):
+            return self.r_square
+        self.r_square = self.calculate_ssr() / self.calculate_sst()
+        return  self.r_square
+
+    def calculate_std_e(self):
+        if not math.isnan(self.std_e):
+            return self.std_e
+        n = self.x.count()
+        self.std_e = math.sqrt(self.calculate_sse()/(n-2))
+        return self.std_e
+
     def plot(self, x_axis_text='x', y_axis_text='y'):
         plt.plot(self.x, self.y, 'ro')
 
@@ -54,7 +103,6 @@ class LinearRegression:
         x_value = [0, x_axis_max]
         y_value = [self.calculate_Beta0(), beta1 * x_axis_max + beta0]
         plt.plot(x_value, y_value)
-
 
         plt.ylabel(x_axis_text)
         plt.xlabel(y_axis_text)
