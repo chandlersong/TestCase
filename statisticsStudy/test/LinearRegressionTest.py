@@ -13,13 +13,13 @@ class TestHowToUseTools(TestCase):
 class TestLinearRegression(TestCase):
     def setUp(self):
         self.test_data = pd.read_excel("test_corr.xlsx")
-        self.example = LinearRegression(self.test_data)
+        self.example = LinearRegression(self.test_data,2,3)
 
     def test_calculate_correlation_coefficient(self):
-        self.assertEqual(0.93062731871456383,self.example.calculate_correlation_coefficient(2,3))
+        self.assertEqual(0.93062731871456394,self.example.calculate_correlation_coefficient())
 
     def test_is_linear_regression(self):
-        self.assertTrue(self.example.is_linear_regression(2,3))
+        self.assertTrue(self.example.is_linear_regression())
 
 if __name__ == '__main__':
     unittest.main()
