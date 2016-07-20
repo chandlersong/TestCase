@@ -36,6 +36,8 @@ class TestLinearRegression(TestCase):
         self.assertEqual(2357061.1099625197, self.target.calculate_sse())
         self.assertEqual(0.86606720633785894, self.target.calculate_r_square())
         self.assertEqual(361.86715717561634, self.target.calculate_std_e())
+        self.assertEqual(116.3957630377421,self.target.calculate_f_value())
+        self.assertEqual(True, self.target.do_f_verification())
         pass
 
 

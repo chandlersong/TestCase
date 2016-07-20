@@ -1,7 +1,7 @@
 import math
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.stats import t
+from scipy.stats import t,f
 
 
 class LinearRegression:
@@ -19,6 +19,21 @@ class LinearRegression:
         self.sse = np.nan
         self.r_square = np.nan
         self.std_e = np.nan
+        self.f_value = np.nan
+
+    def calculate_f_value(self):
+        if not math.isnan(self.f_value):
+            return self.f_value
+
+        msr = self.calculate_ssr() / 1
+        mse = self.calculate_sse() / (self.x.count() - 2)
+        self.f_value = msr / mse
+        return self.f_value
+
+    def do_f_verification(self,alpha=0.05):
+        f_value = self.calculate_f_value()
+        f_function = f(1,self.x.count() - 2)
+        return f_value  > f_function.ppf(0.05)
 
     def calculate_correlation_coefficient(self):
         return self.x.corr(self.y)
@@ -84,13 +99,13 @@ class LinearRegression:
         if not math.isnan(self.r_square):
             return self.r_square
         self.r_square = self.calculate_ssr() / self.calculate_sst()
-        return  self.r_square
+        return self.r_square
 
     def calculate_std_e(self):
         if not math.isnan(self.std_e):
             return self.std_e
         n = self.x.count()
-        self.std_e = math.sqrt(self.calculate_sse()/(n-2))
+        self.std_e = math.sqrt(self.calculate_sse() / (n - 2))
         return self.std_e
 
     def plot(self, x_axis_text='x', y_axis_text='y'):
