@@ -2,6 +2,7 @@ from unittest import TestCase
 import pandas as pd
 import unittest
 import math
+from intervals import FloatInterval
 from statsstudy.LinearRegressionAnalysis import LinearRegression
 
 class TestHowToUseTools(TestCase):
@@ -40,6 +41,11 @@ class TestLinearRegression(TestCase):
         self.assertEqual(True, self.target.do_f_verification())
         pass
 
+    def test_interval(self):
+        self.assertEqual(FloatInterval.closed(4.1317,6.13001), self.target.calculate_beta_1_interval())
+        self.assertEqual(FloatInterval.closed(-4.9130, 554.01347), self.target.calculate_beta_0_interval())
+        self.assertEqual(FloatInterval.closed(260.13241, 750.745), self.target.calculate_confidence_interval(45))
+        self.assertEqual(FloatInterval.closed(-293.41195,1304.28935), self.target.calculate_prediction_interval(45))
 
 if __name__ == '__main__':
     unittest.main()
