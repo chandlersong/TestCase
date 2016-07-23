@@ -24,6 +24,26 @@ class LinearRegression:
         self.std_e = np.nan
         self.f_value = np.nan
         self.t_distribute = None
+        self.e = None
+        self.z = None
+
+    def calculate_e(self):
+        if self.e is not None:
+            return self.e
+        y_i = self.x*self.calculate_Beta1()+self.calculate_Beta0()
+        self.e = self.y -y_i
+        return self.e
+
+    def calculate_z(self):
+        if self.z is not None:
+            return self.z
+        self.z = self.calculate_e()/self.calculate_std_e()
+        return self.z
+
+    def e_is_normalize(self,percent=0.95):
+        less_than_two = self.calculate_z() < 2
+        value = less_than_two.count()/self.x.count()
+        return value > percent
 
     def calculate_t_distribute(self):
         if self.t_distribute is not None:
@@ -161,6 +181,18 @@ class LinearRegression:
         y_value = [self.calculate_Beta0(), beta1 * x_axis_max + beta0]
         plt.plot(x_value, y_value)
 
+        plt.ylabel(x_axis_text)
+        plt.xlabel(y_axis_text)
+        plt.show()
+
+    def plot_e(self, x_axis_text='x', y_axis_text='y'):
+        plt.plot(self.x, self.calculate_e(), 'ro')
+        plt.ylabel(x_axis_text)
+        plt.xlabel(y_axis_text)
+        plt.show()
+
+    def plot_z(self, x_axis_text='x', y_axis_text='y'):
+        plt.plot(self.x, self.calculate_z(), 'ro')
         plt.ylabel(x_axis_text)
         plt.xlabel(y_axis_text)
         plt.show()

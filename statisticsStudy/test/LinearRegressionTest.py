@@ -29,6 +29,8 @@ class TestLinearRegression(TestCase):
 
     def test_plot(self):
         # self.target.plot()
+        # self.target.plot_e()
+        self.target.plot_z()
         pass
 
     def test_fit(self):
@@ -46,6 +48,10 @@ class TestLinearRegression(TestCase):
         self.assertEqual(FloatInterval.closed(-4.9130, 554.01347), self.target.calculate_beta_0_interval())
         self.assertEqual(FloatInterval.closed(260.13241, 750.745), self.target.calculate_confidence_interval(45))
         self.assertEqual(FloatInterval.closed(-293.41195,1304.28935), self.target.calculate_prediction_interval(45))
+
+    def test_e_normalize(self):
+        self.assertTrue(self.target.e_is_normalize())
+
 
 if __name__ == '__main__':
     unittest.main()
