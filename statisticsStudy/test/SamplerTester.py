@@ -7,7 +7,7 @@ from intervals import FloatInterval
 class MeanTest(unittest.TestCase):
     def testCalculateMeanConfidenceIntervalLarge(self):
         data = pandas.read_excel('mean_large.xlsx').age
-        expected = FloatInterval.closed(37.4, 41.6)
+        expected = FloatInterval.closed(37.3689326757, 41.6310673243)
         self.assertEqual(expected, sampler.calculate_mean_confidence_interval_large(data))
 
     def testCalculateMeanConfidenceIntervalSmall(self):
