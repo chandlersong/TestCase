@@ -2731,7 +2731,7 @@ def Smooth(xs, sigma=2, **options):
 
 
 class HypothesisTest(object):
-    """Represents a hypothesis test."""
+    """Represents a hypothesis unittest."""
 
     def __init__(self, data):
         """Initializes.
@@ -2745,7 +2745,7 @@ class HypothesisTest(object):
         self.test_cdf = None
 
     def PValue(self, iters=1000):
-        """Computes the distribution of the test statistic and p-value.
+        """Computes the distribution of the unittest statistic and p-value.
 
         iters: number of iterations
 
@@ -2759,12 +2759,12 @@ class HypothesisTest(object):
         return count / iters
 
     def MaxTestStat(self):
-        """Returns the largest test statistic seen during simulations.
+        """Returns the largest unittest statistic seen during simulations.
         """
         return max(self.test_stats)
 
     def PlotCdf(self, label=None):
-        """Draws a Cdf with vertical lines at the observed test stat.
+        """Draws a Cdf with vertical lines at the observed unittest stat.
         """
         def VertLine(x):
             """Draws a vertical line at x."""
@@ -2774,7 +2774,7 @@ class HypothesisTest(object):
         thinkplot.Cdf(self.test_cdf, label=label)
 
     def TestStatistic(self, data):
-        """Computes the test statistic.
+        """Computes the unittest statistic.
 
         data: data in whatever form is relevant        
         """
