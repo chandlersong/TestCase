@@ -25,3 +25,5 @@ __pycache__
 /HibernateExample/.dbeaver-data-sources.xml
 
 /statisticsStudy/build
+
+/DataAnalysisStudy/test/TuShare/tk.csv
