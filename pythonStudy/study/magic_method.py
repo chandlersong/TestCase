@@ -15,3 +15,7 @@ class MagicExample(TestCase):
         c = C()
         c.not_exist(1,a=True)
         c.not_exist(1)
+
+
+if __name__ == '__main__':
+    unittest.main()
