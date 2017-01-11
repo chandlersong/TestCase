@@ -34,6 +34,14 @@ class TestDataFrameExample(TestCase):
         print(self.example)
         print(self.example.index)
 
+    def test_to_json_orient(self):
+        print(self.example)
+        self.example.to_json("to_json_orient_index.json",orient="index")
+        self.example.to_json("to_json_orient_split.json", orient="split")
+        self.example.to_json("to_json_orient_records.json", orient="index")
+        self.example.to_json("to_json_orient_columns.json", orient="columns")
+        self.example.to_json("to_json_orient_values.json", orient="values")
+
 
 if __name__ == '__main__':
     unittest.main()
