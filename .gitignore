@@ -27,3 +27,4 @@ __pycache__
 /statisticsStudy/build
 
 /DataAnalysisStudy/test/TuShare/tk.csv
+/DataAnalysisStudy/test/TuShare/*.json
