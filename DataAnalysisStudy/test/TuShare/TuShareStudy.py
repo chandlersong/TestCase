@@ -5,6 +5,11 @@ import tushare as ts
 
 
 class TestFundamentalDataInfo(TestCase):
+
+    def setUp(self):
+        print(ts.__version__)
+
+
     def test_stock_basic(self):
         df = ts.get_stock_basics()
         df.to_json("to_json_orient_index.json", orient="index")
