@@ -25,6 +25,17 @@ class TestBasic(TestCase):
         self.session.add(ed_user)
         self.session.commit()
 
+    def test_update(self):
+        ed_user = BasicUser(name='ed', fullname='Ed Jones', password='edspassword')
+        print(ed_user)
+        self.session.add(ed_user)
+        print(ed_user.id)
+        self.session.commit()
+
+        ed_user.password = "newPassword"
+
+        self.session.commit()
+
 
 class BasicUser(Base):
     __tablename__ = "basic_user"
