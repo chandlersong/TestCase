@@ -28,3 +28,4 @@ __pycache__
 
 /DataAnalysisStudy/test/TuShare/tk.csv
 /DataAnalysisStudy/test/TuShare/*.json
+config.properties
