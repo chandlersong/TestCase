@@ -6,10 +6,9 @@ from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy import create_engine
+from sqlalchemy import event
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.ext.declarative import synonym_for
-from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy.orm import sessionmaker, synonym
+from sqlalchemy.orm import sessionmaker
 
 path = "config.properties"
 Base = declarative_base()
@@ -26,7 +25,10 @@ class TestExpressions(TestCase):
     def test_hello_world(self):
         ed_user = ExpressionUser(firstname='ed', lastname='Ed Jones')
         self.session.add(ed_user)
+        ed_user._fullname = "bb"
         self.session.commit()
+        for instance in self.session.query(ExpressionUser):
+            print(instance)
 
 
 class ExpressionUser(Base):
@@ -35,20 +37,33 @@ class ExpressionUser(Base):
     firstname = Column(String(50))
     lastname = Column(String(50))
 
-    fullname = Column("fullname", String)
-    _fullname = synonym("_fullname", map_column=True)
+    _fullname = Column("fullname", String)
 
     @property
-    def _fullname(self):
+    def fullname(self):
         return "aa"
 
-    @_fullname.setter
-    def _fullname(self, fullname):
+    @fullname.setter
+    def fullname(self, fullname):
         print(fullname)
 
 
+"""
+event refer to
+    http://docs.sqlalchemy.org/en/latest/orm/events.html
+    and
+    http://docs.sqlalchemy.org/en/latest/orm/session_events.html
+"""
+@event.listens_for(ExpressionUser, 'before_update')
+@event.listens_for(ExpressionUser, 'before_insert')
+def set_user_fullname(apper, connection, target):
+    print(target.fullname)
+    target._fullname = target.fullname
 
 
+@event.listens_for(ExpressionUser, 'load')
+def receive_load(target, context):
+    target.fullname = "load called"
 
 
 if __name__ == '__main__':
