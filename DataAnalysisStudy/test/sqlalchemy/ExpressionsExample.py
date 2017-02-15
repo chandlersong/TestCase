@@ -35,17 +35,27 @@ class TestExpressions(TestCase):
         for instance in self.session.query(ExpressionUser):
             print(instance)
 
+    def test_Inheritance(self):
+        ed_user = ExpressionSubUser(firstname='ed', lastname='Ed Jones')
+        self.session.add(ed_user)
+        print(ed_user.firstname)
+        self.session.commit()
+
 
 class ExpressionUser(Base):
     __tablename__ = 'expressions_user'
+
     id = Column(Integer, primary_key=True)
     firstname = Column(String(50))
     lastname = Column(String(50))
-
     _fullname = Column("fullname", String)
+    type = Column(String(20))
 
-    def __init__(self, another_property="aa", *args, **kwargs):
-        self.__another_property = another_property
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'A'
+    }
+
 
     @property
     def fullname(self):
@@ -62,6 +72,12 @@ class ExpressionUser(Base):
     @another_property.setter
     def another_property(self, another_property):
         print("another_property")
+
+
+class ExpressionSubUser(ExpressionUser):
+    __mapper_args__ = {
+        'polymorphic_identity': 'B'
+    }
 
 
 """
