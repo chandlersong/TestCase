@@ -8,6 +8,7 @@ from sqlalchemy import String
 from sqlalchemy import create_engine
 from sqlalchemy import event
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import reconstructor
 from sqlalchemy.orm import sessionmaker
 
 path = "config.properties"
@@ -38,7 +39,6 @@ class TestExpressions(TestCase):
     def test_Inheritance(self):
         ed_user = ExpressionSubUser(firstname='ed', lastname='Ed Jones')
         self.session.add(ed_user)
-        print(ed_user.firstname)
         self.session.commit()
 
 
@@ -56,6 +56,10 @@ class ExpressionUser(Base):
         'polymorphic_identity': 'A'
     }
 
+    @reconstructor
+    def init_on_load(self):
+        print("reconstructor hock")
+        print(self._fullname)
 
     @property
     def fullname(self):
@@ -95,7 +99,7 @@ def set_user_fullname(apper, connection, target):
     print(target.fullname)
 
 
-@event.listens_for(ExpressionUser, 'load')
+#@event.listens_for(ExpressionUser, 'load')
 def receive_load(target, context):
     target.fullname = "load called"
 
