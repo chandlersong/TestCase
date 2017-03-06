@@ -22,7 +22,7 @@ class TestSingleTable(TestCase):
         self.session = sessionmaker(bind=self.engine)()
 
     def test_save_manager(self):
-        mananger = SingleTableManager(name="test1",manager_data="bb")
+        mananger = SingleTableManager(name="test1", manager_data="bb")
         self.session.add(mananger)
         self.session.commit()
 
