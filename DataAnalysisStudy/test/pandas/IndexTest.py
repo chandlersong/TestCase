@@ -39,6 +39,16 @@ class TestMulitIndex(TestCase):
 
         print(df)
 
+    def test_create_index_df(self):
+        df = pd.DataFrame([["one","one",1],
+                          ["one", "two", 2],
+                          ["two", "one", 3],
+                          ["two", "two", 4],
+                          ["three", "one", 5],
+                          ["three", "one", 6]],
+                          columns=['a','b','c'])
+        print(df)
+        print(df.set_index(["a","b"]))
 
 
 
