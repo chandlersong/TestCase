@@ -48,5 +48,10 @@ class ArrayTest(TestCase):
         print(new_array)
         print(new_array.dtype)
 
+    def test_array_creation(self):
+        print("np.array([['a', 'b'], ['c', 'd']])")
+        print(np.array([['a','b'],['c','d']]))
+        print("np.array(['a',['a', 'b'], ['c', 'd']],dtype=object)")
+        print(np.array(["a",['a', 'b'], ['c', 'd']],dtype=object))
 if __name__ == '__main__':
     unittest.main()
