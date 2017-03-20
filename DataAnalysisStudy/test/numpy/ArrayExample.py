@@ -29,5 +29,24 @@ class ArrayTest(TestCase):
         print("np.vstack((a[:,newaxis],b[:,newaxis]))")
         print(np.vstack((a[:,newaxis],b[:,newaxis])))
 
+    def test_array_test(self):
+        empty_array = np.empty(0)
+
+        print("empty array:")
+        print(empty_array)
+
+        new_array = np.append(empty_array, [1])
+
+        print("new array:")
+        print(new_array)
+        print(new_array.dtype)
+        print("empty array:")
+        print(empty_array)
+
+        new_array = np.append(new_array, [[2,2],3])
+        print("new array:")
+        print(new_array)
+        print(new_array.dtype)
+
 if __name__ == '__main__':
     unittest.main()
