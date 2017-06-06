@@ -1,5 +1,6 @@
 package com.hilatest.security.chapter6.md5;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -16,7 +17,7 @@ public class md5example extends SuperTestCase {
     public static final String KEY_ALGORITHM = "MD5";
 
     @Test
-    public void sunImplement() throws NoSuchAlgorithmException {
+    public void sunImplement() throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
         System.out.println("sun implment MD5");
         MessageDigest md = MessageDigest.getInstance(KEY_ALGORITHM);
@@ -24,7 +25,8 @@ public class md5example extends SuperTestCase {
         String input = "md5";
 
         byte[] result = md.digest(input.getBytes());
-
+        Hex.encodeHexString(result);
+        System.out.println(new String(result));
         System.out.println(Hex.encodeHexString(result));
     }
 
