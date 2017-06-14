@@ -2,12 +2,12 @@ import configparser
 import unittest
 from unittest import TestCase
 
-from sqlalchemy import Integer, Column, create_engine, orm
+from sqlalchemy import Integer, Column, create_engine, orm, ForeignKey
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.ext.mutable import MutableDict
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, relationship
 
 path = "config.properties"
 Base = declarative_base()
@@ -38,16 +38,16 @@ class HyBridClass(Base):
     __tablename__ = "hybrid_user"
     id = Column(Integer, primary_key=True)
     info = Column(MutableDict.as_mutable(JSONB))
+    parent_id = Column(Integer, ForeignKey('hybrid_user.id'))
+    children = relationship("HyBridClass",
+                            lazy="joined",
+                            join_depth=2)
 
     def __init__(self, **kwargs):
         if self.info is None:
             self.info = {}
         Base.__init__(self, **kwargs)
 
-    @orm.reconstructor
-    def init_on_load(self):
-        if self.info is None:
-            self.info = {}
 
     @hybrid_property
     def first_name(self):
