@@ -1,5 +1,6 @@
 package com.hilatest.hibernate.inaction.chapter1;
 
+@org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE)
 public class Message {
 
     private Long id;
