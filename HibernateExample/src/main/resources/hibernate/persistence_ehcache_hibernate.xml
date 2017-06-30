@@ -23,6 +23,8 @@
 	
 		<property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>
 		<property name="hibernate.generate_statistics" value="true"/>
+		<property name="org.hibernate.cache.ehcache.configurationResourceName" value="ehcache.xml"/>
+		
     </properties>
   </persistence-unit>
 
