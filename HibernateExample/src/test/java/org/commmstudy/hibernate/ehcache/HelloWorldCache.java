@@ -52,6 +52,19 @@ public class HelloWorldCache {
     }
 
     @Test
+    public void save() {
+
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        Message m1 = new Message();
+        m1.setText("hibernateTest");
+        em.persist(m1);
+        em.getTransaction().commit();
+        printStats(1);
+
+    }
+
+    @Test
     public void testSearch() {
         EntityManager em = entityManagerFactory.createEntityManager();
         em.getTransaction().begin();
