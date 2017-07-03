@@ -5,6 +5,7 @@
   xmlns:tx="http://www.springframework.org/schema/tx" 
   xmlns:p="http://www.springframework.org/schema/p"
   xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+  xmlns:cache="http://www.springframework.org/schema/cache" 
   xsi:schemaLocation="http://www.springframework.org/schema/beans
   http://www.springframework.org/schema/beans/spring-beans.xsd
   http://www.springframework.org/schema/context
@@ -12,10 +13,12 @@
   http://www.springframework.org/schema/tx 
   http://www.springframework.org/schema/tx/spring-tx.xsd
   http://www.springframework.org/schema/data/jpa
-  http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+  http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+  http://www.springframework.org/schema/cache
+  http://www.springframework.org/schema/cache/spring-cache.xsd">
 
   <tx:annotation-driven />
-  
+  <cache:annotation-driven cache-manager="cacheManager"/>  
   <jpa:repositories base-package="org.commmstudy.hibernate.jpa.dao.impl.message"/>
   <context:component-scan base-package="org.commmstudy.hibernate.jpa.dao.impl" />
   
@@ -36,5 +39,13 @@
   <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
     <property name="entityManagerFactory" ref="entityManagerFactory" />
   </bean>
+
+	<bean id="ehcache"
+	      class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+	      p:shared="true"/>
+	
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+         <property name="cacheManager" ref="ehcache"/>
+     </bean>
 
 </beans>

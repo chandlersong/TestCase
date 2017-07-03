@@ -23,6 +23,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.hilatest.hibernate.inaction.chapter1.Message;
 
+import net.sf.ehcache.CacheManager;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:ehcache_jpa_hibernate.xml")
 public class HelloWorldCache {
@@ -120,6 +122,9 @@ public class HelloWorldCache {
 
     @Resource(name = "messageRepository")
     private MessageRepository repository;
+
+    @Resource(name = "ehcache")
+    private CacheManager cacheManager;
 
     private Statistics stats;
 
