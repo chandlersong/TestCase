@@ -23,6 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.hilatest.hibernate.inaction.chapter1.Message;
 
+import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -82,6 +83,42 @@ public class HelloWorldCache {
         query.getResultList();
         em.getTransaction().commit();
         printStats(2);
+
+        String[] cacheNames = cacheManager.getCacheNames();
+        for (String cacheName : cacheNames) {
+            logger.info("cache :" + cacheName);
+        }
+    }
+
+    @Test
+    public void detectiveCache() {
+        printCachePool("before search");
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        Query query = em.createQuery("from " + Message.class.getName());
+        query.setHint("org.hibernate.cacheable", true);
+        query.getResultList();
+        em.getTransaction().commit();
+        printStats(1);
+        printCachePool("after search");
+    }
+
+    public void printCachePool(String tag) {
+        logger.info("***** " + tag + " *****");
+        String[] cacheNames = cacheManager.getCacheNames();
+        for (String cacheName : cacheNames) {
+            logger.info("cache :" + cacheName);
+
+            Cache cache = cacheManager.getCache(cacheName);
+            logger.info("cache :" + cache.getSize());
+            logger.info("print keys :");
+
+            List<Object> keys = cache.getKeys();
+            for (Object key : keys) {
+                logger.info("keyclass:" + key.getClass() + ",key value" + key);
+            }
+        }
+        logger.info("***********************");
     }
 
     private void printStats(int i) {
@@ -110,6 +147,8 @@ public class HelloWorldCache {
         EntityManagerFactoryImpl emfImp = (EntityManagerFactoryImpl) emf;
         stats = emfImp.getSessionFactory().getStatistics();
         stats.setStatisticsEnabled(true);
+
+        System.out.println(cacheManager);
     }
 
     @Resource(name = "entityManagerFactory")
