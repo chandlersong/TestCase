@@ -25,6 +25,7 @@ import com.hilatest.hibernate.inaction.chapter1.Message;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.statistics.StatisticsGateway;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:ehcache_jpa_hibernate.xml")
@@ -111,11 +112,14 @@ public class HelloWorldCache {
 
             Cache cache = cacheManager.getCache(cacheName);
             logger.info("cache :" + cache.getSize());
+            StatisticsGateway statics = cache.getStatistics();
+            logger.info("Local Heap  Size:" + statics.getLocalHeapSize());
             logger.info("print keys :");
 
             List<Object> keys = cache.getKeys();
             for (Object key : keys) {
                 logger.info("keyclass:" + key.getClass() + ",key value" + key);
+                ;
             }
         }
         logger.info("***********************");
