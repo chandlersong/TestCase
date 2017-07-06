@@ -151,8 +151,6 @@ public class HelloWorldCache {
         EntityManagerFactoryImpl emfImp = (EntityManagerFactoryImpl) emf;
         stats = emfImp.getSessionFactory().getStatistics();
         stats.setStatisticsEnabled(true);
-
-        System.out.println(cacheManager);
     }
 
     @Resource(name = "entityManagerFactory")

@@ -5,12 +5,13 @@ import javax.persistence.Cacheable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Cacheable
 public class Message {
 
     private Long id;
     private String text;
+    private String tag;
     private Message nextMessage;
 
     public Message() {
@@ -34,6 +35,14 @@ public class Message {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public Message getNextMessage() {

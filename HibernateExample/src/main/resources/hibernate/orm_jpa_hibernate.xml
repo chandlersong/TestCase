@@ -13,6 +13,9 @@
         <property name="text" type="java.lang.String">
             <column name="TEXT" />
         </property>
+        <property name="tag" type="java.lang.String">
+            <column name="Tag" />
+        </property>
         <many-to-one
 			name="nextMessage"
 			cascade="all"
