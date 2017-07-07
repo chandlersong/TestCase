@@ -12,6 +12,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.commmstudy.hibernate.jpa.dao.MessageDao;
 import org.commmstudy.hibernate.jpa.dao.impl.message.MessageRepository;
+import org.commmstudy.hibernate.utils.MonitorPrinter;
 import org.hibernate.SessionFactory;
 import org.hibernate.jpa.HibernateEntityManagerFactory;
 import org.hibernate.jpa.internal.EntityManagerFactoryImpl;
@@ -25,9 +26,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.hilatest.hibernate.inaction.chapter1.Message;
 
-import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.statistics.StatisticsGateway;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:ehcache_jpa_hibernate_wirte_behind.xml")
@@ -51,36 +50,6 @@ public class WriteBehindExample {
         saveLatch.await();
         updateLatch.await();
         logger.info("finish  import");
-    }
-
-    private void printStats(String tag) {
-        logger.info("***** " + tag + " *****");
-
-        logger.info("enabled="
-                + stats.isStatisticsEnabled());
-        logger.info("TransactionCount="
-                + stats.getTransactionCount());
-        logger.info("Fetch Count="
-                + stats.getEntityFetchCount());
-        logger.info("Second Level Hit Count="
-                + stats.getSecondLevelCacheHitCount());
-        logger.info("Second Level Miss Count="
-                + stats.getSecondLevelCacheMissCount());
-        logger.info("Second Level Put Count="
-                + stats.getSecondLevelCachePutCount());
-    }
-
-    public void printCachePool(String tag) {
-        logger.info("***** " + tag + " *****");
-        Cache cache = cacheManager.getCache("com.hilatest.hibernate.inaction.chapter1.Message");
-        logger.info("cache :" + cache.getSize());
-        StatisticsGateway statics = cache.getStatistics();
-        logger.info("Local Heap  Size:" + statics.getLocalHeapSize());
-        logger.info("Size:" + statics.getSize());
-        logger.info("Writer Queue Length Size:" + statics.getWriterQueueLength());
-        logger.info("print keys :");
-
-        logger.info("***********************");
     }
 
     @Before
@@ -158,20 +127,25 @@ class MonitorThread implements Runnable {
 
     private Statistics stats;
 
+    private MonitorPrinter monitorPrinter = new MonitorPrinter();
+
     public MonitorThread(CountDownLatch latch, CacheManager cacheManager, Statistics stats) {
         super();
 
         this.latch = latch;
         this.cacheManager = cacheManager;
         this.stats = stats;
+        monitorPrinter.setDefaultCacheManager(cacheManager);
+        monitorPrinter.setDefaultStats(stats);
     }
 
     @Override
     public void run() {
         int index = 0;
         while (latch.getCount() != 0) {
-            printStats(String.valueOf(index));
-            printCachePool(String.valueOf(index));
+            monitorPrinter.printStats(String.valueOf(index));
+            monitorPrinter.printCachePool(String.valueOf(index),
+                                          "com.hilatest.hibernate.inaction.chapter1.Message");
             index++;
             try {
                 Thread.sleep(2000);
@@ -180,36 +154,6 @@ class MonitorThread implements Runnable {
                 e.printStackTrace();
             }
         }
-    }
-
-    private void printStats(String tag) {
-        logger.info("***** " + tag + " *****");
-
-        logger.info("enabled="
-                + stats.isStatisticsEnabled());
-        logger.info("TransactionCount="
-                + stats.getTransactionCount());
-        logger.info("Fetch Count="
-                + stats.getEntityFetchCount());
-        logger.info("Second Level Hit Count="
-                + stats.getSecondLevelCacheHitCount());
-        logger.info("Second Level Miss Count="
-                + stats.getSecondLevelCacheMissCount());
-        logger.info("Second Level Put Count="
-                + stats.getSecondLevelCachePutCount());
-    }
-
-    public void printCachePool(String tag) {
-        logger.info("***** " + tag + " *****");
-        Cache cache = cacheManager.getCache("com.hilatest.hibernate.inaction.chapter1.Message");
-        logger.info("cache :" + cache.getSize());
-        StatisticsGateway statics = cache.getStatistics();
-        logger.info("Local Heap  Size:" + statics.getLocalHeapSize());
-        logger.info("Size:" + statics.getSize());
-        logger.info("Writer Queue Length Size:" + statics.getWriterQueueLength());
-        logger.info("print keys :");
-
-        logger.info("***********************");
     }
 
 }

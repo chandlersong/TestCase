@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import org.apache.log4j.Logger;
 import org.commmstudy.hibernate.jpa.dao.MessageDao;
 import org.commmstudy.hibernate.jpa.dao.impl.message.MessageRepository;
+import org.commmstudy.hibernate.utils.MonitorPrinter;
 import org.hibernate.SessionFactory;
 import org.hibernate.jpa.HibernateEntityManagerFactory;
 import org.hibernate.jpa.internal.EntityManagerFactoryImpl;
@@ -23,9 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.hilatest.hibernate.inaction.chapter1.Message;
 
-import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.statistics.StatisticsGateway;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:ehcache_jpa_hibernate.xml")
@@ -43,15 +42,15 @@ public class HelloWorldCache {
         Message m1 = new Message();
         m1.setText("hibernateTest");
         Message id = repository.save(m1);
-        printStats(1);
+        monitorPrinter.printStats("1");
         List<Message> m2 = repository.findByText("hibernateTest");
-        printStats(2);
+        monitorPrinter.printStats("2");
         Message m3 = repository.findOne(id.getId());
-        printStats(3);
+        monitorPrinter.printStats("3");
 
         Message m4 = repository.findOne(id.getId());
         logger.info("***** " + m4.getText() + " *****");
-        printStats(4);
+        monitorPrinter.printStats("4");
 
     }
 
@@ -64,7 +63,7 @@ public class HelloWorldCache {
         m1.setText("hibernateTest");
         em.persist(m1);
         em.getTransaction().commit();
-        printStats(1);
+        monitorPrinter.printStats("1");
 
     }
 
@@ -76,14 +75,14 @@ public class HelloWorldCache {
         query.setHint("org.hibernate.cacheable", true);
         query.getResultList();
         em.getTransaction().commit();
-        printStats(1);
+        monitorPrinter.printStats("1");
 
         em.getTransaction().begin();
         query = em.createQuery("from " + Message.class.getName());
         query.setHint("org.hibernate.cacheable", true);
         query.getResultList();
         em.getTransaction().commit();
-        printStats(2);
+        monitorPrinter.printStats("2");
 
         String[] cacheNames = cacheManager.getCacheNames();
         for (String cacheName : cacheNames) {
@@ -93,53 +92,15 @@ public class HelloWorldCache {
 
     @Test
     public void detectiveCache() {
-        printCachePool("before search");
+        monitorPrinter.printALLCachePool("before search");
         EntityManager em = entityManagerFactory.createEntityManager();
         em.getTransaction().begin();
         Query query = em.createQuery("from " + Message.class.getName());
         query.setHint("org.hibernate.cacheable", true);
         query.getResultList();
         em.getTransaction().commit();
-        printStats(1);
-        printCachePool("after search");
-    }
-
-    public void printCachePool(String tag) {
-        logger.info("***** " + tag + " *****");
-        String[] cacheNames = cacheManager.getCacheNames();
-        for (String cacheName : cacheNames) {
-            logger.info("cache :" + cacheName);
-
-            Cache cache = cacheManager.getCache(cacheName);
-            logger.info("cache :" + cache.getSize());
-            StatisticsGateway statics = cache.getStatistics();
-            logger.info("Local Heap  Size:" + statics.getLocalHeapSize());
-            logger.info("print keys :");
-
-            List<Object> keys = cache.getKeys();
-            for (Object key : keys) {
-                logger.info("keyclass:" + key.getClass() + ",key value" + key);
-                ;
-            }
-        }
-        logger.info("***********************");
-    }
-
-    private void printStats(int i) {
-        logger.info("***** " + i + " *****");
-
-        logger.info("enabled="
-                + stats.isStatisticsEnabled());
-        logger.info("TransactionCount="
-                + stats.getTransactionCount());
-        logger.info("Fetch Count="
-                + stats.getEntityFetchCount());
-        logger.info("Second Level Hit Count="
-                + stats.getSecondLevelCacheHitCount());
-        logger.info("Second Level Miss Count="
-                + stats.getSecondLevelCacheMissCount());
-        logger.info("Second Level Put Count="
-                + stats.getSecondLevelCachePutCount());
+        monitorPrinter.printStats("1");
+        monitorPrinter.printALLCachePool("after search");
     }
 
     @Before
@@ -151,6 +112,9 @@ public class HelloWorldCache {
         EntityManagerFactoryImpl emfImp = (EntityManagerFactoryImpl) emf;
         stats = emfImp.getSessionFactory().getStatistics();
         stats.setStatisticsEnabled(true);
+
+        monitorPrinter.setDefaultCacheManager(cacheManager);
+        monitorPrinter.setDefaultStats(stats);
     }
 
     @Resource(name = "entityManagerFactory")
@@ -168,5 +132,7 @@ public class HelloWorldCache {
     private CacheManager cacheManager;
 
     private Statistics stats;
+
+    private MonitorPrinter monitorPrinter = new MonitorPrinter();
 
 }
