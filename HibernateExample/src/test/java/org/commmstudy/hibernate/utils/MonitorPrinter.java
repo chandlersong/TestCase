@@ -60,6 +60,11 @@ public class MonitorPrinter {
     public void printCachePool(String tag, CacheManager cacheManager, String cacheId, boolean printElm) {
         logger.info("***** " + tag + " *****");
         Cache cache = cacheManager.getCache(cacheId);
+        if (cache == null) {
+            logger.info("cache not exist!");
+            return;
+        }
+
         logger.info("cache :" + cache.getSize());
         StatisticsGateway statics = cache.getStatistics();
         logger.info("Local Heap  Size:" + statics.getLocalHeapSize());
@@ -71,6 +76,7 @@ public class MonitorPrinter {
             List<Object> keys = cache.getKeys();
             for (Object key : keys) {
                 logger.info("keyclass:" + key.getClass() + ",key value" + key);
+                logger.info("value class:" + key.getClass() + ",value" + cache.get(key).getObjectValue());
             }
         }
 
@@ -78,18 +84,23 @@ public class MonitorPrinter {
     }
 
     public void printALLCachePool(String tag) {
+
+        printALLCachePool(tag, false);
+    }
+
+    public void printALLCachePool(String tag, boolean printElm) {
         if (defaultCacheManager == null) {
             logger.info("no defaultCacheManager, return!!!");
         }
-        printALLCachePool(tag, defaultCacheManager);
+        printALLCachePool(tag, defaultCacheManager, printElm);
     }
 
-    public void printALLCachePool(String tag, CacheManager cacheManager) {
+    public void printALLCachePool(String tag, CacheManager cacheManager, boolean printElm) {
         logger.info("***** " + tag + " *****");
         String[] cacheNames = cacheManager.getCacheNames();
         for (String cacheName : cacheNames) {
             logger.info("cache :" + cacheName);
-            printCachePool(tag, cacheManager, cacheName, true);
+            printCachePool(tag, cacheManager, cacheName, printElm);
         }
         logger.info("***********************");
     }

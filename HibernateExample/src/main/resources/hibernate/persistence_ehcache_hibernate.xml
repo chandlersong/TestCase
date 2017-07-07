@@ -20,7 +20,7 @@
 			<property name="hibernate.cache.use_query_cache" value="true"/>
 		-->
 		<property name="hibernate.cache.use_second_level_cache" value="true"/>
-	
+		<property name="hibernate.cache.use_query_cache" value="true"/>
 		<property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>
 		<property name="hibernate.generate_statistics" value="true"/>
 		<property name="org.hibernate.cache.ehcache.configurationResourceName" value="ehcache_writer_behind.xml"/>
