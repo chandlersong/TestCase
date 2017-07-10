@@ -3,9 +3,11 @@ package org.commmstudy.hibernate.jpa.dao.impl.message;
 import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.cache.annotation.Cacheable;
+import javax.persistence.QueryHint;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.stereotype.Repository;
 
 import com.hilatest.hibernate.inaction.chapter1.Message;
@@ -15,7 +17,7 @@ public interface MessageRepository extends org.springframework.data.repository.C
 
     List<Message> findByText(String text);
 
-    @Cacheable(value = "org.hibernate.cache.spi.UpdateTimestampsCache")
+    @QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value = "true") })
     List<Message> findByTag(String tag);
 
     @Modifying

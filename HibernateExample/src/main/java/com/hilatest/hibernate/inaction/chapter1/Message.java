@@ -2,10 +2,7 @@ package com.hilatest.hibernate.inaction.chapter1;
 
 import javax.persistence.Cacheable;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE)
 @Cacheable
 public class Message {
 
