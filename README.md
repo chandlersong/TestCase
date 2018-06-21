@@ -1,4 +1,0 @@
-TestCase
-========
-
-example code

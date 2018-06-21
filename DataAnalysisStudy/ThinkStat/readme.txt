@@ -1,1 +1,0 @@
-all the test data is form https://github.com/AllenDowney/ThinkStats2/

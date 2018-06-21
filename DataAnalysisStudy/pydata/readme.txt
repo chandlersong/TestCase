@@ -1,2 +1,0 @@
-Test data with prefix--pydata, is from pyhton for Data analysis, some without maybe too.
-this project is for my own study. so I will add some data my self. but most of data is form pyhton for Data analysis

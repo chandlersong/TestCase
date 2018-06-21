@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<binding name="JiBXbindingFoo">
-    <mapping name="FooRequest" class="com.hilatest.jibx.FooRequest" ordered="true">
-        <value style="element" name="request" get-method="getRequest" set-method="setRequest" usage="optional"/>
-    </mapping>
-</binding>
