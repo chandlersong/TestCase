@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class OptionalTest {
 
@@ -27,8 +28,8 @@ public class OptionalTest {
         logger.info("o3 and o4 is same:{}",(o3==o4));
     }
 
-
     private Object createObject(){
         return new Object();
     }
 }
+
