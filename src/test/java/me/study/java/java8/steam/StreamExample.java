@@ -25,9 +25,15 @@ public class StreamExample {
     }
 
     @Test
-    public void testCollectExample() {
+    public void testCollectExampleGroupBy() {
         Set<Map.Entry<String, String>> data = createTestData();
         logger.info("group by:{}", data.stream().collect(groupingBy(entry -> entry.getKey().charAt(0), counting())));
+    }
+
+    @Test
+    public void testCollectExampleGroupBy1() {
+        Set<Map.Entry<String, String>> data = createTestData();
+        logger.info("group by:{}", data.stream().collect(groupingBy(entry -> entry.getKey().charAt(0))));
     }
 
 
