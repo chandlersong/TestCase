@@ -1,4 +1,4 @@
-package me.study.java.java8.functionapi;
+package me.study.java.eight.functionapi;
 
 import org.junit.Test;
 import org.slf4j.Logger;

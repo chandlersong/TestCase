@@ -1,4 +1,4 @@
-package me.study.java.java8.steam;
+package me.study.java.eight.steam;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;

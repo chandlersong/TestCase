@@ -1,6 +1,5 @@
-package me.study.java.java8.apache;
+package me.study.java.eight.apache;
 
-import me.study.java.java8.steam.StreamExample;
 import org.apache.commons.collections.MapUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
