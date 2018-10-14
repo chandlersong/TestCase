@@ -9,9 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>java-8-demos</artifactId>
-    <packaging>java</packaging>
-
+    <artifactId>spring-demos</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>security-demos</module>
+    </modules>
 
     <properties>
         <java.version>1.8</java.version>
