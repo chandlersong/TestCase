@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd ">
+
+    <sec:http entry-point-ref="restAuthenticationEntryPoint">
+        <sec:intercept-url pattern="/greeting" access="hasRole('ROLE_ADMIN')"/>
+
+        <sec:form-login
+                authentication-success-handler-ref="mySuccessHandler"
+                authentication-failure-handler-ref="myFailureHandler"
+        />
+
+        <sec:logout/>
+    </sec:http>
+
+
+    <bean id="mySuccessHandler"
+          class=" me.study.security.restful.MySavedRequestAwareAuthenticationSuccessHandler"/>
+    <bean id="myFailureHandler" class=
+            "org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler"/>
+
+    <sec:authentication-manager alias="authenticationManager">
+        <sec:authentication-provider>
+            <sec:user-service>
+                <sec:user name="temporary" password="temporary" authorities="ROLE_ADMIN"/>
+                <sec:user name="user" password="user" authorities="ROLE_USER"/>
+            </sec:user-service>
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+</beans>
