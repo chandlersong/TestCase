@@ -11,6 +11,9 @@
 
     <artifactId>security-demos</artifactId>
     <packaging>pom</packaging>
+    <modules>
+        <module>restful-service</module>
+    </modules>
 
 
 </project>
