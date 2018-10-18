@@ -36,9 +36,6 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
             <sec:user-service id="userService">
 
                 <sec:user name="admin" password="469487a0bbf91c26ee80562c2d5e204f" authorities="ROLE_ADMIN"/>
-                <!--
-                   <sec:user name="admin" password="admin" authorities="ROLE_ADMIN"/>
-                      -->
                 <sec:user name="user" password="{noop}user" authorities="ROLE_USER"/>
             </sec:user-service>
         </sec:authentication-provider>

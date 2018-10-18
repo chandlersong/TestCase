@@ -31,6 +31,7 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.codec.Hex;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -52,8 +53,11 @@ public class RestfulSecurityTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    /**
+     * 只能通过web登录，code访问懒得写了。
+     */
     @Test
-    public void testHelloWorld() {
+    public void testHttpDigest() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         MessageDigest digest;
         try {
@@ -64,7 +68,10 @@ public class RestfulSecurityTest {
             throw new IllegalStateException("No MD5 algorithm available!");
         }
 
-        ResponseEntity<String> result =  restTemplate().getForEntity("http://localhost:8080/greeting", String.class);
+
+        ResponseEntity<String> result = restTemplate.getForEntity("/greeting", String.class);
+
+
 
 
         HttpHeaders headers = result.getHeaders();
@@ -74,57 +81,5 @@ public class RestfulSecurityTest {
         }
         Assert.assertEquals("ok", result.getBody());
     }
-
-    public RestTemplate restTemplate() {
-        HttpHost host = new HttpHost("localhost", 8080, "http");
-        CloseableHttpClient client = HttpClientBuilder.create().
-                setDefaultCredentialsProvider(provider()).useSystemProperties().build();
-        HttpComponentsClientHttpRequestFactory requestFactory =
-                new HttpComponentsClientHttpRequestFactoryDigestAuth(host, client);
-
-        return new RestTemplate(requestFactory);
-    }
-
-    private CredentialsProvider provider() {
-        CredentialsProvider provider = new BasicCredentialsProvider();
-        UsernamePasswordCredentials credentials =
-                new UsernamePasswordCredentials("admin", "admin");
-        provider.setCredentials(AuthScope.ANY, credentials);
-        return provider;
-    }
 }
 
-
-class HttpComponentsClientHttpRequestFactoryDigestAuth extends HttpComponentsClientHttpRequestFactory {
-    HttpHost host;
-
-    public HttpComponentsClientHttpRequestFactoryDigestAuth(final HttpHost host, final HttpClient httpClient) {
-        super(httpClient);
-        this.host = host;
-    }
-
-    //
-
-    @Override
-    protected HttpContext createHttpContext(final HttpMethod httpMethod, final URI uri) {
-        return createHttpContext();
-    }
-
-    private HttpContext createHttpContext() {
-        // Create AuthCache instance
-        final AuthCache authCache = new BasicAuthCache();
-        // Generate DIGEST scheme object, initialize it and add it to the local auth cache
-        final DigestScheme digestAuth = new DigestScheme();
-        // If we already know the realm name
-        digestAuth.overrideParamter("realm", "Custom Realm Name");
-
-        // digestAuth.overrideParamter("nonce", "MTM3NTU2OTU4MDAwNzoyYWI5YTQ5MTlhNzc5N2UxMGM5M2Y5M2ViOTc4ZmVhNg==");
-        authCache.put(host, digestAuth);
-
-        // Add AuthCache to the execution context
-        final BasicHttpContext localcontext = new BasicHttpContext();
-        localcontext.setAttribute(HttpClientContext.AUTH_CACHE, authCache);
-        return localcontext;
-    }
-
-}
