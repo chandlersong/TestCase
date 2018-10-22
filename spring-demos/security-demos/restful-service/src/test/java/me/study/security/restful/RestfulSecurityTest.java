@@ -1,17 +1,19 @@
 package me.study.security.restful;
 
 import me.study.spirng.tools.ServerRunner;
-import org.junit.Assert;
+import org.apache.http.Header;
+import org.apache.http.HeaderIterator;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.codec.Hex;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -23,40 +25,37 @@ public class RestfulSecurityTest {
     private static final Logger logger = getLogger(RestfulSecurityTest.class);
 
 
-
-
-
     /**
      * 只能通过web登录，code访问懒得写了。
      */
     @Test
-    public void testHttpDigest() {
+    public void testHttpDigest() throws IOException {
 
         ServerRunner.createAndRunServer(SecurityRestfulApplication.class, "http-digest-application.yml");
 
-
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         MessageDigest digest;
         try {
             digest = MessageDigest.getInstance("MD5");
-            logger.info("password is {}:", new String(Hex.encode(digest.digest( "admin:Contacts Realm via Digest Authentication:admin".getBytes()))));
-        }
-        catch (NoSuchAlgorithmException e) {
+            logger.info("password is {}:", new String(Hex.encode(digest.digest("admin:Contacts Realm via Digest Authentication:admin".getBytes()))));
+        } catch (NoSuchAlgorithmException e) {
             throw new IllegalStateException("No MD5 algorithm available!");
         }
 
 
-        ResponseEntity<String> result = (new RestTemplate()).getForEntity("http://localhost:8080/greeting", String.class);
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpGet post = new HttpGet("http://localhost:8080/greeting");
+        HttpResponse response = client.execute(post);
 
 
+        HeaderIterator headerIterator = response.headerIterator();
 
+        while (headerIterator.hasNext()) {
+            Header header = headerIterator.nextHeader();
 
-        HttpHeaders headers = result.getHeaders();
-        for (String s : headers.keySet()) {
-            logger.info("key is {}", s);
-            headers.get(s).forEach(value -> logger.info("value is {}:", value));
+            logger.info("header key is {},header value is{}", header.getName(), header.getValue());
         }
-        Assert.assertEquals("ok", result.getBody());
+
+        logger.info("status is {}", response.getStatusLine().getStatusCode());
     }
 }
 
