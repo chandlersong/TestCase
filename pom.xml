@@ -11,6 +11,8 @@
         <module>java-8-demos</module>
         <module>java-11-demos</module>
         <module>spring-demos</module>
+        <module>apache-demos</module>
+        <module>memos</module>
     </modules>
     <packaging>pom</packaging>
 
