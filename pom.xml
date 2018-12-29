@@ -13,6 +13,7 @@
         <module>spring-demos</module>
         <module>apache-demos</module>
         <module>memos</module>
+        <module>guava</module>
     </modules>
     <packaging>pom</packaging>
 
