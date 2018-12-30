@@ -1,5 +1,6 @@
 package me.study.java.guava.basicutils;
 
+import com.google.common.base.Function;
 import com.google.common.collect.Ordering;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -19,7 +20,7 @@ public class OrderingExamples {
     public void howToUse() {
         List<Foo> list = createRandom(10);
         Ordering<Foo> ordering = Ordering.from(Comparator.comparingInt(f -> f.value));
-
+        ordering = Ordering.natural().onResultOf((Function<Foo, Integer>) foo -> foo.value);
         ordering.sortedCopy(list).forEach(f -> logger.debug(" value is {}", f.value));
         logger.info("greatestOf 5");
         ordering.greatestOf(list, 5).forEach(f -> logger.debug(" value is {}", f.value));
