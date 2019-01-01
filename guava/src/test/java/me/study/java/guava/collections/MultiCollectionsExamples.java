@@ -41,10 +41,15 @@ public class MultiCollectionsExamples {
         map.put("b", "123");
 
         Assert.assertEquals(3, map.size());
+        Assert.assertEquals(2, map.keySet().size());
 
         map.asMap().forEach((key, collection) -> {
             Assert.assertTrue(((collection instanceof Set)));
-            logger.info("key is {}, collection is {}", key, collection);
+            logger.info("asMap:key is {}, collection is {}", key, collection);
+        });
+
+        map.entries().forEach(entry -> {
+            logger.info("entries:key is {}, collection is {}", entry.getKey(), entry.getValue());
         });
     }
 
