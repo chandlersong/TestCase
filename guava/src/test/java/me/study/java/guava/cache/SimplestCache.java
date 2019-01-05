@@ -16,7 +16,7 @@ public class SimplestCache {
     private static final Logger logger = getLogger(SimplestCache.class);
 
     @Test
-    public void simpleCache() {
+    public void simpleCache() throws ExecutionException {
         final int[] times = {0};
         LoadingCache<Integer, String> cache = CacheBuilder.newBuilder()
                 .maximumSize(1000)
@@ -41,5 +41,12 @@ public class SimplestCache {
         Assert.assertEquals("2", cache.getUnchecked(2));
         Assert.assertEquals("2", cache.getUnchecked(2));
         Assert.assertEquals(2, times[0]);
+
+
+        Assert.assertEquals("not_exist", cache.get(3, () -> "not_exist"));
+
+
+        cache.put(5, "directly");
+        Assert.assertEquals("directly", cache.getUnchecked(5));
     }
 }
