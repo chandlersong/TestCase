@@ -14,6 +14,7 @@
         <module>apache-demos</module>
         <module>memos</module>
         <module>guava</module>
+        <module>lombok-demo</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -44,4 +45,15 @@
             <version>3.2.2</version>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.4</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

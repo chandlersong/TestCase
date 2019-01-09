@@ -9,8 +9,16 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>java-8-demos</artifactId>
-    <packaging>jar</packaging>
+    <artifactId>lombok-demo</artifactId>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -23,9 +31,4 @@
             </plugin>
         </plugins>
     </build>
-
-
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
 </project>
