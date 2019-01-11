@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
-public class LombokDemo {
+public class GetSetDemos {
 
     @Test
     public void testGet() {
