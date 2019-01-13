@@ -53,4 +53,12 @@ public class ServerRunner {
     public void stop() {
         application.ifPresent(ConfigurableApplicationContext::close);
     }
+
+    public Optional<ConfigurableApplicationContext> getApplication() {
+        return application;
+    }
+
+    public void setApplication(Optional<ConfigurableApplicationContext> application) {
+        this.application = application;
+    }
 }

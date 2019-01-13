@@ -1,0 +1,6 @@
+server:
+  port: 18081
+
+test:
+  test: "ok"
+  enabled: true
