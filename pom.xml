@@ -15,6 +15,7 @@
         <module>memos</module>
         <module>guava</module>
         <module>lombok-demo</module>
+        <module>rxjava-demo</module>
     </modules>
     <packaging>pom</packaging>
 
