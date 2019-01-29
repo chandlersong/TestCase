@@ -25,6 +25,7 @@ public class SchedulersCase {
                 map(printThread(latch, "step1")).
                 observeOn(Schedulers.io()).
                 map(printThread(latch, "step2")).
+                subscribeOn(Schedulers.computation()).
                 subscribe(System.out::println, Throwable::printStackTrace);
 
         latch.await();
@@ -34,7 +35,7 @@ public class SchedulersCase {
         return x -> {
             int i = Integer.parseInt(x.toString());
             log.info("{} in thread {} process {}", step, Thread.currentThread().getId(), x);
-            Thread.sleep(100 + r.nextInt(100));
+            Thread.sleep(1000 + r.nextInt(500));
             latch.countDown();
             return i;
         };
