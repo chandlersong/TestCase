@@ -16,10 +16,11 @@ public class DoOnNextExamples {
     @Test
     public void simpleDoOnNext() throws InterruptedException {
         int totalNumber = 10;
-        CountDownLatch latch = new CountDownLatch(totalNumber * 2);
+        CountDownLatch latch = new CountDownLatch(totalNumber);
         Observable.create(rxUtils.SendNumber(totalNumber)).
                 observeOn(Schedulers.io()).
                 doOnNext(i -> log.info("do on next:{}", i)).
+                doOnNext(i -> latch.countDown()).
                 subscribeOn(Schedulers.computation()).
                 subscribe(System.out::println, Throwable::printStackTrace);
 
