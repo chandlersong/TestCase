@@ -7,8 +7,13 @@ import io.reactivex.schedulers.Schedulers;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
 @Slf4j
 public class HelloWorldCase {
+
+    private RxUtils rxUtils = new RxUtils();
 
     @Test
     public void helloWorld() {
@@ -48,5 +53,30 @@ public class HelloWorldCase {
         System.out.println("main start to sleep");
         Thread.sleep(2000);
         System.out.println("main start to sleep");
+    }
+
+
+    @Test
+    public void testThrowException() throws InterruptedException {
+
+        int totalNumber = 10;
+        final CountDownLatch latch = new CountDownLatch(totalNumber);
+        Observable.create(rxUtils.SendNumber(totalNumber)).
+                observeOn(Schedulers.computation()).
+                map(i -> {
+                    Integer value = Integer.valueOf(i.toString());
+                    latch.countDown();
+                    if ((value % 2) == 0) {
+                        throw new IllegalAccessException();
+                    }
+
+                    return value;
+                }).
+                observeOn(Schedulers.io()).
+                subscribeOn(Schedulers.computation()).
+                subscribe(System.out::println, Throwable::printStackTrace);
+
+        latch.await(2, TimeUnit.SECONDS);
+        log.info("latch size:{}", latch.getCount());
     }
 }
