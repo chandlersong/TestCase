@@ -25,7 +25,10 @@ public class shareObservableCase {
     @Test
     public void testPublish() {
         int totalNumber = 10;
-        ConnectableObservable<Integer> publish = Observable.create(rxUtils.SendNumber(totalNumber)).publish();
+        ConnectableObservable<Integer> publish = Observable.create(rxUtils.SendNumber(totalNumber)).map(i -> {
+            log.info("origin {}", i);
+            return i;
+        }).publish();
 
         publish.map(i -> i++).subscribe(i -> log.info("plus chain,{}", i));
         publish.map(i -> i--).subscribe(i -> log.info("delete chain,{}", i));
