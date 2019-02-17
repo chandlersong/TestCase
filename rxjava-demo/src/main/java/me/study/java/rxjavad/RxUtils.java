@@ -22,7 +22,7 @@ public class RxUtils {
         };
     }
 
-    public ObservableOnSubscribe<Object> SendNumber(int totalNumber) {
+    public ObservableOnSubscribe<Integer> SendNumber(int totalNumber) {
         return emitter -> {
             while (!emitter.isDisposed()) {
 
