@@ -3,21 +3,19 @@ package me.study.java.rocketmq;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
-import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
-import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.remoting.common.RemotingHelper;
 import org.junit.Test;
-
-import java.util.List;
 
 @Slf4j
 public class SimpleExample {
 
+
+    public static final String NAMESRV_ADDR = "192.168.3.189:9876";
 
     @Test
     public void testSimpleExample() throws Exception {
@@ -35,7 +33,7 @@ public class SimpleExample {
         DefaultMQProducer producer = new
                 DefaultMQProducer(groupName);
         // Specify name server addresses.
-        producer.setNamesrvAddr("192.168.3.189:9876");
+        producer.setNamesrvAddr(NAMESRV_ADDR);
         //Launch the instance.
         producer.start();
         for (int i = 0; i < 100; i++) {
@@ -56,22 +54,19 @@ public class SimpleExample {
 
     public void consumeMessage(String groupName) throws Exception {
         // Instantiate with specified consumer group name.
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(groupName);
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(RandomStringUtils.randomAlphabetic(11));
 
         // Specify name server addresses.
-        consumer.setNamesrvAddr("localhost:9876");
+        consumer.setNamesrvAddr(NAMESRV_ADDR);
 
         // Subscribe one more more topics to consume.
         consumer.subscribe("TopicTest", "*");
         // Register callback to execute on arrival of messages fetched from brokers.
-        consumer.registerMessageListener(new MessageListenerConcurrently() {
+        consumer.registerMessageListener((MessageListenerConcurrently) (msgs, context) -> {
 
-            @Override
-            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
-                                                            ConsumeConcurrentlyContext context) {
-                System.out.printf("%s Receive New Messages: %s %n", Thread.currentThread().getName(), msgs);
-                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
-            }
+
+            System.out.printf("%s Receive New Messages: %s %n", Thread.currentThread().getName(), new String(msgs.get(0).getBody()));
+            return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
         });
 
         //Launch the consumer instance.

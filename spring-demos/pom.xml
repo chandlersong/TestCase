@@ -16,6 +16,7 @@
         <module>security-demos</module>
         <module>spring-tools</module>
         <module>auto-configure-demo</module>
+        <module>spring-profiles</module>
     </modules>
 
     <dependencies>
