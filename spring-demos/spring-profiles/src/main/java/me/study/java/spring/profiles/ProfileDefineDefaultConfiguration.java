@@ -11,7 +11,12 @@ public class ProfileDefineDefaultConfiguration {
 
     @Bean("defineDefault")
     public String defaultValue() {
-        return "defineDefault";
+        return "default";
+    }
+
+    @Bean("Foo")
+    public String getFooValue() {
+        return "Foo from default";
     }
 
 }

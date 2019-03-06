@@ -10,6 +10,6 @@ public class ProfileFooConfiguration {
 
     @Bean("Foo")
     public String defaultValue() {
-        return "default";
+        return "Foo";
     }
 }

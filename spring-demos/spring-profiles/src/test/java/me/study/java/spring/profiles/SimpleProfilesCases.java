@@ -11,18 +11,17 @@ public class SimpleProfilesCases {
     @Test
     public void testHelloWorld() {
         SpringApplicationBuilder server = new SpringApplicationBuilder(ProfilesApplication.class);
-        server.properties(String.format("spring.profiles.active", "foo"));
         ConfigurableApplicationContext context = server.run();
         log.info(context.getBean("defaultProfiles"));
-
+        log.info(context.getBean("Foo"));
     }
 
     @Test
     public void testWithDefine() {
         SpringApplicationBuilder server = new SpringApplicationBuilder(ProfilesApplication.class);
-        server.properties(String.format("spring.profiles.active", "foo"));
+        server.properties(String.format("spring.profiles.active=%1s", "Foo"));
         ConfigurableApplicationContext context = server.run();
-        log.info(context.getBean("defineDefault"));
+        log.info(context.getBean("Foo"));
 
     }
 }
