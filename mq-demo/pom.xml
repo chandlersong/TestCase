@@ -26,5 +26,6 @@
     </build>
     <modules>
         <module>rocketmq-demo</module>
+        <module>kafka-demo</module>
     </modules>
 </project>
