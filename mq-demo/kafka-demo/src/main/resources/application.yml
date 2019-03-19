@@ -2,7 +2,7 @@ spring:
   kafka:
     consumer:
       group-id: test
-      auto-offset-reset: earliest
+      auto-offset-reset: latest
       bootstrap-servers: http://192.168.3.189:9092
     producer:
       client-id: produceTest
