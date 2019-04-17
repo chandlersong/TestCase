@@ -9,7 +9,6 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.study.java</groupId>
     <artifactId>restful-service</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -17,15 +16,6 @@
         <dependency>
             <groupId>me.study.java</groupId>
             <artifactId>spring-tools</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
