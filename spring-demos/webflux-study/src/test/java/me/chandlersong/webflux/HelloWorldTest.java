@@ -49,4 +49,19 @@ public class HelloWorldTest {
         });
         latch.await();
     }
+
+    @Test
+    public void testObservableStream() throws InterruptedException {
+        Flux<String> stream = client.get()
+                .uri("/observable/{id}", "1")
+                .retrieve()
+                .bodyToFlux(String.class);
+
+        CountDownLatch latch = new CountDownLatch(5);
+        stream.subscribe(s->{
+            log.info("receive message:{},time:{}",s,System.currentTimeMillis());
+            latch.countDown();
+        });
+        latch.await();
+    }
 }
