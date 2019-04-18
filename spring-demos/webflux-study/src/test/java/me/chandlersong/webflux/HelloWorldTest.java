@@ -6,8 +6,10 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 
 @Slf4j
@@ -27,6 +29,22 @@ public class HelloWorldTest {
         CountDownLatch latch = new CountDownLatch(1);
         helloWorld.subscribe(s->{
             log.info("receive message:{}",s);
+            latch.countDown();
+        });
+        latch.await();
+    }
+
+
+    @Test
+    public void testFluxStream() throws InterruptedException {
+        Flux<String> stream = client.get()
+                .uri("/flux/{id}", "1")
+                .retrieve()
+                .bodyToFlux(String.class);
+
+        CountDownLatch latch = new CountDownLatch(5);
+        stream.subscribe(s->{
+            log.info("receive message:{},time:{}",s,System.currentTimeMillis());
             latch.countDown();
         });
         latch.await();
