@@ -1,0 +1,9 @@
+syntax = "proto3";
+option java_package = "me.chandlersong.protobuf";
+option java_outer_classname = "People";
+
+message Person {
+     int32 id = 1;
+     string name = 2;
+     string email = 3;
+}
