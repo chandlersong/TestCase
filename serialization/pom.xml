@@ -13,7 +13,18 @@
     <packaging>pom</packaging>
     <modules>
         <module>protobuf</module>
+        <module>serialization-test</module>
     </modules>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>me.study.java</groupId>
+                <artifactId>protobuf</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
 
 </project>
