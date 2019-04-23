@@ -6,6 +6,7 @@ import com.google.protobuf.util.JsonFormat;
 import lombok.extern.slf4j.Slf4j;
 import me.chandlersong.protobuf.PersonFactory;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.codec.binary.Hex;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -27,9 +28,7 @@ public class ProtoBufTest {
         log.info("before:" + person);
 
         log.info("===Person Byte:");
-        for (byte b : person.toByteArray()) {
-            System.out.print(b);
-        }
+        log.info("person byte:{}", Hex.encodeHexString(person.toByteArray()));
         log.info("================");
 
         String print = JsonFormat.printer().print(person);
