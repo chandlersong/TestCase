@@ -2,6 +2,7 @@ package me.chandlersong.webflux;
 
 import io.reactivex.Observable;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,10 +19,19 @@ public class WebFluxController {
             "1", "2", "3", "4", "5"
     };
 
+
+    private WordService service;
+
     @GetMapping(path = "/mono/{id}")
     public Mono<String> singleWord(@PathVariable String id) {
         log.info("Mono is called,id is {}", id);
-        return Mono.just("hello");
+        return Mono.just(service.printHello());
+    }
+
+    @GetMapping(path = "/normal/{id}")
+    public String NormalWord(@PathVariable String id) {
+        log.info("normal is called,id is {}", id);
+        return service.printHello();
     }
 
     @GetMapping(path = "/flux/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
@@ -39,4 +49,12 @@ public class WebFluxController {
     }
 
 
+    public WordService getService() {
+        return service;
+    }
+
+    @Autowired
+    public void setService(WordService service) {
+        this.service = service;
+    }
 }
