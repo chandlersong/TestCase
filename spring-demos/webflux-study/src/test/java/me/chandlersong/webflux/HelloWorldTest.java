@@ -1,10 +1,13 @@
 package me.chandlersong.webflux;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -32,7 +35,6 @@ public class HelloWorldTest {
         });
         latch.await();
     }
-
 
     @Test
     public void testFluxStream() throws InterruptedException {
@@ -62,5 +64,12 @@ public class HelloWorldTest {
             latch.countDown();
         });
         latch.await();
+    }
+
+    @Test
+    public void testHandlerException(){
+        ClientResponse clientResponse = client.get().uri("/assertException").exchange().blockOptional().get();
+
+        Assert.assertEquals(HttpStatus.I_AM_A_TEAPOT,clientResponse.statusCode());
     }
 }
