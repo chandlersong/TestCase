@@ -17,6 +17,7 @@
         <module>auto-configure-demo</module>
         <module>spring-profiles</module>
         <module>webflux-study</module>
+        <module>spring-data</module>
     </modules>
 
     <dependencies>
