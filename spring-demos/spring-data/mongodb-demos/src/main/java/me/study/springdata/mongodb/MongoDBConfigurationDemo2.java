@@ -3,9 +3,13 @@ package me.study.springdata.mongodb;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+@EnableMongoRepositories(basePackages = "me.study.springdata.mongodb.repository")
 @Configuration
+@Profile("wayTwo")
 public class MongoDBConfigurationDemo2 extends AbstractMongoClientConfiguration {
 
     @Override

@@ -15,9 +15,11 @@ import org.springframework.data.mongodb.core.convert.DefaultDbRefResolver;
 import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+@EnableMongoRepositories(basePackages = "me.study.springdata.mongodb.repository")
 @Configuration
-@Profile("test1")
+@Profile("wayOne")
 public class MongoDBConfiguration extends AbstractMongoConfiguration {
 
 

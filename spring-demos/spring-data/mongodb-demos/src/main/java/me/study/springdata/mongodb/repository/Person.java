@@ -10,7 +10,7 @@ import java.math.BigInteger;
 
 @Data
 @NoArgsConstructor
-@Document(collection = "test1")
+@Document(collection = "person")
 @TypeAlias("Person")
 public class Person {
 
@@ -18,6 +18,8 @@ public class Person {
     private BigInteger id;
 
     private String name;
+
+    private String title;
 
     @Override
     public String toString() {

@@ -1,9 +1,13 @@
 package me.study.springdata.mongodb;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.mongo.MongoReactiveDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoReactiveAutoConfiguration;
 
-@EnableMongoRepositories(basePackages = "me.study.springdata.mongodb.repository")
-@SpringBootApplication
+@SpringBootApplication(exclude = {MongoReactiveDataAutoConfiguration.class, MongoAutoConfiguration.class, MongoReactiveAutoConfiguration.class,MongoDataAutoConfiguration.class})
 public class StudyMongoDBApplication {
+
+
 }
