@@ -26,7 +26,7 @@ public class HelloWordToMongoDB {
         Person p = new Person();
         p.setId(BigInteger.valueOf(Math.abs(r.nextLong())));
         p.setName(RandomStringUtils.randomAlphanumeric(10));
-        repository.save(p);
+        repository.insert(p);
     }
 
 }
