@@ -10,6 +10,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import reactor.core.Disposable;
+import reactor.core.publisher.Flux;
 
 import java.math.BigInteger;
 import java.util.Random;
@@ -28,7 +30,7 @@ public class HelloWordToMongoDB {
     public void testSimpleSave() {
 
         Person p = createPerson(RandomStringUtils.randomAlphanumeric(10));
-        repository.insert(p);
+        repository.insert(p).subscribe();
     }
 
     @Test
@@ -36,12 +38,34 @@ public class HelloWordToMongoDB {
 
         String expectedName = RandomStringUtils.randomAlphanumeric(10);
         Person p = createPerson(expectedName);
-        repository.insert(p);
-        Person byName = repository.findByName(expectedName);
+        repository.insert(p).subscribe();
+        Person byName = repository.findByName(expectedName).block();
         Assert.assertEquals(expectedName, byName.getName());
     }
 
 
+    @Test
+    public void testFindByStream() throws InterruptedException {
+
+        String title = RandomStringUtils.randomAlphanumeric(10);
+
+        for (int i = 0; i < 10; i++) {
+            String expectedName = RandomStringUtils.randomAlphanumeric(10);
+            Person p = createPerson(expectedName, title);
+            repository.insert(p).subscribe();
+        }
+        Flux<Person> people = repository.findByTitle(title);
+
+
+        Disposable subscribe = people.doOnNext(p -> {
+            Assert.assertEquals(title, p.getTitle());
+            log.info("name {}", p.getName());
+        }).subscribe();
+
+        while (!subscribe.isDisposed()) {
+            Thread.sleep(1000);
+        }
+    }
 
     private Person createPerson(String name) {
         return createPerson(name, "noTitle");
