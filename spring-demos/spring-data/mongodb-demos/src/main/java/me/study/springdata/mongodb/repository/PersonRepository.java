@@ -7,4 +7,6 @@ import java.math.BigInteger;
 
 @Repository
 public interface PersonRepository extends MongoRepository<Person, BigInteger> {
+
+    Person findByName(String name);
 }
