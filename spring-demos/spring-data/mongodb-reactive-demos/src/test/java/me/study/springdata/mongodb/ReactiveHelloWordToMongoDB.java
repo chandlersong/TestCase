@@ -15,11 +15,12 @@ import reactor.core.publisher.Flux;
 
 import java.math.BigInteger;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 
 @Slf4j
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
-public class HelloWordToMongoDB {
+public class ReactiveHelloWordToMongoDB {
 
     private Random r = new Random();
 
@@ -49,20 +50,20 @@ public class HelloWordToMongoDB {
 
         String title = RandomStringUtils.randomAlphanumeric(10);
 
-        for (int i = 0; i < 10; i++) {
+        int number = 10;
+        for (int i = 0; i < number; i++) {
             String expectedName = RandomStringUtils.randomAlphanumeric(10);
             Person p = createPerson(expectedName, title);
             repository.insert(p).block();
         }
+        CountDownLatch latch =new CountDownLatch(number);
         Flux<Person> people = repository.findByTitle(title);
         Disposable subscribe = people.doOnNext(p -> {
             Assert.assertEquals(title, p.getTitle());
             log.info("name {}", p.getName());
-        }).subscribe();
+        }).subscribe(p->latch.countDown());
 
-        while(!subscribe.isDisposed()){
-            Thread.sleep(1000);
-        }
+        latch.await();
     }
 
     private Person createPerson(String name) {
