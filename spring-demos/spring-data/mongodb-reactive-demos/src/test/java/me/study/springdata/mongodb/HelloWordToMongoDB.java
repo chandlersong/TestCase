@@ -52,17 +52,15 @@ public class HelloWordToMongoDB {
         for (int i = 0; i < 10; i++) {
             String expectedName = RandomStringUtils.randomAlphanumeric(10);
             Person p = createPerson(expectedName, title);
-            repository.insert(p).subscribe();
+            repository.insert(p).block();
         }
         Flux<Person> people = repository.findByTitle(title);
-
-
         Disposable subscribe = people.doOnNext(p -> {
             Assert.assertEquals(title, p.getTitle());
             log.info("name {}", p.getName());
         }).subscribe();
 
-        while (!subscribe.isDisposed()) {
+        while(!subscribe.isDisposed()){
             Thread.sleep(1000);
         }
     }
@@ -75,6 +73,7 @@ public class HelloWordToMongoDB {
         Person p = new Person();
         p.setId(BigInteger.valueOf(Math.abs(r.nextLong())));
         p.setName(name);
+        p.setTitle(title);
         return p;
     }
 

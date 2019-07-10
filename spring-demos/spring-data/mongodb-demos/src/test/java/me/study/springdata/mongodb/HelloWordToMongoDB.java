@@ -51,6 +51,7 @@ public class HelloWordToMongoDB {
         Person p = new Person();
         p.setId(BigInteger.valueOf(Math.abs(r.nextLong())));
         p.setName(name);
+        p.setTitle(title);
         return p;
     }
 
