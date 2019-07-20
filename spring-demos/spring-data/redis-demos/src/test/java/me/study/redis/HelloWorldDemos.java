@@ -1,6 +1,7 @@
 package me.study.redis;
 
 import lombok.extern.log4j.Log4j2;
+import me.study.redis.entry.Person;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,21 @@ public class HelloWorldDemos {
     @Autowired
     private RedisTemplate<String, String> template;
 
+    @Autowired
+    private RedisTemplate<String, Person> personRedisTemplate;
 
     @Test
     public void testHelloWorld() {
-        log.info("template:{}", template);
         ListOperations<String, String> listOps = template.opsForList();
+        log.info("template:{}", template);
         listOps.leftPush("hello", "chandler");
+    }
+
+    @Test
+    public void testSaveCustomObject(){
+        ListOperations<String, Person> listOps = personRedisTemplate.opsForList();
+
+        log.info("template:{}", template);
+        listOps.leftPush("object", new Person("chandler"));
     }
 }
