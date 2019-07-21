@@ -26,6 +26,8 @@ public class HelloWorldDemos {
         ListOperations<String, String> listOps = template.opsForList();
         log.info("template:{}", template);
         listOps.leftPush("hello", "chandler");
+        log.info("object in redis:{}", listOps.leftPop("hello"));
+        template.delete("hello");
     }
 
     @Test
@@ -34,5 +36,9 @@ public class HelloWorldDemos {
 
         log.info("template:{}", template);
         listOps.leftPush("object", new Person("chandler"));
+
+        log.info("object in redis:{}", listOps.leftPop("object"));
+
+        personRedisTemplate.delete("object");
     }
 }
