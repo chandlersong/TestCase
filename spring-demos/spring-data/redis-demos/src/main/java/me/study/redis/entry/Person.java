@@ -1,16 +1,14 @@
 package me.study.redis.entry;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 @Data
-@RedisHash("Student")
+@RedisHash("Person")
 @RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 public class Person {
 
