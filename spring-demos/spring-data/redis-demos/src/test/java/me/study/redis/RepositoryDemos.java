@@ -16,7 +16,7 @@ import java.util.Set;
 @Log4j2
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
-public class RepositoryTests {
+public class RepositoryDemos {
 
     @Autowired
     private PersonRepository personRepository;
