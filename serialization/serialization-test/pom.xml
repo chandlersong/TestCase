@@ -17,6 +17,11 @@
             <artifactId>protobuf</artifactId>
         </dependency>
         <dependency>
+            <groupId>me.study.java</groupId>
+            <artifactId>avro</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>1.7.0</version>
