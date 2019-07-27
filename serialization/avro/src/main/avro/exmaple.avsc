@@ -1,5 +1,4 @@
-[
-{"namespace": "example.avro",
+[{"namespace": "example.avro",
  "type": "record",
  "name": "Address",
  "fields": [
