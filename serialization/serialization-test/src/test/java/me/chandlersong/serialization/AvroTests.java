@@ -31,7 +31,6 @@ public class AvroTests {
                 .setName("Charlie")
                 .setFavoriteColor("blue")
                 .setFavoriteNumber(3)
-                .setAddress(null)
                 .setCreateTimestamp(null)
                 .build();
 

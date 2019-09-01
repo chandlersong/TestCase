@@ -32,7 +32,8 @@
         "type": [
           "null",
           "Address"
-        ]
+        ],
+        "default": null
       },
       {
         "name": "createTimestamp",
