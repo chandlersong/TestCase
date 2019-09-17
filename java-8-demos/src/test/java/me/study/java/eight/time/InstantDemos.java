@@ -4,6 +4,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 
 import java.time.*;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -40,6 +42,25 @@ public class InstantDemos {
         OffsetDateTime offsetDateTime = now.atOffset(ZoneOffset.ofHours(8));
         logger.info("offset date time is {}", offsetDateTime);
         logger.info("offset date epoch second {}", offsetDateTime.toEpochSecond());
+
+    }
+
+    @Test
+    public void testTemporal() {
+
+        ZonedDateTime zoneNow = ZonedDateTime.now();
+        logger.info("zone now:{}", zoneNow);
+        logger.info("next friday:{}", zoneNow.with(TemporalAdjusters.lastDayOfMonth()));
+        logger.info("with hour 2:{}", zoneNow.withHour(2));
+
+        LocalDateTime localNow = LocalDateTime.now();
+        logger.info("local now:{}", localNow);
+        logger.info("local now to instant:{}", localNow.atZone(ZoneId.systemDefault()).toInstant());
+        logger.info("local now to instant:{}", localNow.toInstant(ZoneOffset.UTC));
+
+        Instant now = Instant.now(Clock.systemUTC());
+        logger.info("instant now:{}", now);
+        logger.info("instant now:{}", now.minus(30, ChronoUnit.DAYS));
 
     }
 }
