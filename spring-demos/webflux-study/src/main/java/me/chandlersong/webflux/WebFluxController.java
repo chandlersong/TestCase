@@ -55,9 +55,16 @@ public class WebFluxController {
     public ResponseEntity<Void> assertException() {
         log.info("assertException called");
 
-        Assert.notNull(null,"abcdefg");
-        return  new ResponseEntity<>(HttpStatus.OK);
+        Assert.notNull(null, "abcdefg");
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping(path = "/globalException", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Mono<String> globalException() {
+        log.info("assertException called");
+        return Mono.error(new GlobalException()).map(s -> "ok");
+    }
+
 
     public WordService getService() {
         return service;
@@ -67,4 +74,6 @@ public class WebFluxController {
     public void setService(WordService service) {
         this.service = service;
     }
+
+    public static class GlobalException extends RuntimeException{}
 }

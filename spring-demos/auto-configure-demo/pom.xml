@@ -27,5 +27,9 @@
             <groupId>me.study.java</groupId>
             <artifactId>spring-tools</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
     </dependencies>
 </project>

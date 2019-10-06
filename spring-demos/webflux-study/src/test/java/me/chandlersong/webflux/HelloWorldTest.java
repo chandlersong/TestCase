@@ -72,4 +72,11 @@ public class HelloWorldTest {
 
         Assert.assertEquals(HttpStatus.I_AM_A_TEAPOT,clientResponse.statusCode());
     }
+
+    @Test
+    public void testHandlerGlobalException(){
+        ClientResponse clientResponse = client.get().uri("/globalException").exchange().block();
+
+        Assert.assertEquals(HttpStatus.I_AM_A_TEAPOT,clientResponse.statusCode());
+    }
 }
