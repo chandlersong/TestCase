@@ -10,7 +10,6 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 @EnableWebFlux
 public class WebFluxConfiguration {
 
-    @Bean
     public Object createOtherBeanInConfiguration(){
 
         log.info("bean in configuration has been initialized");

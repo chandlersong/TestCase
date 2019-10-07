@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 import java.util.concurrent.CountDownLatch;
 
 @Slf4j
-@SpringBootTest(classes = WebFluxApplication.class,webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(classes = WebFluxApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @RunWith(SpringRunner.class)
 public class HelloWorldTest {
 
@@ -24,13 +24,13 @@ public class HelloWorldTest {
     @Test
     public void testHelloWorld() throws InterruptedException {
         Mono<String> helloWorld = client.get()
-                .uri("/mono/{id}", "1")
-                .retrieve()
-                .bodyToMono(String.class);
+                                        .uri("/mono/{id}", "1")
+                                        .retrieve()
+                                        .bodyToMono(String.class);
 
         CountDownLatch latch = new CountDownLatch(1);
-        helloWorld.subscribe(s->{
-            log.info("receive message:{}",s);
+        helloWorld.subscribe(s -> {
+            log.info("receive message:{}", s);
             latch.countDown();
         });
         latch.await();
@@ -39,13 +39,13 @@ public class HelloWorldTest {
     @Test
     public void testFluxStream() throws InterruptedException {
         Flux<String> stream = client.get()
-                .uri("/flux/{id}", "1")
-                .retrieve()
-                .bodyToFlux(String.class);
+                                    .uri("/flux/{id}", "1")
+                                    .retrieve()
+                                    .bodyToFlux(String.class);
 
         CountDownLatch latch = new CountDownLatch(5);
-        stream.subscribe(s->{
-            log.info("receive message:{},time:{}",s,System.currentTimeMillis());
+        stream.subscribe(s -> {
+            log.info("receive message:{},time:{}", s, System.currentTimeMillis());
             latch.countDown();
         });
         latch.await();
@@ -54,29 +54,36 @@ public class HelloWorldTest {
     @Test
     public void testObservableStream() throws InterruptedException {
         Flux<String> stream = client.get()
-                .uri("/observable/{id}", "1")
-                .retrieve()
-                .bodyToFlux(String.class);
+                                    .uri("/observable/{id}", "1")
+                                    .retrieve()
+                                    .bodyToFlux(String.class);
 
         CountDownLatch latch = new CountDownLatch(5);
-        stream.subscribe(s->{
-            log.info("receive message:{},time:{}",s,System.currentTimeMillis());
+        stream.subscribe(s -> {
+            log.info("receive message:{},time:{}", s, System.currentTimeMillis());
             latch.countDown();
         });
         latch.await();
     }
 
     @Test
-    public void testHandlerException(){
+    public void testHandlerException() {
         ClientResponse clientResponse = client.get().uri("/assertException").exchange().blockOptional().get();
 
-        Assert.assertEquals(HttpStatus.I_AM_A_TEAPOT,clientResponse.statusCode());
+        Assert.assertEquals(HttpStatus.I_AM_A_TEAPOT, clientResponse.statusCode());
     }
 
     @Test
-    public void testHandlerGlobalException(){
-        ClientResponse clientResponse = client.get().uri("/globalException").exchange().block();
+    public void testHandlerGlobalException() {
+        Mono<String> stringMono = client.get()
+                                        .uri("/globalException")
+                                        .retrieve()
+                                        .onStatus(HttpStatus::is5xxServerError,
+                                                  clientResponse -> Mono.error(new IllegalAccessException()))
+                                        .bodyToMono(String.class);
 
-        Assert.assertEquals(HttpStatus.I_AM_A_TEAPOT,clientResponse.statusCode());
+
+        log.info("result:{}", stringMono.block());
+
     }
 }

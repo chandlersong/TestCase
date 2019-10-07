@@ -20,5 +20,6 @@ public class MyErrorAttribute <T extends Throwable> extends DefaultErrorAttribut
             Map<String, Object> errorAttributes, ServerRequest request) {
         Throwable ex = getError(request);
         errorAttributes.put("exception", ex.getClass().getSimpleName());
+        errorAttributes.put("hello world", "chandler");
     }
 }
