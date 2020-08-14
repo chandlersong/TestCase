@@ -1,0 +1,58 @@
+jar.enabled = false
+
+subprojects {
+
+    apply plugin: 'application'
+
+    dependencies {
+        api "org.apache.flink:flink-streaming-java_${scalaBinaryVersion}:${flinkVersion}"
+        api "org.apache.flink:flink-clients_${scalaBinaryVersion}:${flinkVersion}"
+        api "org.apache.flink:flink-core:${flinkVersion}"
+        api "org.apache.logging.log4j:log4j-api:${log4jVersion}"
+        api "org.apache.logging.log4j:log4j-core:${log4jVersion}"
+        api "org.apache.logging.log4j:log4j-slf4j-impl:${log4jVersion}"
+        api "org.slf4j:slf4j-log4j12:${slf4jVersion}"
+    }
+
+    applicationDefaultJvmArgs = ["-Dlog4j.configurationFile=log4j2.properties"]
+
+    sourceSets {
+        main.compileClasspath += configurations.flinkShadowJar
+        main.runtimeClasspath += configurations.flinkShadowJar
+
+        test.compileClasspath += configurations.flinkShadowJar
+        test.runtimeClasspath += configurations.flinkShadowJar
+
+        javadoc.classpath += configurations.flinkShadowJar
+    }
+
+    run.classpath = sourceSets.main.runtimeClasspath
+
+
+    jar {
+        manifest {
+            attributes 'Built-By': System.getProperty('user.name'),
+                    'Build-Jdk': System.getProperty('java.version')
+        }
+    }
+
+    //change ip if not use the minikube
+    task execInMiniKube(type: ExecInMiniKube){
+        def ip = new ByteArrayOutputStream()
+        exec {
+            commandLine 'minikube', 'ip'
+            standardOutput = ip
+        }
+        remote ip.toString().substring(0,ip.toString().length()-1)+":"+remotePort
+    }
+}
+
+class ExecInMiniKube extends Exec {
+    String jarPath
+    String remote
+
+    ExecInMiniKube() {
+        commandLine 'flink', 'run',"-m", "${->remote}", "${->jarPath}"
+    }
+}
+

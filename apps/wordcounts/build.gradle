@@ -1,0 +1,29 @@
+
+plugins {
+    id 'com.github.johnrengelman.shadow' version '6.0.0'
+}
+
+
+mainClassName = 'org.apache.flink.examples.java.wordcount.WordCount'
+
+ext{
+    shadow_jar_name = 'wordcount-all.jar'
+}
+
+
+shadowJar {
+    configurations = [project.configurations.flinkShadowJar]
+    archiveName shadow_jar_name
+}
+
+execInMiniKube {
+    dependsOn shadowJar
+    jarPath projectDir.toString()+"/build/libs/"+shadow_jar_name
+}
+
+
+
+
+
+
+
