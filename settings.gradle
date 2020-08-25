@@ -1,4 +1,3 @@
-rootProject.name = 'flinkExample'
+rootProject.name = 'sparkDemo'
 include 'apps'
-include 'apps:wordcounts'
 

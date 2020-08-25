@@ -10,16 +10,14 @@ allprojects {
 jar.enabled = false
 
 subprojects {
-    group = 'me.chandlersong.flink'
+    group = 'me.chandlersong.spark'
     apply plugin: 'java-library'
 
     ext {
         javaVersion = 1.8
         flinkVersion = '1.11.0'
-        scalaBinaryVersion = '2.12'
         slf4jVersion = '1.7.15'
         log4jVersion = '2.12.1'
-        shadowVersion = '6.0.0'
     }
 
     sourceCompatibility = javaVersion
@@ -36,19 +34,9 @@ subprojects {
     }
 
     task wrapper(type: Wrapper) {
-        gradleVersion >=k '6.5.0'
+        gradleVersion = '6.5'
     }
 
-
-    configurations {
-        flinkShadowJar // dependencies which go into the shadowJar
-
-        // always exclude these (also from transitive dependencies) since they are provided by Flink
-        flinkShadowJar.exclude group: 'org.apache.flink', module: 'force-shading'
-        flinkShadowJar.exclude group: 'com.google.code.findbugs', module: 'jsr305'
-        flinkShadowJar.exclude group: 'org.slf4j'
-        flinkShadowJar.exclude group: 'org.apache.logging.log4j'
-    }
 
     repositories {
         mavenLocal()

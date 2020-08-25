@@ -5,9 +5,6 @@ subprojects {
     apply plugin: 'application'
 
     dependencies {
-        api "org.apache.flink:flink-streaming-java_${scalaBinaryVersion}:${flinkVersion}"
-        api "org.apache.flink:flink-clients_${scalaBinaryVersion}:${flinkVersion}"
-        api "org.apache.flink:flink-core:${flinkVersion}"
         api "org.apache.logging.log4j:log4j-api:${log4jVersion}"
         api "org.apache.logging.log4j:log4j-core:${log4jVersion}"
         api "org.apache.logging.log4j:log4j-slf4j-impl:${log4jVersion}"
@@ -15,18 +12,6 @@ subprojects {
     }
 
     applicationDefaultJvmArgs = ["-Dlog4j.configurationFile=log4j2.properties"]
-
-    sourceSets {
-        main.compileClasspath += configurations.flinkShadowJar
-        main.runtimeClasspath += configurations.flinkShadowJar
-
-        test.compileClasspath += configurations.flinkShadowJar
-        test.runtimeClasspath += configurations.flinkShadowJar
-
-        javadoc.classpath += configurations.flinkShadowJar
-    }
-
-    run.classpath = sourceSets.main.runtimeClasspath
 
 
     jar {
@@ -36,23 +21,30 @@ subprojects {
         }
     }
 
-    //change ip if not use the minikube
-    task execInMiniKube(type: ExecInMiniKube){
-        def ip = new ByteArrayOutputStream()
+
+    task getInMiniKubeIp{
+        getInMiniKubeIp.ext.ip = new ByteArrayOutputStream()
         exec {
             commandLine 'minikube', 'ip'
-            standardOutput = ip
+            standardOutput =  getInMiniKubeIp.ext.ip
         }
-        remote ip.toString().substring(0,ip.toString().length()-1)+":"+remotePort
+        println "minikube ip is $getInMiniKubeIp.ext.ip"
+    }
+
+    task execInMiniKube(type: ExecInRemote){
+        dependsOn getInMiniKubeIp
+        def ip = getInMiniKubeIp.ip
+        jarPath "abb"
+        remote ip.toString().substring(0, ip.toString().length()-1)+":"+remotePort
     }
 }
 
-class ExecInMiniKube extends Exec {
+class ExecInRemote extends Exec {
     String jarPath
     String remote
 
-    ExecInMiniKube() {
-        commandLine 'flink', 'run',"-m", "${->remote}", "${->jarPath}"
+    ExecInRemote() {
+        commandLine 'echo', 'run',"-m", "${->remote}", "${->jarPath}"
     }
 }
 
