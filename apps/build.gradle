@@ -36,15 +36,21 @@ subprojects {
         }
     }
 
-    //change ip if not use the minikube
-    task execInMiniKube(type: ExecInMiniKube){
-        def ip = new ByteArrayOutputStream()
+    task getInMiniKubeIp{
+        getInMiniKubeIp.ext.ip = new ByteArrayOutputStream()
         exec {
             commandLine 'minikube', 'ip'
-            standardOutput = ip
+            standardOutput =  getInMiniKubeIp.ext.ip
         }
-        remote ip.toString().substring(0,ip.toString().length()-1)+":"+remotePort
+        println "minikube ip is $getInMiniKubeIp.ext.ip"
     }
+
+    task execInMiniKube(type: ExecInMiniKube){
+        dependsOn getInMiniKubeIp
+        def ip = getInMiniKubeIp.ip
+        remote ip.toString().substring(0, ip.toString().length()-1)+":"+remotePort
+    }
+
 }
 
 class ExecInMiniKube extends Exec {
