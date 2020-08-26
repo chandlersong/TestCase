@@ -8,6 +8,25 @@ allprojects {
 }
 
 jar.enabled = false
+sourceSets {
+    main {
+        java {
+            srcDirs = []
+        }
+        resources {
+            srcDirs = []
+        }
+    }
+    test {
+        java {
+            srcDirs = []
+        }
+        resources {
+            srcDirs = []
+        }
+    }
+}
+
 
 subprojects {
     group = 'me.chandlersong.flink'
@@ -32,7 +51,7 @@ subprojects {
 
     dependencies {
         api "com.google.guava:guava:$guavaVersion"
-        testCompile group: 'junit', name: 'junit', version: '4.12'
+        testImplementation group: 'junit', name: 'junit', version: '4.12'
     }
 
     task wrapper(type: Wrapper) {
