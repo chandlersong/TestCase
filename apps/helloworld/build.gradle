@@ -1,0 +1,6 @@
+
+
+
+execInMiniKube {
+    jarPath projectDir.toString()
+}

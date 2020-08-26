@@ -1,3 +1,4 @@
 rootProject.name = 'sparkDemo'
 include 'apps'
+include 'apps:helloworld'
 

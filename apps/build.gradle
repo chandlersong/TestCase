@@ -1,4 +1,22 @@
 jar.enabled = false
+sourceSets {
+    main {
+        java {
+            srcDirs = []
+        }
+        resources {
+            srcDirs = []
+        }
+    }
+    test {
+        java {
+            srcDirs = []
+        }
+        resources {
+            srcDirs = []
+        }
+    }
+}
 
 subprojects {
 
@@ -11,16 +29,12 @@ subprojects {
         api "org.slf4j:slf4j-log4j12:${slf4jVersion}"
     }
 
-    applicationDefaultJvmArgs = ["-Dlog4j.configurationFile=log4j2.properties"]
-
-
     jar {
         manifest {
             attributes 'Built-By': System.getProperty('user.name'),
                     'Build-Jdk': System.getProperty('java.version')
         }
     }
-
 
     task getInMiniKubeIp{
         getInMiniKubeIp.ext.ip = new ByteArrayOutputStream()
@@ -34,9 +48,9 @@ subprojects {
     task execInMiniKube(type: ExecInRemote){
         dependsOn getInMiniKubeIp
         def ip = getInMiniKubeIp.ip
-        jarPath "abb"
         remote ip.toString().substring(0, ip.toString().length()-1)+":"+remotePort
     }
+
 }
 
 class ExecInRemote extends Exec {
