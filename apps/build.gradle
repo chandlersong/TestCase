@@ -27,6 +27,7 @@ subprojects {
         api "org.apache.logging.log4j:log4j-core:${log4jVersion}"
         api "org.apache.logging.log4j:log4j-slf4j-impl:${log4jVersion}"
         api "org.slf4j:slf4j-log4j12:${slf4jVersion}"
+        compileOnly "org.apache.spark:spark-sql_2.12:${sparkVersion}"
     }
 
     jar {
@@ -48,7 +49,7 @@ subprojects {
     task execInMiniKube(type: ExecInRemote){
         dependsOn getInMiniKubeIp
         def ip = getInMiniKubeIp.ip
-        remote ip.toString().substring(0, ip.toString().length()-1)+":"+remotePort
+        remote "spark://"+ip.toString().substring(0, ip.toString().length()-1)+":"+remotePort
     }
 
 }
@@ -56,9 +57,12 @@ subprojects {
 class ExecInRemote extends Exec {
     String jarPath
     String remote
+    String mainClass
 
     ExecInRemote() {
-        commandLine 'echo', 'run',"-m", "${->remote}", "${->jarPath}"
+        commandLine 'spark-submit', '--class',"${->mainClass}", \
+                    "--master","${->remote}", \
+                    "${->jarPath}"
     }
 }
 

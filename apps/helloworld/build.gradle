@@ -1,6 +1,16 @@
 
 
+mainClassName = 'me.chandlersong.helloworld.SimpleApp'
+
+
+
+application {
+    mainClass = mainClassName
+}
 
 execInMiniKube {
-    jarPath projectDir.toString()
+    dependsOn build
+    mainClass mainClassName
+    jarPath project.jar.archiveFile.get().toString()
+
 }

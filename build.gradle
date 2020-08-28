@@ -8,8 +8,28 @@ allprojects {
 
     group 'me.chandlersong'
     version '1.0-SNAPSHOT'
+
+    repositories {
+        mavenLocal()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        mavenCentral()
+        maven { url "https://repository.apache.org/content/repositories/snapshots/" }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+
+
+    ext {
+        javaVersion = 1.8
+        flinkVersion = '1.11.0'
+        slf4jVersion = '1.7.15'
+        log4jVersion = '2.12.1'
+        sparkVersion = '3.0.0'
+    }
 }
 
+jar.enabled = false
 sourceSets {
     main {
         java {
@@ -29,18 +49,10 @@ sourceSets {
     }
 }
 
-jar.enabled = false
-
 subprojects {
     group = 'me.chandlersong.spark'
     apply plugin: 'java-library'
 
-    ext {
-        javaVersion = 1.8
-        flinkVersion = '1.11.0'
-        slf4jVersion = '1.7.15'
-        log4jVersion = '2.12.1'
-    }
 
     sourceCompatibility = javaVersion
     targetCompatibility = javaVersion
@@ -58,16 +70,4 @@ subprojects {
     task wrapper(type: Wrapper) {
         gradleVersion = '6.5'
     }
-
-    repositories {
-        mavenLocal()
-        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
-        mavenCentral()
-        maven { url "https://repository.apache.org/content/repositories/snapshots/" }
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-    }
-
-
 }
