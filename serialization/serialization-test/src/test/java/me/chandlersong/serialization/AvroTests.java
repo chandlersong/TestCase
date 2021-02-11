@@ -3,8 +3,11 @@ package me.chandlersong.serialization;
 import example.avro.Address;
 import example.avro.User;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Clock;
 import java.time.Instant;
 
@@ -36,5 +39,12 @@ public class AvroTests {
 
     }
 
+    @Test
+    public void exportAddress() throws IOException {
+        Address.Builder builder = Address.newBuilder();
+        builder.setName("Abc");
+        Address address = builder.build();
+        FileUtils.writeByteArrayToFile(new File("a.bin"),address.toByteBuffer().array());
+    }
 
 }

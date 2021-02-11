@@ -16,6 +16,12 @@ public class InstantDemos {
     private static final Logger logger = getLogger(InstantDemos.class);
 
     @Test
+    public void helloWorld(){
+        Date now = new Date();
+        logger.debug("now is {}",now.getTime());
+    }
+
+    @Test
     public void testDiff() {
         logger.info("instant now with utc:{}", Instant.now(Clock.systemUTC()));
         logger.info("instant now default zone:{}", Instant.now(Clock.systemDefaultZone()));
