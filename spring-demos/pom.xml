@@ -18,6 +18,7 @@
         <module>spring-profiles</module>
         <module>webflux-study</module>
         <module>spring-data</module>
+        <module>spring-state-machine-demos</module>
     </modules>
 
     <dependencyManagement>
