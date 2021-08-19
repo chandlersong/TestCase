@@ -1,0 +1,73 @@
+plugins {
+    id 'java'
+    id 'idea'
+}
+
+allprojects {
+    apply plugin: "idea"
+
+    group 'me.chandlersong'
+    version '1.0-SNAPSHOT'
+
+    repositories {
+        mavenLocal()
+        maven { url "https://maven.aliyun.com/nexus/content/groups/public/" }
+        mavenCentral()
+        maven { url "https://repository.apache.org/content/repositories/snapshots/" }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+
+
+    ext {
+        javaVersion = 1.8
+        springVersion = '1.11.0'
+        slf4jVersion = '1.7.15'
+        log4jVersion = '2.12.1'
+    
+    }
+}
+
+jar.enabled = false
+sourceSets {
+    main {
+        java {
+            srcDirs = []
+        }
+        resources {
+            srcDirs = []
+        }
+    }
+    test {
+        java {
+            srcDirs = []
+        }
+        resources {
+            srcDirs = []
+        }
+    }
+}
+
+subprojects {
+    group = 'me.chandlersong.statemachine'
+    apply plugin: 'java-library'
+
+
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+
+    dependencies {
+        api "com.google.guava:guava:$guavaVersion"
+        testImplementation group: 'junit', name: 'junit', version: '4.12'
+    }
+
+    task wrapper(type: Wrapper) {
+        gradleVersion = '6.5'
+    }
+}
