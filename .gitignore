@@ -1,3 +1,4 @@
-/apps/helloworld/gradle/wrapper/
-/apps/helloworld/.gradle/
-/.idea/
+gradle/wrapper/
+.gradle/
+.idea/
+/.gradle/
