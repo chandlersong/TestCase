@@ -1,4 +1,4 @@
 rootProject.name = 'stateMachineDemo'
 include 'apps'
-include 'apps::helloworld'
+include 'apps:helloworld'
 
