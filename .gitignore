@@ -3,3 +3,6 @@ gradle/wrapper/
 .idea/
 /.gradle/
 /apps/helloworld/gradle/wrapper/
+/apps/helloworld/gradle/
+build/
+gradle/

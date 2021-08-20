@@ -17,16 +17,18 @@ allprojects {
         maven {
             url "https://plugins.gradle.org/m2/"
         }
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
     }
 
 
     ext {
         javaVersion = 1.8
-        springVersion = '1.11.0'
-        slf4jVersion = '1.7.15'
-        log4jVersion = '2.12.1'
-    
+        springBootVersion = '2.4.8'
+        springStatemachineVersion = '3.0.1'
+        springShellVersion = '2.0.1.RELEASE'
     }
+
 }
 
 jar.enabled = false
@@ -54,6 +56,7 @@ subprojects {
     apply plugin: 'java-library'
 
 
+
     sourceCompatibility = javaVersion
     targetCompatibility = javaVersion
 
@@ -64,10 +67,5 @@ subprojects {
 
     dependencies {
         api "com.google.guava:guava:$guavaVersion"
-        testImplementation group: 'junit', name: 'junit', version: '4.12'
-    }
-
-    task wrapper(type: Wrapper) {
-        gradleVersion = '6.5'
     }
 }
