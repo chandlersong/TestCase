@@ -6,3 +6,4 @@ gradle/wrapper/
 /apps/helloworld/gradle/
 build/
 gradle/
+/spring-shell.log
