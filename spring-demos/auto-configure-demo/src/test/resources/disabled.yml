@@ -1,6 +1,0 @@
-server:
-  port: 18082
-
-test:
-  test: "ok"
-  enabled: false

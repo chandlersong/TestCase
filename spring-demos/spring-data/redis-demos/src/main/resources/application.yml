@@ -1,4 +1,0 @@
-spring:
-  redis:
-    host: cloudTest
-    port: 6379
