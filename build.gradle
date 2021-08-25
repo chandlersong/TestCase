@@ -1,0 +1,49 @@
+buildscript {
+    ext {
+        springBootVersion = '2.5.2'
+    }
+    repositories {
+        mavenLocal()
+        maven { url "https://maven.aliyun.com/nexus/content/groups/public/" }
+        mavenCentral()
+        gradlePluginPortal()
+        maven { url 'https://repo.spring.io/plugins-release' }
+        maven { url 'https://repo.spring.io/plugins-snapshot' }
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+        maven { url "https://repo.spring.io/release" }
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+    }
+}
+
+configure(allprojects) {
+    ext {
+        verifierVersion = '3.1.0-SNAPSHOT'
+        contractPluginVersion = '3.0.3'
+        bootVersion = '2.6.0-M1'
+        BOM_VERSION = '2021.0.0-SNAPSHOT'
+        sourceCompatibility = '8'
+    }
+
+    repositories {
+        mavenLocal()
+        maven { url "https://maven.aliyun.com/nexus/content/groups/public/" }
+        mavenCentral()
+        gradlePluginPortal()
+        maven { url 'https://repo.spring.io/plugins-release' }
+        maven { url 'https://repo.spring.io/plugins-snapshot' }
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+        maven { url "https://repo.spring.io/release" }
+    }
+
+
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+

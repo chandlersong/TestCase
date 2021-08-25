@@ -1,7 +1,9 @@
 /logs
 /log
-/.idea
+.idea/
 /target
 *.iml
-target
 logs
+gradle/
+build/
+.gradle/

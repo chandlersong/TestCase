@@ -1,0 +1,3 @@
+rootProject.name = 'SpringCloudContract'
+include 'producer-project'
+
