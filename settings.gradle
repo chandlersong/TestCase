@@ -1,3 +1,4 @@
 rootProject.name = 'SpringCloudContract'
-include 'producer-project'
+include 'producer-simple'
+include 'consumer-simple'
 
