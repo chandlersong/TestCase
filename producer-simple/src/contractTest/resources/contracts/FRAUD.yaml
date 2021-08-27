@@ -1,9 +1,9 @@
 request:
-  method: PUT
+  method: POST
   url: /fraudcheck
   body:
-    "client.id": 1234567890
     loanAmount: 99999
+    "client.id": 1234567890
   headers:
     Content-Type: application/json
   matchers:
@@ -17,4 +17,4 @@ response:
     fraudCheckStatus: "FRAUD"
     "rejection.reason": "Amount too high"
   headers:
-    Content-Type: application/json;charset=UTF-8
+    Content-Type: application/json

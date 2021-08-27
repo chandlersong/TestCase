@@ -4,7 +4,6 @@ plugins {
     id 'idea'
     id 'groovy'
     id 'org.springframework.boot'
-    id 'io.spring.dependency-management'
     id 'org.springframework.cloud.contract' version "${contractPluginVersion}"
     id 'maven-publish'
 }
@@ -12,10 +11,6 @@ plugins {
 group 'org.example'
 version '1.0-SNAPSHOT'
 
-
-ext {
-    set('springCloudVersion', "${BOM_VERSION}")
-}
 
 println "Boot Version [${bootVersion}], Cloud version [${BOM_VERSION}], Contract version [${verifierVersion}]"
 
@@ -28,11 +23,6 @@ dependencies {
     }
 }
 
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-    }
-}
 
 contracts {
     testFramework = "JUNIT5"
@@ -43,6 +33,26 @@ contractTest {
     useJUnitPlatform()
     testLogging {
         exceptionFormat = 'full'
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact bootJar
+
+            artifact verifierStubsJar
+
+            // https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
+            versionMapping {
+                usage("java-api") {
+                    fromResolutionOf("runtimeClasspath")
+                }
+                usage("java-runtime") {
+                    fromResolutionResult()
+                }
+            }
+        }
     }
 }
 
