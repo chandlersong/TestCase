@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  stubs:
+    image: "springcloud/spring-cloud-contract-stub-runner:3.0.2"
+    ports:
+      - "8090:8090"
+      - "8750:8750"
+    environment:
+      - STUBRUNNER_IDS=org.example:producer-simple:1.0-SNAPSHOT:stubs:8090
+      - STUBRUNNER_REPOSITORY_ROOT=8090
+      - STUBRUNNER_STUBS_MODE=LOCAL
+    volumes:
+      - ./jars:/root/.m2/repository/org/example/producer-simple/1.0-SNAPSHOT
+

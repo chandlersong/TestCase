@@ -1,0 +1,13 @@
+GET http://localhost:8090/ping
+Accept: application/json
+
+###
+POST http://localhost:8090/fraudcheck
+Content-Type: application/json
+
+{
+  "client.id": "1234567890",
+  "loanAmount": 99999
+}
+
+###
