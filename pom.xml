@@ -14,15 +14,7 @@
     <artifactId>testcase</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>java-8-demos</module>
-        <module>spring-demos</module>
-        <module>apache-demos</module>
-        <module>memos</module>
-        <module>guava</module>
-        <module>lombok-demo</module>
-        <module>rxjava-demo</module>
-        <module>mq-demo</module>
-        <module>serialization</module>
+        <module>spring-validation-demo</module>
     </modules>
     <packaging>pom</packaging>
 
