@@ -1,4 +1,4 @@
-rootProject.name = 'SpringCloudContract'
+rootProject.name = 'dubboExample'
 include 'producer-simple'
 include 'consumer-simple'
 
