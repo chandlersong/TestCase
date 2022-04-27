@@ -11,6 +11,10 @@ buildscript {
     }
 }
 
+plugins {
+    id "com.google.cloud.tools.jib" version "3.2.1" apply false
+}
+
 group 'org.example'
 version '1.0-SNAPSHOT'
 
@@ -41,8 +45,11 @@ configure(allprojects) {
 
 }
 
+
+
 subprojects {
-    apply plugin: "java"
+    apply plugin: 'java'
+
 
     dependencies {
         compileOnly "org.projectlombok:lombok:${lombokVersion}"
@@ -51,8 +58,17 @@ subprojects {
         testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
         testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     }
-}
 
+    project.afterEvaluate {
+        if (it.plugins.hasPlugin('com.google.cloud.tools.jib')) {
+            jib {
+                from {
+                    image = 'docker.mirrors.ustc.edu.cn:://openjdk@sha256:ee5059ff0957c32e5754f32ca69f124b4d6f93a01a0ce99ec8c2fc614ca62d33'
+                }
+            }
+        }
+    }
+}
 
 group 'org.example'
 version '1.0-SNAPSHOT'

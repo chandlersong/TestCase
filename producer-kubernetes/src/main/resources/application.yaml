@@ -1,0 +1,13 @@
+dubbo:
+  application:
+    name: dubbo-samples-apiserver-provider
+    metadataServicePort: 20885
+    qosEnable: true
+    qosAcceptForeignIp: true
+  registry:
+    address: kubernetes://DEFAULT_MASTER_HOST?registry-type=service&duplicate=false&namespace=dubbo-demo&trustCerts=true
+  protocol:
+    name: dubbo
+    port: 20880
+  provider:
+    token: true

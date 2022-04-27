@@ -4,8 +4,10 @@ plugins {
     id 'idea'
     id 'org.springframework.boot'
     id 'maven-publish'
+    id 'com.google.cloud.tools.jib'
 }
 
+println "example.dubbo.producer"
 group 'example.dubbo.producer'
 version '1.0-SNAPSHOT'
 
@@ -19,12 +21,16 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 
+jib {
+    container {
+        mainClass = 'org.example.producer.SimpleProducerApplication'
+    }
+}
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
             artifact bootJar
-
             // https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
             versionMapping {
                 usage("java-api") {
