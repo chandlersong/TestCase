@@ -66,6 +66,7 @@ subprojects {
                     image = 'docker.mirrors.ustc.edu.cn:://openjdk@sha256:ee5059ff0957c32e5754f32ca69f124b4d6f93a01a0ce99ec8c2fc614ca62d33'
                 }
             }
+            build.finalizedBy(jibDockerBuild)
         }
     }
 }

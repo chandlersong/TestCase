@@ -21,7 +21,7 @@ dependencies {
 
 jib {
     container {
-        mainClass = 'org.example.producer.SimpleProducerApplication'
+        mainClass = 'org.example.consumer.ConsumerApplication'
     }
 }
 

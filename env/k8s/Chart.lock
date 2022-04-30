@@ -1,0 +1,6 @@
+dependencies:
+- name: nacos
+  repository: https://ygqygq2.github.io/charts/
+  version: 2.0.1
+digest: sha256:b156a94eb8706db4a41aa83d6abad54b456395a8e21a0b20ca54942441b6157f
+generated: "2022-04-27T21:31:24.2497139+08:00"
