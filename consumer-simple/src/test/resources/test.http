@@ -1,3 +1,7 @@
-### GET request with a header
+### call a java example
 GET http://localhost:8080/chandler:hello
+Accept: application/json
+
+### call a go example
+GET http://localhost:8080/go:hello
 Accept: application/json
