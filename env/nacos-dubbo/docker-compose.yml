@@ -21,4 +21,16 @@ services:
       - ./mysql:/var/lib/mysql
     ports:
       - "3306:3306"
+  go-producer:
+    image: go-producer:0.1-dc
+  java-producer:
+    image: producer-simple:1.0-SNAPSHOT
+    environment:
+      spring_profiles_active: dc
+  java-consmuer:
+    image: consumer-simple:1.0-SNAPSHOT
+    ports:
+      - "8080:8080"
+    environment:
+      spring_profiles_active: dc
 
