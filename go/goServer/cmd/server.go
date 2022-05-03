@@ -38,7 +38,7 @@ func init() {
 }
 
 // export DUBBO_GO_CONFIG_PATH=dubbogo.yaml 运行前需要设置环境变量，指定配置文件位置
-func main() {
+func nnmain() {
 	if err := config.Load(); err != nil {
 		panic(err)
 	}
