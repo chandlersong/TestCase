@@ -16,10 +16,3 @@ nacos:
 dubbo:
   registry:
     address: nacos://${nacos.host}:${nacos.port}/?username=${nacos.username}&password=${nacos.password}
-logging:
-  level:
-    root: warn
-    org:
-      example:
-        producer: debug
-        comsumer: debug

@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	dubbo.apache.org/dubbo-go/v3 v3.0.1
-	github.com/DataDog/go-python3 v0.0.0-20211102160307-40adc605f1fe
+	github.com/DataDog/go-python3 v0.0.0-20211102160307-40adc605f1fe // indirect
 	github.com/apache/dubbo-go-hessian2 v1.11.0
 )
 

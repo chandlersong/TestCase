@@ -1,34 +1,39 @@
 package api
 
 import (
+	"bufio"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os/exec"
 )
 
 func NewPythonApi() *PythonApi {
-	inputReader, inputWriter := io.Pipe()
-	outputReader, outputWriter := io.Pipe()
+	//inputReader, inputWriter := io.Pipe()
+	//outputReader, outputWriter := io.Pipe()
 
 	command := exec.Command("tr", "a-z", "A-Z")
-	command.Stdin = inputReader
-	command.Stdout = outputWriter
+	input, _ := command.StdinPipe()
+	output, _ := command.StdoutPipe()
 	command.Start()
-	return &PythonApi{cmd: command, in: inputWriter, out: outputReader}
+	return &PythonApi{cmd: command, out: &output, in: &input}
 }
 
 type PythonApi struct {
 	cmd *exec.Cmd
-	out *io.PipeReader
-	in  *io.PipeWriter
+	out *io.ReadCloser
+	in  *io.WriteCloser
 }
 
 func (p *PythonApi) CheckStatus(word string) {
 
-	fmt.Fprintf(p.in, "%v\n", word)
-	out, _ := ioutil.ReadAll(p.out)
-	fmt.Printf("in all caps: %q\n", out)
+	fmt.Fprintf(*p.in, word+"\n")
+
+	p.cmd.Wait()
+	scan := bufio.NewScanner(*p.out)
+	for scan.Scan() {
+		fmt.Printf("in all caps: %q\n", scan.Text())
+	}
+
 }
 
 func (p *PythonApi) Wait() {

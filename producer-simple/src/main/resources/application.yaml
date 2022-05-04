@@ -8,7 +8,3 @@ dubbo:
     port: 20880
   provider:
     token: true
-logging:
-  level:
-    root: warn
-    org.example.producer: debug
