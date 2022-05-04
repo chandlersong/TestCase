@@ -3,12 +3,16 @@ WORKDIR /usr/src/app
 ARG PROFILE=dc
 ENV GOPROXY=https://goproxy.cn
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
-  apk add --no-cache upx ca-certificates tzdata
+  apk add --no-cache upx ca-certificates tzdata protobuf-dev
 COPY ../go.mod ./
 COPY ../go.sum ./
 RUN go mod download
 COPY .. .
-RUN CGO_ENABLED=0 go build -ldflags "-s -w" -o server cmd/server.go
+
+RUN  go get -u github.com/golang/protobuf/protoc-gen-go &&\
+  	 go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc &&\
+     go generate &&\
+     CGO_ENABLED=0 go build -ldflags "-s -w" -o server cmd/server.go
 
 FROM scratch as runner
 ARG PROFILE=dc
