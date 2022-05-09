@@ -9,4 +9,8 @@ public class HelloServiceImpl implements HelloService {
 
 
     @Override
-    publi
+    public String sayHello(String name) {
+        log.info("call {} has been handle at provider", name);
+        return "hello " + name;
+    }
+}

@@ -12,6 +12,7 @@ import (
 	pbtime "google.golang.org/protobuf/types/known/timestamppb"
 	"log"
 	"math/rand"
+	"os"
 	"strconv"
 	"time"
 )
@@ -28,6 +29,28 @@ func (u *UserProvider) GetUser(ctx context.Context, req int32) (*api.User, error
 	user.Name = "laurence"
 	user.Age = 22
 	user.Time = time.Now()
+	addr := os.Getenv("AI_HOST")
+	if addr == "" {
+		addr = "localhost:9999"
+	}
+	logger.Infof("ai host is %v", addr)
+	conn, err := grpc.Dial(addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer conn.Close()
+
+	client := genapi.NewOutliersClient(conn)
+	aiCall := &genapi.OutliersRequest{
+		Metrics: dummyData(),
+	}
+
+	resp, err := client.Detect(context.Background(), aiCall)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("outliers at: %v", resp.Indices)
+
 	return user, err
 }
 
@@ -45,29 +68,10 @@ func init() {
 
 // export DUBBO_GO_CONFIG_PATH=dubbogo.yaml 运行前需要设置环境变量，指定配置文件位置
 func main() {
-
 	if err := config.Load(); err != nil {
 		panic(err)
 	}
 	select {}
-
-	addr := "localhost:9999"
-	conn, err := grpc.Dial(addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer conn.Close()
-
-	client := genapi.NewOutliersClient(conn)
-	req := &genapi.OutliersRequest{
-		Metrics: dummyData(),
-	}
-
-	resp, err := client.Detect(context.Background(), req)
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Printf("outliers at: %v", resp.Indices)
 
 }
 

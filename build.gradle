@@ -63,7 +63,7 @@ subprojects {
         if (it.plugins.hasPlugin('com.google.cloud.tools.jib')) {
             jib {
                 from {
-                    image = 'docker.mirrors.ustc.edu.cn:://openjdk@sha256:ee5059ff0957c32e5754f32ca69f124b4d6f93a01a0ce99ec8c2fc614ca62d33'
+                    image = 'hub-mirror.c.163.com://openjdk:8-jdk-slim-buster'
                 }
             }
             build.finalizedBy(jibDockerBuild)

@@ -12,21 +12,35 @@ services:
       - "9848:9848"
       - "9555:9555"
     restart: always
+    networks:
+      proxy:
+        ipv4_address: 172.18.0.6
   go-producer:
     image: go-producer:0.1-dc
     depends_on:
       - nacos
       - ai-runner
+    environment:
+      - AI_HOST=172.18.0.3:9999
+    networks:
+      proxy:
+        ipv4_address: 172.18.0.2
   ai-runner:
     image: ai-hello-world:0.1-dc
     depends_on:
       - nacos
+    ports:
+      - 9998:9999
+    networks:
+      proxy:
+        ipv4_address: 172.18.0.3
   java-producer:
     image: producer-simple:1.0-SNAPSHOT
     environment:
       spring_profiles_active: dc
-    depends_on:
-      - nacos
+    networks:
+      proxy:
+        ipv4_address: 172.18.0.4
   java-consmuer:
     image: consumer-simple:1.0-SNAPSHOT
     ports:
@@ -37,4 +51,11 @@ services:
       - nacos
       - java-producer
       - go-producer
-
+    networks:
+      proxy:
+        ipv4_address: 172.18.0.5
+networks:
+  proxy:
+    ipam:
+      config:
+        - subnet: 172.18.0.0/24
