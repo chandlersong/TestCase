@@ -1,5 +1,5 @@
 import numpy as np
-from loguru import  logger
+from loguru import logger
 
 from api.python_pb2 import OutliersResponse
 from api.python_pb2_grpc import OutliersServicer
