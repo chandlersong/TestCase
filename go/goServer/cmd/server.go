@@ -2,17 +2,11 @@ package main
 
 import (
 	"context"
-	genapi "dubbo-server/gen/api"
+	"dubbo-server/pkg/aicleint"
 	"dubbo-server/pkg/api"
 	"dubbo.apache.org/dubbo-go/v3/common/logger" // dubbogo 框架日志
 	"dubbo.apache.org/dubbo-go/v3/config"
 	_ "dubbo.apache.org/dubbo-go/v3/imports" // dubbogo 框架依赖，所有dubbogo进程都需要隐式引入一次
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
-	pbtime "google.golang.org/protobuf/types/known/timestamppb"
-	"log"
-	"math/rand"
-	"os"
 	"strconv"
 	"time"
 )
@@ -29,27 +23,8 @@ func (u *UserProvider) GetUser(ctx context.Context, req int32) (*api.User, error
 	user.Name = "laurence"
 	user.Age = 22
 	user.Time = time.Now()
-	addr := os.Getenv("AI_HOST")
-	if addr == "" {
-		addr = "localhost:9999"
-	}
-	logger.Infof("ai host is %v", addr)
-	conn, err := grpc.Dial(addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer conn.Close()
-
-	client := genapi.NewOutliersClient(conn)
-	aiCall := &genapi.OutliersRequest{
-		Metrics: dummyData(),
-	}
-
-	resp, err := client.Detect(context.Background(), aiCall)
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Printf("outliers at: %v", resp.Indices)
+	minst := aicleint.NewMinst()
+	minst.Predict("1")
 
 	return user, err
 }
@@ -73,33 +48,4 @@ func main() {
 	}
 	select {}
 
-}
-
-func dummyData() []*genapi.Metric {
-	const size = 1000
-	out := make([]*genapi.Metric, size)
-	t := time.Date(2020, 5, 22, 14, 13, 11, 0, time.UTC)
-	for i := 0; i < size; i++ {
-		m := genapi.Metric{
-			Time: Timestamp(t),
-			Name: "CPU",
-			// normally we're below 40% CPU utilization
-			Value: rand.Float64() * 40,
-		}
-		out[i] = &m
-		t.Add(time.Second)
-	}
-	// Create some outliers
-	out[7].Value = 97.3
-	out[113].Value = 92.1
-	out[835].Value = 93.2
-	return out
-}
-
-// Timestamp converts time.Time to protobuf *Timestamp
-func Timestamp(t time.Time) *pbtime.Timestamp {
-	return &pbtime.Timestamp{
-		Seconds: t.Unix(),
-		Nanos:   int32(t.Nanosecond()),
-	}
 }

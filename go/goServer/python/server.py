@@ -6,8 +6,8 @@ import grpc
 from loguru import logger
 from dotenv import load_dotenv
 
-from api.python_pb2_grpc import add_OutliersServicer_to_server
-from service.Service import OutliersServer
+from api.python_pb2_grpc import add_MinstServiceServicer_to_server
+from service.Service import MinistServer
 
 
 class Command:
@@ -16,7 +16,7 @@ class Command:
         load_dotenv()
         logger.info("start server")
         server = grpc.server(ThreadPoolExecutor())
-        add_OutliersServicer_to_server(OutliersServer(), server)
+        add_MinstServiceServicer_to_server(MinistServer(), server)
         port = os.environ.get("localPort")
         server.add_insecure_port(f'[::]:{port}')
         server.start()

@@ -10,8 +10,7 @@ RUN  /usr/local/bin/python -m pip install --upgrade pip -i https://pypi.tuna.tsi
 
 COPY . .
 RUN mv dc.env .env && \
-    mkdir api &&\
-    python -m grpc_tools.protoc -Iproto --python_out=. --grpc_python_out=. ./proto/api/python.proto
+    python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. ./api/python.proto
 
 
 CMD [ "python", "./server.py"]
