@@ -9,6 +9,7 @@ import (
 	pbtime "google.golang.org/protobuf/types/known/timestamppb"
 	"log"
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -41,10 +42,11 @@ func (m *Minst) Predict(fileId string) int32 {
 }
 
 func createData(fileId string) *genapi.MinstRequest {
+	par, _ := strconv.ParseInt(fileId, 10, 32)
 	t := time.Date(2020, 5, 22, 14, 13, 11, 0, time.UTC)
 	out := &genapi.MinstRequest{
 		Time:   Timestamp(t),
-		FileId: fileId,
+		FileId: int32(par),
 	}
 	return out
 }

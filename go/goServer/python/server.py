@@ -7,7 +7,7 @@ from loguru import logger
 from dotenv import load_dotenv
 
 from api.python_pb2_grpc import add_MinstServiceServicer_to_server
-from service.Service import MinistServer
+from service.Service import MnistServer
 
 
 class Command:
@@ -16,7 +16,7 @@ class Command:
         load_dotenv()
         logger.info("start server")
         server = grpc.server(ThreadPoolExecutor())
-        add_MinstServiceServicer_to_server(MinistServer(), server)
+        add_MinstServiceServicer_to_server(MnistServer(), server)
         port = os.environ.get("localPort")
         server.add_insecure_port(f'[::]:{port}')
         server.start()

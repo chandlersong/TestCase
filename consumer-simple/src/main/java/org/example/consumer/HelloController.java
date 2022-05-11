@@ -27,9 +27,9 @@ public class HelloController {
     }
 
 
-    @GetMapping("/go:hello")
-    public ResponseEntity<User> testHello() {
-        User body = goService.GetUser(1);
+    @GetMapping("/go:{number}")
+    public ResponseEntity<User> goHello(@PathVariable String number) {
+        User body = goService.GetUser(number);
         log.info("abc");
         return ResponseEntity.ok(body);
     }

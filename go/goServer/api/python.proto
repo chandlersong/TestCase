@@ -6,7 +6,7 @@ option go_package = "/genapi";
 
 message MinstRequest {
   google.protobuf.Timestamp time = 1;
-  string fileId = 2;
+  int32 fileId = 2;
 }
 
 message MinstResponse {

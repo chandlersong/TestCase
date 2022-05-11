@@ -15,16 +15,18 @@ type UserProvider struct {
 }
 
 // 实现接口方法
-func (u *UserProvider) GetUser(ctx context.Context, req int32) (*api.User, error) {
+func (u *UserProvider) GetUser(ctx context.Context, req string) (*api.User, error) {
 	var err error
 	logger.Infof("req:%#v", req)
+
+	minst := aicleint.NewMinst()
+	predict := minst.Predict(req)
+
 	user := &api.User{}
-	user.ID = strconv.Itoa(int(req))
+	user.ID = strconv.FormatInt(int64(predict), 10)
 	user.Name = "laurence"
 	user.Age = 22
 	user.Time = time.Now()
-	minst := aicleint.NewMinst()
-	minst.Predict("1")
 
 	return user, err
 }
