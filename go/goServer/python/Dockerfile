@@ -13,7 +13,7 @@ RUN  /usr/local/bin/python -m pip install --upgrade pip -i https://pypi.tuna.tsi
       pip3 install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple/
 
 COPY . .
-RUN mv dc.env .env && \
+RUN mv  ${PROFILE}.env .env && \
     python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. ./api/python.proto
 
 

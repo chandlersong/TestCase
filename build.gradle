@@ -63,7 +63,7 @@ subprojects {
         if (it.plugins.hasPlugin('com.google.cloud.tools.jib')) {
             jib {
                 from {
-                    image = 'docker://openjdk:8-jdk-slim-buster'
+                    image = 'hub-mirror.c.163.com://openjdk:8-jdk-slim-buster'
                 }
             }
             build.finalizedBy(jibDockerBuild)
