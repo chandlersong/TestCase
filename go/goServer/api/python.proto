@@ -13,6 +13,22 @@ message MinstResponse {
   int32 number = 1;
 }
 
+
+message InfoGanRequest {
+  google.protobuf.Timestamp time = 1;
+  int32 number = 2;
+}
+
+
+message InfoGanResponse {
+  google.protobuf.Timestamp time = 1;
+  string filename = 2;
+}
+
 service MinstService {
   rpc Predict(MinstRequest) returns (MinstResponse) {}
+}
+
+service InfoGanService {
+  rpc Create(InfoGanRequest) returns (InfoGanResponse) {}
 }

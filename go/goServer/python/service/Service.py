@@ -1,9 +1,10 @@
 import numpy as np
 from loguru import logger
 
+from ai.helloworld_infogan import InfoGanService
 from ai.mnist_service import MnistService
-from api.python_pb2 import MinstResponse
-from api.python_pb2_grpc import MinstServiceServicer
+from api.python_pb2 import MinstResponse, InfoGanResponse
+from api.python_pb2_grpc import MinstServiceServicer, InfoGanServiceServicer
 
 
 def find_outliers(data: np.ndarray):
@@ -21,3 +22,13 @@ class MnistServer(MinstServiceServicer):
     def Predict(self, request, context):
         logger.info(f'request is {request.fileId}')
         return MinstResponse(number=self.service.predict(request.fileId))
+
+
+class InfoGanServer(InfoGanServiceServicer):
+
+    def Create(self, request, context):
+        logger.info(f'request is {request.number}')
+        return InfoGanResponse(filename=self.service.save(request.number))
+
+    def __init__(self) -> None:
+        self.service = InfoGanService()

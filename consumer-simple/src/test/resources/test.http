@@ -1,7 +1,7 @@
-### call a java example
-GET http://localhost:8080/chandler:hello
+### infoGan
+POST http://localhost:8080/infoGan:1
 Accept: application/json
 
-### call a go example
-GET http://localhost:8080//mnist:7
+### minist
+GET http://localhost:8080/mnist:7
 Accept: application/json

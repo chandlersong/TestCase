@@ -17,4 +17,5 @@ RUN mv  ${PROFILE}.env .env && \
     python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. ./api/python.proto
 
 
-CMD [ "python", "./server.py"]
+ENTRYPOINT [ "python", "./server.py"]
+CMD [""]

@@ -36,7 +36,7 @@ func (m *Minst) PredictMnist(fileId int32) int32 {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("outliers at: %v", resp.Number)
+	log.Printf("predict at: %v", resp.Number)
 	return resp.Number
 }
 

@@ -1,30 +1,29 @@
+# -*- coding: utf-8 -*-
 """
 Created on Thu Aug 22 13:44:44 2019
 
 @author: zhang
 """
-import os
-
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
 from torchvision.utils import save_image
 import numpy as np
-from loguru import logger
-import random
 
+model_path = r'model.pth'
+use_cuda = False
+save_path = r'result.png'
 bs = 100
-idxmap = {1: 0,
-          7: 1,
-          5: 2,
-          4: 3,
-          9: 4,
-          3: 5,
-          6: 6,
-          8: 7,
-          0: 8,
-          2: 9}
-
+idxmap={1:0,
+        7:1,
+        5:2,
+        4:3,
+        9:4,
+        3:5,
+        6:6,
+        8:7,
+        0:8,
+        2:9}
 
 class G(nn.Module):
     def __init__(self):
@@ -41,12 +40,11 @@ class G(nn.Module):
             nn.ReLU(True),
             nn.ConvTranspose2d(64, 1, 4, 2, 1, bias=False),
             nn.Sigmoid()
-        )
+            )
 
     def forward(self, x):
         x = self.main(x)
         return x
-
 
 def _Noise_sample(n):
     dis_c = torch.FloatTensor(bs, 10)
@@ -55,8 +53,8 @@ def _Noise_sample(n):
     c = np.linspace(-1, 1, 10).reshape(1, -1)
     c = np.repeat(c, 10, 0).reshape(-1, 1)
     c1 = np.hstack([c, np.zeros_like(c)])
-    # idx = np.random.choice(10,10,replace=False).repeat(10)
-    # fix number
+    #idx = np.random.choice(10,10,replace=False).repeat(10)
+    #fix number
     idx = np.arange(10).repeat(10)
     one_hot = np.zeros((100, 10))
     one_hot[range(100), idx] = 1
@@ -70,37 +68,27 @@ def _Noise_sample(n):
     con_c.data.copy_(torch.from_numpy(c1))
     z = torch.cat([noise, dis_c, con_c], 1).view(-1, 74, 1, 1)
     real_idx = idxmap[n]
-    z = z[real_idx * 10:real_idx * 10 + 10]
+    z = z[real_idx*10:real_idx*10+10]
     return z
 
 
-class InfoGanService:
-    def __init__(self) -> None:
-        root = os.path.abspath(os.path.dirname(__file__))
-        logger.info(f"root path is {root}")
-        net = G()
-        net.eval()
-        self.use_cuda = torch.cuda.is_available()
-        if self.use_cuda:
-            logger.info('use cuda')
-            net.cuda()
-        else:
-            logger.info('use cpu')
-        model_path = f'{root}/model.pth'
-        is_gpu = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        logger.info('model path: {}'.format(model_path))
-        ckpt = torch.load(model_path, map_location=is_gpu)
-        net.load_state_dict(ckpt['model'])
-        self.net = net
-        self.export_path = root + "/" + "infoganResult"
-        logger.info(f"export path is {self.export_path}")
 
-    def save(self, number: int) -> int:
-        z = _Noise_sample(number)
-        if self.use_cuda:
-            z = z.cuda()
+INPUT_NUM = 4 # 0-9
+net = G()
+net.eval()
+z = _Noise_sample(INPUT_NUM)
+if use_cuda:
+    print('use cuda')
+    net.cuda()
+    z = z.cuda()
+else:
+    print('use cpu')
+print('model path: {}'.format(model_path))
+ckpt = torch.load(model_path)
+net.load_state_dict(ckpt['model'])
 
-        res = self.net(z)
-        res_text = f"{random.randint(1,9999999999)}.png"
-        save_image(res.data, f"{self.export_path}/{res_text}", nrow=10)
-        return res_text
+x_save = net(z)
+save_image(x_save.data, save_path, nrow=10)
+print('result path: {}'.format(save_path))
+
+
