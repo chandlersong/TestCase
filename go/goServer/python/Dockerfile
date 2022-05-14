@@ -12,7 +12,8 @@ RUN  /usr/local/bin/python -m pip install --upgrade pip -i https://pypi.tuna.tsi
 ARG PROFILE=dc
 COPY . .
 RUN mv  ${PROFILE}.env .env && \
-    python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. ./api/python.proto
+    python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. ./api/python.proto &&\
+    mkdir -p /app/ai/infoganResult
 
 ENTRYPOINT [ "python", "./server.py"]
 CMD [""]
