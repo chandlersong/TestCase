@@ -29,6 +29,8 @@ services:
     image: ai-hello-world:0.1-dc
     depends_on:
       - nacos
+    command:
+      - start_infogan
     ports:
       - 9998:9999
     networks:
