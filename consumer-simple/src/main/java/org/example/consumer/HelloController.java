@@ -2,35 +2,32 @@ package org.example.consumer;
 
 import lombok.extern.log4j.Log4j2;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.example.go.User;
-import org.example.go.UserProvider;
-import org.example.producer.HelloService;
+import org.example.ai.AiService;
+import org.example.ai.io.MnistResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Log4j2
 @RestController
 public class HelloController {
 
-    @DubboReference
-    private HelloService helloService;
-
 
     @DubboReference
-    private UserProvider goService;
+    private AiService aiService;
 
-    @GetMapping("/{name}:hello")
-    public ResponseEntity<String> testHello(@PathVariable String name) {
-        return ResponseEntity.ok(helloService.sayHello(name));
+
+    @GetMapping("/mnist:{number}")
+    public ResponseEntity<MnistResponse> goHello(@PathVariable Integer number) {
+        return ResponseEntity.ok(new MnistResponse(aiService.PredictMnist(number)));
     }
 
 
-    @GetMapping("/go:{number}")
-    public ResponseEntity<User> goHello(@PathVariable String number) {
-        User body = goService.GetUser(number);
-        log.info("abc");
-        return ResponseEntity.ok(body);
+    @PostMapping("/infoGan:{number}")
+    public ResponseEntity<Void> infoGan(@PathVariable Integer number) {
+        //aiService.infoGan(number);
+        return ResponseEntity.ok().build();
     }
 }

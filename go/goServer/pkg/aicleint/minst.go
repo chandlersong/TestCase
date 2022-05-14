@@ -9,7 +9,6 @@ import (
 	pbtime "google.golang.org/protobuf/types/known/timestamppb"
 	"log"
 	"os"
-	"strconv"
 	"time"
 )
 
@@ -20,7 +19,7 @@ func NewMinst() *Minst {
 type Minst struct {
 }
 
-func (m *Minst) Predict(fileId string) int32 {
+func (m *Minst) PredictMnist(fileId int32) int32 {
 	addr := os.Getenv("AI_HOST")
 	if addr == "" {
 		addr = "localhost:9999"
@@ -41,12 +40,11 @@ func (m *Minst) Predict(fileId string) int32 {
 	return resp.Number
 }
 
-func createData(fileId string) *genapi.MinstRequest {
-	par, _ := strconv.ParseInt(fileId, 10, 32)
+func createData(fileId int32) *genapi.MinstRequest {
 	t := time.Date(2020, 5, 22, 14, 13, 11, 0, time.UTC)
 	out := &genapi.MinstRequest{
 		Time:   Timestamp(t),
-		FileId: int32(par),
+		FileId: fileId,
 	}
 	return out
 }

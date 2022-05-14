@@ -2,7 +2,7 @@ FROM python:3.7-slim-buster
 
 ARG PROFILE=dc
 
-ADD sources.list /etc/apt/sources.list
+ADD sources.list /etc/apt/sources.list/etc/apt/sources.list/etc/apt/sources.list
 RUN apt-get update &&\
     apt-get install ffmpeg libsm6 libxext6  -y
 

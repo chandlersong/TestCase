@@ -3,32 +3,20 @@ package main
 import (
 	"context"
 	"dubbo-server/pkg/aicleint"
-	"dubbo-server/pkg/api"
 	"dubbo.apache.org/dubbo-go/v3/common/logger" // dubbogo 框架日志
 	"dubbo.apache.org/dubbo-go/v3/config"
 	_ "dubbo.apache.org/dubbo-go/v3/imports" // dubbogo 框架依赖，所有dubbogo进程都需要隐式引入一次
-	"strconv"
-	"time"
 )
 
 type UserProvider struct {
 }
 
 // 实现接口方法
-func (u *UserProvider) GetUser(ctx context.Context, req string) (*api.User, error) {
-	var err error
+func (u *UserProvider) PredictMnist(ctx context.Context, req int32) (int32, error) {
 	logger.Infof("req:%#v", req)
-
 	minst := aicleint.NewMinst()
-	predict := minst.Predict(req)
-
-	user := &api.User{}
-	user.ID = strconv.FormatInt(int64(predict), 10)
-	user.Name = "laurence"
-	user.Age = 22
-	user.Time = time.Now()
-
-	return user, err
+	predict := minst.PredictMnist(req)
+	return predict, nil
 }
 
 //// MethodMapper 定义方法名映射，从 Go 的方法名映射到 Java 小写方法名，只有 dubbo 协议服务接口才需要使用
