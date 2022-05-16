@@ -18,7 +18,7 @@ class Command:
     def start_mnist(self, port=9999):
         logger.info("start mnist server")
         server = grpc.server(ThreadPoolExecutor())
-        add_MinstServiceServicer_to_server(MnistServer(), server)
+        add_MinstServiceServicer_to_server(MnistServer(server), server)
         if port is None:
             port = os.environ.get("localPort")
         server.add_insecure_port(f'[::]:{port}')
@@ -29,7 +29,7 @@ class Command:
     def start_infogan(self, port=9998):
         logger.info("start infogan server")
         server = grpc.server(ThreadPoolExecutor())
-        add_InfoGanServiceServicer_to_server(InfoGanServer(), server)
+        add_InfoGanServiceServicer_to_server(InfoGanServer(server), server)
         if port is None:
             port = os.environ.get("localPort")
         server.add_insecure_port(f'[::]:{port}')

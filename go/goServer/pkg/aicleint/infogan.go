@@ -18,7 +18,7 @@ func NewInfoGan() *InfoGan {
 type InfoGan struct {
 }
 
-func (m *InfoGan) Create(fileId int32) string {
+func (m *InfoGan) Create(fileId int32) (string, error) {
 	addr := os.Getenv("AI_HOST")
 	if addr == "" {
 		addr = "localhost:9998"
@@ -26,17 +26,17 @@ func (m *InfoGan) Create(fileId int32) string {
 	logger.Infof("ai host is %v", addr)
 	conn, err := grpc.Dial(addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
-		log.Fatal(err)
+		return "", err
 	}
 	defer conn.Close()
 
 	client := genapi.NewInfoGanServiceClient(conn)
 	resp, err := client.Create(context.Background(), createInfoGanData(fileId))
 	if err != nil {
-		log.Fatal(err)
+		return "", err
 	}
 	log.Printf("create fileName is: %v", resp.Filename)
-	return resp.Filename
+	return resp.Filename, nil
 }
 
 func createInfoGanData(fileId int32) *genapi.InfoGanRequest {

@@ -22,7 +22,12 @@ func (u *UserProvider) PredictMnist(ctx context.Context, req int32) (int32, erro
 func (u *UserProvider) InfoGan(ctx context.Context, req int32) (string, error) {
 	logger.Infof("req:%#v", req)
 	infoGan := aicleint.NewInfoGan()
-	newFileName := infoGan.Create(req)
+	newFileName, err := infoGan.Create(req)
+	if err != nil {
+		logger.Infof("err happen when remote call %v", err.Error())
+		return "", err
+	}
+
 	return newFileName, nil
 }
 
