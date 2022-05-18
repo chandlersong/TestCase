@@ -18,13 +18,22 @@ import java.util.concurrent.atomic.AtomicReference;
 @RestController
 public class HelloController {
 
-    @DubboReference
+    @DubboReference(retries = 100, timeout = 2 * 1000)
     private AiService aiService;
 
 
     @GetMapping("/mnist:{number}")
     public ResponseEntity<MnistResponse> goHello(@PathVariable Integer number) {
-        return ResponseEntity.ok(new MnistResponse(aiService.PredictMnist(number)));
+        RetryTemplate template = RetryTemplate.builder()
+                                              .maxAttempts(3)
+                                              .fixedBackoff(3 * 60 * 1000)
+                                              .retryOn(Exception.class)
+                                              .build();
+
+
+        MnistResponse body = template.execute(ctx -> new MnistResponse(aiService.PredictMnist(number)));
+
+        return ResponseEntity.ok(body);
     }
 
 
@@ -33,7 +42,7 @@ public class HelloController {
 
         RetryTemplate template = RetryTemplate.builder()
                                               .maxAttempts(3)
-                                              .fixedBackoff(1000)
+                                              .fixedBackoff(3 * 60 * 1000)
                                               .retryOn(Exception.class)
                                               .build();
 

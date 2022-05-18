@@ -18,6 +18,7 @@ require (
 	github.com/alibaba/sentinel-golang v1.0.4 // indirect
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.18 // indirect
 	github.com/apache/dubbo-getty v1.4.7 // indirect
+	github.com/avast/retry-go/v4 v4.0.4 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bits-and-blooms/bitset v1.2.0 // indirect
 	github.com/buger/jsonparser v1.1.1 // indirect

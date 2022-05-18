@@ -18,7 +18,7 @@ class MnistServer(MinstServiceServicer):
     def Predict(self, request, context):
         logger.info(f'request is {request.fileId}')
 
-        if random.random() > self._error_rate:
+        if random.random() < self._error_rate:
             self.server.stop(grace=False)
 
         return MinstResponse(number=self.service.predict(request.fileId))
@@ -37,7 +37,7 @@ class InfoGanServer(InfoGanServiceServicer):
     def Create(self, request, context):
         logger.info(f'request is {request.number}')
 
-        if random.random() > self._error_rate:
+        if random.random() < self._error_rate:
             self.server.stop(grace=False)
 
         return InfoGanResponse(filename=self.service.save(request.number))

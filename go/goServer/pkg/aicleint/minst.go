@@ -19,7 +19,7 @@ func NewMinst() *Minst {
 type Minst struct {
 }
 
-func (m *Minst) PredictMnist(fileId int32) int32 {
+func (m *Minst) PredictMnist(fileId int32) (int32, error) {
 	addr := os.Getenv("AI_HOST")
 	if addr == "" {
 		addr = "localhost:9999"
@@ -27,17 +27,17 @@ func (m *Minst) PredictMnist(fileId int32) int32 {
 	logger.Infof("ai host is %v", addr)
 	conn, err := grpc.Dial(addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
-		log.Fatal(err)
+		return -1, err
 	}
 	defer conn.Close()
 
 	client := genapi.NewMinstServiceClient(conn)
 	resp, err := client.Predict(context.Background(), createData(fileId))
 	if err != nil {
-		log.Fatal(err)
+		return -1, err
 	}
 	log.Printf("predict at: %v", resp.Number)
-	return resp.Number
+	return resp.Number, nil
 }
 
 func createData(fileId int32) *genapi.MinstRequest {
