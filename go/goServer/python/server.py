@@ -32,7 +32,7 @@ class ConfigurationUpdate:
         self._service = service
 
     def _refresh(self, error_rate):
-        self._service.error_rate = error_rate
+        self._service.error_rate = float(error_rate)
 
 
 def load_config_from_nacos():
@@ -64,7 +64,7 @@ class Command:
         logger.info("start mnist server")
         server = grpc.server(ThreadPoolExecutor())
 
-        mnist_server = MnistServer(server, os.environ.get("errorRate"))
+        mnist_server = MnistServer(server, float(os.environ.get("errorRate")))
         self.config_update.service = mnist_server
         add_MinstServiceServicer_to_server(mnist_server, server)
         if port is None:
@@ -77,7 +77,7 @@ class Command:
     def start_infogan(self, port=9998):
         logger.info("start infogan server")
         server = grpc.server(ThreadPoolExecutor())
-        info_gan = InfoGanServer(server, os.environ.get("errorRate"))
+        info_gan = InfoGanServer(server, float(os.environ.get("errorRate")))
         self.config_update.service = info_gan
         add_InfoGanServiceServicer_to_server(info_gan, server)
         if port is None:

@@ -1,7 +1,3 @@
-
-
-
-
 define moveProtoBuf
     rm -rf api
 	mkdir api
